@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"></head>
+<style>
+    .img-size {
+        height: 350px;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="row">
+                <div class="card" style="
+                width: 100%; 
+        margin: 10px 0px;">
+                    <div class="card-body p-0">
+                    <Strong>Average Price</Strong> &nbsp; $<%=avgPrice.avgPrice%>&nbsp;&nbsp;&nbsp;
+                    <Strong>Average Ratings</Strong> &nbsp; <%=avgPrice.avgStar%> out of 5 stars&nbsp;&nbsp;&nbsp;
+                    <Strong>Average Seller Rank</Strong> &nbsp; $<%=avgPrice.avgBestSell%> 
+                    </div>
+                </div>
+            <%items.forEach(function (item){%>
+            <div class="card" style="
+            width: 100%; 
+    margin: 10px 0px;">
+                <div class="card-body p-0">
+                    <li class="media">
+                        <a href="http://newshunt.io/english/story/51530/did-saudi-hack-amazon-ceo-jeff-bezoss-phone-times-of-india"
+                            target="_blank" style="text-decoration: none; color:inherit;">
+                            <img class="mr-3" src="<%=item.image%>" style="
+                            padding: 5px;" width="165px" height="165px"
+                                alt="Generic placeholder image"></a>
+                        <div class="media-body p-2">
+                            <a class="img-size" href="<%=item.link%>">
+                                <h5 class="mt-0 mb-1">
+                                    <%=item.title%>
+                                </h5>
+                            </a>
+                            <h5><%=item.price%></h5>
+                            <h6><%=item.rattings%></h6>
+                            <%-item.description%>
+                        </div>
+                    </li>
+                </div>
+            </div>
+            <%})%>
+        </div>
+    </div>
+</body>
+
+</html>
