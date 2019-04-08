@@ -33,10 +33,11 @@ const getItems = async (url) => {
         var arrItems = [];
         var htmlResult = await axios.get(url);
         var $ = await cheerio.load(htmlResult.data);
+          
 
         var htmlKing = await $('.s-include-content-margin').each((index, element) => {
             var obj = {};
-     
+            if(index<16){
             $(element).find('.s-image').each(function (i, ele) {
 
                 obj.image = $(ele).attr('src');
@@ -87,7 +88,7 @@ const getItems = async (url) => {
             });
 
             arrItems.push(obj)
-        
+        }
 
         
         });
