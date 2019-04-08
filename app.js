@@ -36,20 +36,43 @@ const getItems = async (url) => {
 
         var htmlKing = await $('.s-include-content-margin').each((index, element) => {
             var obj = {};
+     
             $(element).find('.s-image').each(function (i, ele) {
 
                 obj.image = $(ele).attr('src');
 
             });
-            $(element).find('.s-line-clamp-2 > a').each(function (i, ele2) {
-
+            if($(element).find('.s-line-clamp-2 > a').length>14){
+                 $(element).find('.s-line-clamp-2 > a').each(function (i, ele2) {
+            
                 obj.link = "https://www.amazon.com" + $(ele2).attr('href');
+        
 
             });
+        }else{
+            $(element).find('[data-component-type=s-product-image] > a').each(function (i, ele2) {
+            
+                obj.link = "https://www.amazon.com" + $(ele2).attr('href');
+
+
+            });
+          
+        }
+        if( $(element).find('.s-line-clamp-2 > a > span').length  >14){
+            console.log("hias")
             $(element).find('.s-line-clamp-2 > a > span').each(function (i, ele2) {
                 obj.title = $(ele2).text();
 
             });
+        }else{
+
+            $(element).find('.a-size-base-plus').each(function (i, ele2) {
+                obj.title = $(ele2).text();
+                console.log("hias in sec")
+
+            });  
+        }
+
             $(element).find('.a-offscreen').each(function (i, ele) {
 
                 obj.price = $(ele).text();
@@ -64,7 +87,9 @@ const getItems = async (url) => {
             });
 
             arrItems.push(obj)
+        
 
+        
         });
 
         return arrItems;
@@ -419,7 +444,7 @@ const getNewItems = async (items) => {
             if (items[15].description.includes("Best Sellers Rank")) {
 
             } else {
-                items[15].description = "";
+                items[15].description = "0";
             }
 
         }
@@ -439,10 +464,10 @@ app.post('/get-items', async (req, res) => {
     // getItems(url)
 
     var items = await getItems(url).then(async (response) => {
+        console.log(response.link)
         var newItems = await getNewItems(response).then(async (items) => {
             var avgPrice = await getAvgP(items);
 
-            console.log(avgPrice)
             res.render('show', {
                 items,
                 avgPrice
@@ -487,7 +512,7 @@ const getAvgP = async (items) => {
     });
     var avgPrice = (totalPrice / items.length).toFixed(2);
     var avgStar = (totalStar / count).toFixed(2);
-    var avgBestSell = (totalBest / BestSellrCount);
+    var avgBestSell = (totalBest / BestSellrCount).toFixed(2);
     return {
         avgPrice,
         avgStar,
