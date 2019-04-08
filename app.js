@@ -108,13 +108,16 @@ const getNewItems = async (items) => {
         console.log(items[0].link)
         var htmlResult = await axios.get(items[0].link);
         var $ = await cheerio.load(htmlResult.data);
-        items[0].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
-        if (items[0].description.includes("Best Sellers Rank")) {} else {
-            items[0].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
-            if (items[0].description.includes("Best Sellers Rank")) {} else {
-                items[0].description = "";
+      
+         $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if($(element).text().includes("Best Sellers Rank")){
+                items[0].description =$(element).text();
             }
-        }
+
+           
+        })
+        
+
 
     } catch (err) {
         // console.log(err)
@@ -125,16 +128,26 @@ const getNewItems = async (items) => {
         console.log(items[1].link)
         var htmlResult = await axios.get(items[1].link);
         var $ = await cheerio.load(htmlResult.data);
-        items[1].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
-        if (items[1].description.includes("Best Sellers Rank")) {} else {
-            items[1].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
-            if (items[1].description.includes("Best Sellers Rank")) {
+        // items[1].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
+        // if (items[1].description.includes("Best Sellers Rank")) {} else {
+        //     items[1].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
+        //     if (items[1].description.includes("Best Sellers Rank")) {
 
-            } else {
-                items[1].description = "";
+        //     } else {
+        //         items[1].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(3)').text();
+        //         if (items[1].description.includes("Best Sellers Rank")) {
+        //         }else{
+        //             items[1].description = "";
+        //         }
+        //     }
+
+        // }
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if($(element).text().includes("Best Sellers Rank")){
+                console.log("hi")
+                items[1].description =$(element).text();
             }
-
-        }
+        })
 
     } catch (err) {
         // console.log(err)
@@ -147,17 +160,27 @@ const getNewItems = async (items) => {
 
 
         var $ = await cheerio.load(htmlResult.data);
-        items[2].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
-        if (items[2].description.includes("Best Sellers Rank")) {
-        } else {
-            items[2].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
-            if (items[2].description.includes("Best Sellers Rank")) {
+        // items[2].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
+        // if (items[2].description.includes("Best Sellers Rank")) {
+        // } else {
+        //     items[2].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
+        //     if (items[2].description.includes("Best Sellers Rank")) {
 
-            } else {
-                items[2].description = "";
+        //     } else {
+        //         items[2].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(3)').text();
+        //         if (items[2].description.includes("Best Sellers Rank")) {
+        //         }else{
+        //             items[2].description = "";
+        //         }
+        //     }
+
+        // }
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if($(element).text().includes("Best Sellers Rank")){
+                console.log("hi")
+                items[2].description =$(element).text();
             }
-
-        }
+        })
 
     } catch (err) {
         // console.log(err)
@@ -170,17 +193,29 @@ const getNewItems = async (items) => {
 
 
         var $ = await cheerio.load(htmlResult.data);
-        items[3].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
-        if (items[3].description.includes("Best Sellers Rank")) {
-        } else {
-            items[3].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
-            if (items[3].description.includes("Best Sellers Rank")) {
+        // items[3].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
+        // if (items[3].description.includes("Best Sellers Rank")) {
+        // } else {
+        //     items[3].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
+        //     if (items[3].description.includes("Best Sellers Rank")) {
 
-            } else {
-                items[3].description = "";
+        //     } else {
+        //         items[3].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(3)').text();
+        //         if (items[3].description.includes("Best Sellers Rank")) {
+        //         }else{
+        //             items[3].description = "";
+        //         }
+        //     }
+
+        // }
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if($(element).text().includes("Best Sellers Rank")){
+                console.log("hi")
+                items[3].description =$(element).text();
+            }else{
+                items[3].description="";
             }
-
-        }
+        })
 
 
     } catch (err) {
@@ -193,17 +228,27 @@ const getNewItems = async (items) => {
 
 
         var $ = await cheerio.load(htmlResult.data);
-        items[4].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
-        if (items[4].description.includes("Best Sellers Rank")) {
-        } else {
-            items[4].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
-            if (items[4].description.includes("Best Sellers Rank")) {
+        // items[4].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
+        // if (items[4].description.includes("Best Sellers Rank")) {
+        // } else {
+        //     items[4].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
+        //     if (items[4].description.includes("Best Sellers Rank")) {
 
-            } else {
-                items[4].description = "";
+        //     } else {
+        //         items[4].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(3)').text();
+        //         if (items[4].description.includes("Best Sellers Rank")) {
+        //         }else{
+        //             items[4].description = "";
+        //         }
+        //     }
+
+        // }
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if($(element).text().includes("Best Sellers Rank")){
+                console.log("hi")
+                items[4].description =$(element).text();
             }
-
-        }
+        })
     } catch (err) {
         // console.log(err)
 
@@ -215,17 +260,27 @@ const getNewItems = async (items) => {
 
         var $ = await cheerio.load(htmlResult.data);
         // console.log($('#productDetails_detailBullets_sections1').html())
-        items[5].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
-        if (items[5].description.includes("Best Sellers Rank")) {
-        } else {
-            items[5].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
-            if (items[5].description.includes("Best Sellers Rank")) {
+        // items[5].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
+        // if (items[5].description.includes("Best Sellers Rank")) {
+        // } else {
+        //     items[5].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
+        //     if (items[5].description.includes("Best Sellers Rank")) {
 
-            } else {
-                items[5].description = "";
+        //     } else {
+        //         items[5].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(3)').text();
+        //         if (items[5].description.includes("Best Sellers Rank")) {
+        //         }else{
+        //             items[5].description = "";
+        //         }
+        //     }
+
+        // }
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if($(element).text().includes("Best Sellers Rank")){
+                console.log("hi")
+                items[5].description =$(element).text();
             }
-
-        }
+        })
 
     } catch (err) {
         // console.log(err)
@@ -236,17 +291,27 @@ const getNewItems = async (items) => {
 
 
         var $ = await cheerio.load(htmlResult.data);
-        items[6].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
-        if (items[6].description.includes("Best Sellers Rank")) {
-        } else {
-            items[6].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
-            if (items[6].description.includes("Best Sellers Rank")) {
+        // items[6].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
+        // if (items[6].description.includes("Best Sellers Rank")) {
+        // } else {
+        //     items[6].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
+        //     if (items[6].description.includes("Best Sellers Rank")) {
 
-            } else {
-                items[6].description = "";
+        //     } else {
+        //         items[6].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(3)').text();
+        //         if (items[6].description.includes("Best Sellers Rank")) {
+        //         }else{
+        //             items[6].description = "";
+        //         }
+        //     }
+
+        // }
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if($(element).text().includes("Best Sellers Rank")){
+                console.log("hi")
+                items[6].description =$(element).text();
             }
-
-        }
+        })
 
 
     } catch (err) {
@@ -259,19 +324,29 @@ const getNewItems = async (items) => {
 
 
         var $ = await cheerio.load(htmlResult.data);
-        items[7].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
-        if (items[7].description.includes("Best Sellers Rank")) {
-        } else {
-            items[7].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
-            if (items[7].description.includes("Best Sellers Rank")) {
+        // items[7].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
+        // if (items[7].description.includes("Best Sellers Rank")) {
+        // } else {
+        //     items[7].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
+        //     if (items[7].description.includes("Best Sellers Rank")) {
 
-            } else {
-                items[7].description = "";
-            }
+        //     } else {
+        //         items[7].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(3)').text();
+        //         if (items[7].description.includes("Best Sellers Rank")) {
+        //         }else{
+        //             items[7].description = "";
+        //         }
+        //     }
 
-        }
+        // }
 
         // console.log(items[7].description);
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if($(element).text().includes("Best Sellers Rank")){
+                console.log("hi")
+                items[7].description =$(element).text();
+            }
+        })
 
     } catch (err) {
         // console.log(err)
@@ -283,17 +358,28 @@ const getNewItems = async (items) => {
 
 
         var $ = await cheerio.load(htmlResult.data);
-        items[8].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
-        if (items[8].description.includes("Best Sellers Rank")) {
-        } else {
-            items[8].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
-            if (items[8].description.includes("Best Sellers Rank")) {
+        // items[8].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
+        // if (items[8].description.includes("Best Sellers Rank")) {
 
-            } else {
-                items[8].description = "";
+        // } else {
+        //     items[8].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
+        //     if (items[8].description.includes("Best Sellers Rank")) {
+
+        //     } else {
+        //         items[8].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(3)').text();
+        //         if (items[8].description.includes("Best Sellers Rank")) {
+        //         }else{
+        //             items[8].description = "";
+        //         }
+        //     }
+
+        // }
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if($(element).text().includes("Best Sellers Rank")){
+                console.log("hi")
+                items[8].description =$(element).text();
             }
-
-        }
+        })
 
     } catch (err) {
         // console.log(err)
@@ -306,18 +392,26 @@ const getNewItems = async (items) => {
 
 
         var $ = await cheerio.load(htmlResult.data);
-        items[9].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
-        if (items[9].description.includes("Best Sellers Rank")) {
-        } else {
-            items[9].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
-            if (items[9].description.includes("Best Sellers Rank")) {
+        // items[9].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
+        // if (items[9].description.includes("Best Sellers Rank")) {
+        // } else {
+        //     items[9].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
+        //     if (items[9].description.includes("Best Sellers Rank")) {
 
-            } else {
-                items[9].description = "";
+        //     } else {
+        //         items[9].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(3)').text();
+        //         if (items[9].description.includes("Best Sellers Rank")) {
+        //         }else{
+        //             items[9].description = "";
+        //         }
+        //     }
+
+        // }
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if($(element).text().includes("Best Sellers Rank")){
+                items[9].description =$(element).text();
             }
-
-        }
-
+        })
 
     } catch (err) {
         // console.log(err)
@@ -329,18 +423,27 @@ const getNewItems = async (items) => {
 
 
         var $ = await cheerio.load(htmlResult.data);
-        items[10].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
-        if (items[10].description.includes("Best Sellers Rank")) {
-            console.log('yes')
-        } else {
-            items[10].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
-            if (items[10].description.includes("Best Sellers Rank")) {
+        // items[10].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
+        // if (items[10].description.includes("Best Sellers Rank")) {
+        //     console.log('yes')
+        // } else {
+        //     items[10].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
+        //     if (items[10].description.includes("Best Sellers Rank")) {
 
-            } else {
-                items[10].description = "";
+        //     } else {
+        //         items[10].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(3)').text();
+        //         if (items[10].description.includes("Best Sellers Rank")) {
+        //         }else{
+        //             items[10].description = "";
+        //         }
+        //     }
+
+        // }
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if($(element).text().includes("Best Sellers Rank")){
+                items[10].description =$(element).text();
             }
-
-        }
+        })
 
     } catch (err) {
         // console.log(err)
@@ -352,17 +455,26 @@ const getNewItems = async (items) => {
 
 
         var $ = await cheerio.load(htmlResult.data);
-        items[11].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
-        if (items[11].description.includes("Best Sellers Rank")) {
-        } else {
-            items[11].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
-            if (items[11].description.includes("Best Sellers Rank")) {
+        // items[11].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
+        // if (items[11].description.includes("Best Sellers Rank")) {
+        // } else {
+        //     items[11].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
+        //     if (items[11].description.includes("Best Sellers Rank")) {
 
-            } else {
-                items[11].description = "";
+        //     } else {
+        //         items[11].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(3)').text();
+        //         if (items[11].description.includes("Best Sellers Rank")) {
+        //         }else{
+        //             items[11].description = "";
+        //         }
+        //     }
+
+        // }
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if($(element).text().includes("Best Sellers Rank")){
+                items[11].description =$(element).text();
             }
-
-        }
+        })
 
     } catch (err) {
         // console.log(err)
@@ -374,17 +486,27 @@ const getNewItems = async (items) => {
 
 
         var $ = await cheerio.load(htmlResult.data);
-        items[12].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
-        if (items[12].description.includes("Best Sellers Rank")) {
-        } else {
-            items[12].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
-            if (items[12].description.includes("Best Sellers Rank")) {
+        // items[12].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
+        // if (items[12].description.includes("Best Sellers Rank")) {
+        // } else {
+        //     items[12].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
+        //     if (items[12].description.includes("Best Sellers Rank")) {
 
-            } else {
-                items[12].description = "";
+        //     } else {
+        //         items[12].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(3)').text();
+        //         if (items[12].description.includes("Best Sellers Rank")) {
+        //         }else{
+        //             items[12].description = "";
+        //         }
+                
+        //     }
+
+        // }
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if($(element).text().includes("Best Sellers Rank")){
+                items[12].description =$(element).text();
             }
-
-        }
+        })
 
     } catch (err) {
 
@@ -395,18 +517,26 @@ const getNewItems = async (items) => {
 
 
         var $ = await cheerio.load(htmlResult.data);
-        items[13].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
-        if (items[13].description.includes("Best Sellers Rank")) {
-        } else {
-            items[13].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
-            if (items[13].description.includes("Best Sellers Rank")) {
+        // items[13].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
+        // if (items[13].description.includes("Best Sellers Rank")) {
+        // } else {
+        //     items[13].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
+        //     if (items[13].description.includes("Best Sellers Rank")) {
 
-            } else {
-                items[13].description = "";
+        //     } else {
+        //         items[13].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(3)').text();
+        //         if (items[13].description.includes("Best Sellers Rank")) {
+        //         }else{
+        //             items[13].description = "";
+        //         }
+        //     }
+
+        // }
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if($(element).text().includes("Best Sellers Rank")){
+                items[13].description =$(element).text();
             }
-
-        }
-
+        })
     } catch (err) {
         // console.log(err)
 
@@ -417,17 +547,26 @@ const getNewItems = async (items) => {
 
 
         var $ = await cheerio.load(htmlResult.data);
-        items[14].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
-        if (items[14].description.includes("Best Sellers Rank")) {
-        } else {
-            items[14].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
-            if (items[14].description.includes("Best Sellers Rank")) {
+        // items[14].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
+        // if (items[14].description.includes("Best Sellers Rank")) {
+        // } else {
+        //     items[14].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
+        //     if (items[14].description.includes("Best Sellers Rank")) {
 
-            } else {
-                items[14].description = "";
+        //     } else {
+        //         items[14].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(3)').text();
+        //         if (items[14].description.includes("Best Sellers Rank")) {
+        //         }else{
+        //             items[14].description = "";
+        //         }
+        //     }
+
+        // }
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if($(element).text().includes("Best Sellers Rank")){
+                items[14].description =$(element).text();
             }
-
-        }
+        })
     } catch (err) {
         // console.log(err)
 
@@ -438,17 +577,26 @@ const getNewItems = async (items) => {
 
 
         var $ = await cheerio.load(htmlResult.data);
-        items[15].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
-        if (items[15].description.includes("Best Sellers Rank")) {
-        } else {
-            items[15].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
-            if (items[15].description.includes("Best Sellers Rank")) {
+        // items[15].description = $('#productDetails_detailBullets_sections1 > tbody > tr:last').text();
+        // if (items[15].description.includes("Best Sellers Rank")) {
+        // } else {
+        //     items[15].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(2)').text();
+        //     if (items[15].description.includes("Best Sellers Rank")) {
 
-            } else {
-                items[15].description = "0";
+        //     } else {
+        //         items[15].description = $('#productDetails_detailBullets_sections1 > tbody > tr:nth-last-child(3)').text();
+        //         if (items[15].description.includes("Best Sellers Rank")) {
+        //         }else{
+        //             items[15].description = "";
+        //         }
+        //     }
+
+        // }
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if($(element).text().includes("Best Sellers Rank")){
+                items[15].description =$(element).text();
             }
-
-        }
+        })
 
     } catch (err) {
         // console.log(err)
@@ -503,7 +651,7 @@ const getAvgP = async (items) => {
             totalStar += star;
         }
 
-        if (element.description != undefined) {
+        if (element.description != undefined && element.description != "") {
             BestSellrCount++;
             var newKing = element.description.replace(/\s+/g, ' ').trim();
             var newDescription = newKing.substring(19, 40).split(" ")[0];
@@ -514,6 +662,7 @@ const getAvgP = async (items) => {
     var avgPrice = (totalPrice / items.length).toFixed(2);
     var avgStar = (totalStar / count).toFixed(2);
     var avgBestSell = (totalBest / BestSellrCount).toFixed(2);
+
     return {
         avgPrice,
         avgStar,

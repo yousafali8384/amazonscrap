@@ -19,10 +19,13 @@
                 <div class="card" style="
                 width: 100%; 
         margin: 10px 0px;">
+        
                     <div class="card-body p-0">
                     <Strong>Average Price</Strong> &nbsp; $<%=avgPrice.avgPrice%>&nbsp;&nbsp;&nbsp;
                     <Strong>Average Ratings</Strong> &nbsp; <%=avgPrice.avgStar%> out of 5 stars&nbsp;&nbsp;&nbsp;
-                    <Strong>Average Seller Rank</Strong> &nbsp; $<%=avgPrice.avgBestSell%> 
+                    <Strong>Average Seller Rank</Strong> &nbsp;<% var b=new Number(avgPrice.avgBestSell);%>
+
+                     $ <%=b.toLocaleString()%> 
                     </div>
                 </div>
             <%items.forEach(function (item){%>
