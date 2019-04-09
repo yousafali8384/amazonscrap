@@ -45,7 +45,7 @@ const getItems = async (url) => {
                     obj.image = $(ele).attr('src');
 
                 });
-                if ($(element).find('.s-line-clamp-2 > a').length > 14) {
+                if ($(element).find('.s-line-clamp-2 > a').text() != "") {
                     $(element).find('.s-line-clamp-2 > a').each(function (i, ele2) {
 
                         obj.link = "https://www.amazon.com" + $(ele2).attr('href');
@@ -61,7 +61,8 @@ const getItems = async (url) => {
                     });
 
                 }
-                if ($(element).find('.s-line-clamp-2 > a > span').length > 14) {
+                console.log($(element).find('.s-line-clamp-2 > a > span').text())
+                if ($(element).find('.s-line-clamp-2 > a > span').text() != "") {
                     console.log("hias")
                     $(element).find('.s-line-clamp-2 > a > span').each(function (i, ele2) {
                         obj.title = $(ele2).text();
