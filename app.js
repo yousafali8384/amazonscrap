@@ -29,7 +29,7 @@ var myfun = async (url) => {
 
     var arrItems = [];
 
-    var myHtml = await nightmare.goto(url).evaluate(function () {
+    var myHtml = await nightmare.goto(url).wait().evaluate(function () {
 
         //here is where I want to return the html body
         return document.body.innerHTML;
@@ -111,7 +111,8 @@ const sellerRank = async (newitems) => {
    
 
     for(const link of newitems){
-        var myHtml = await nightmare.goto(link.link).evaluate(function () {
+        console.log(link.link);
+        var myHtml = await nightmare.goto(link.link).wait().evaluate(function () {
         //here is where I want to return the html body
         return document.body.innerHTML;
 
@@ -119,7 +120,7 @@ const sellerRank = async (newitems) => {
     })
         .then(async function (body) {
             //loading html body to cheerio
-
+    
         try {
       
         var $ = cheerio.load(body);
@@ -139,6 +140,8 @@ const sellerRank = async (newitems) => {
 
     }
 
+        }).catch((err)=>{
+            console.log("hi")
         });
     
 
