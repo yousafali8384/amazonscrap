@@ -6,6 +6,10 @@ var bodyParser = require("body-parser"),
     async = require('async'),
      app = express();
 
+
+const Nightmare = require('nightmare');
+const nightmare = Nightmare({ show: false,restart: false });
+
         
         
           
@@ -21,397 +25,129 @@ app.use(bodyParser.urlencoded({
 }));
 
 
-app.get('/', (req, res) => {
-    res.render('index');
+var myfun = async (url) => {
 
-});
+    var arrItems = [];
 
+    var myHtml = await nightmare.goto(url).evaluate(function () {
 
-
-const getItems = async (url) => {
-    try {
-
-        
-        var arrItems = [];
-        var htmlResult = await axios.get(url);
-        var $ = await cheerio.load(htmlResult.data);
+        //here is where I want to return the html body
+        return document.body.innerHTML;
 
 
-        var htmlKing = await $('.s-include-content-margin').each((index, element) => {
-            var obj = {};
-            if (index < 16) {
-                $(element).find('.s-image').each(function (i, ele) {
+    })
+        .then(async function (body) {
+            //loading html body to cheerio
 
-                    obj.image = $(ele).attr('src');
+            var $ = await cheerio.load(body);
 
-                });
-                if ($(element).find('.s-line-clamp-2 > a').text() != "") {
-                    $(element).find('.s-line-clamp-2 > a').each(function (i, ele2) {
 
-                        obj.link = "https://www.amazon.com" + $(ele2).attr('href');
+            var htmlKing = await $('.s-include-content-margin').each((index, element) => {
+                var obj = {};
+                if (index < 16) {
+                    $(element).find('.s-image').each(function (i, ele) {
+
+                        obj.image = $(ele).attr('src');
+
+                    });
+                    if ($(element).find('.s-line-clamp-2 > a').text() != "") {
+                        $(element).find('.s-line-clamp-2 > a').each(function (i, ele2) {
+
+                            obj.link = "https://www.amazon.com" + $(ele2).attr('href');
+
+
+                        });
+                    } else {
+                        $(element).find('[data-component-type=s-product-image] > a').each(function (i, ele2) {
+
+                            obj.link = "https://www.amazon.com" + $(ele2).attr('href');
+
+
+                        });
+
+                    }
+                    console.log($(element).find('.s-line-clamp-2 > a > span').text())
+                    if ($(element).find('.s-line-clamp-2 > a > span').text() != "") {
+                        console.log("hias")
+                        $(element).find('.s-line-clamp-2 > a > span').each(function (i, ele2) {
+                            obj.title = $(ele2).text();
+
+                        });
+                    } else {
+
+                        $(element).find('.a-size-base-plus').each(function (i, ele2) {
+                            obj.title = $(ele2).text();
+
+                        });
+                    }
+
+                    $(element).find('.a-offscreen').each(function (i, ele) {
+
+                        obj.price = $(ele).text();
 
 
                     });
-                } else {
-                    $(element).find('[data-component-type=s-product-image] > a').each(function (i, ele2) {
+                    $(element).find('.a-icon-alt').each(function (i, ele) {
 
-                        obj.link = "https://www.amazon.com" + $(ele2).attr('href');
+                        obj.rattings = $(ele).text();
 
 
                     });
 
+                    arrItems.push(obj)
                 }
-                console.log($(element).find('.s-line-clamp-2 > a > span').text())
-                if ($(element).find('.s-line-clamp-2 > a > span').text() != "") {
-                    console.log("hias")
-                    $(element).find('.s-line-clamp-2 > a > span').each(function (i, ele2) {
-                        obj.title = $(ele2).text();
-
-                    });
-                } else {
-
-                    $(element).find('.a-size-base-plus').each(function (i, ele2) {
-                        obj.title = $(ele2).text();
-
-                    });
-                }
-
-                $(element).find('.a-offscreen').each(function (i, ele) {
-
-                    obj.price = $(ele).text();
 
 
-                });
-                $(element).find('.a-icon-alt').each(function (i, ele) {
-
-                    obj.rattings = $(ele).text();
-
-
-                });
-
-                arrItems.push(obj)
-            }
-
-
+            });
+            // console.log(arrItems) ;
         });
-
-        return arrItems;
-
-
-    } catch (err) {
-        console.log(err);
-    }
-
+    return arrItems;
 }
-const getNewItems = async (items) => {
+
+const sellerRank = async (newitems) => {
     var newObj = []
 
-    try {
-        console.log(items[0].link)
-        var htmlResult = await axios.get(items[0].link);
-        var $ = await cheerio.load(htmlResult.data);
+    
+   
+
+    for(const link of newitems){
+        var myHtml = await nightmare.goto(link.link).evaluate(function () {
+        //here is where I want to return the html body
+        return document.body.innerHTML;
+
+
+    })
+        .then(async function (body) {
+            //loading html body to cheerio
+
+        try {
+      
+        var $ = cheerio.load(body);
 
         $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
             if ($(element).text().includes("Best Sellers Rank")) {
-                items[0].description = $(element).text();
+                link.description = $(element).text();
             }
 
 
         })
 
-
+        newObj.push(link);
 
     } catch (err) {
         console.log(err)
 
     }
 
-    try {
-        console.log(items[1].link)
-        var htmlResult = await axios.get(items[1].link);
-        var $ = await cheerio.load(htmlResult.data);
-
-        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
-            if ($(element).text().includes("Best Sellers Rank")) {
-                console.log("hi")
-                items[1].description = $(element).text();
-            }
-        })
-
-    } catch (err) {
-        console.log(err)
-
-    }
-    try {
-        console.log(items[2].link)
-
-        var htmlResult = await axios.get(items[2].link);
-
-
-        var $ = await cheerio.load(htmlResult.data);
-
-        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
-            if ($(element).text().includes("Best Sellers Rank")) {
-                console.log("hi")
-                items[2].description = $(element).text();
-            }
-        })
-
-    } catch (err) {
-        // console.log(err)
-
-    }
-    try {
-        console.log(items[3].link)
-
-        var htmlResult = await axios.get(items[3].link);
-
-
-        var $ = await cheerio.load(htmlResult.data);
-
-        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
-            if ($(element).text().includes("Best Sellers Rank")) {
-                console.log("hi")
-                items[3].description = $(element).text();
-            } else {
-                items[3].description = "";
-            }
-        })
-
-
-    } catch (err) {
-        console.log(err)
-
-    }
-    try {
-        console.log(items[4].link)
-        var htmlResult = await axios.get(items[4].link);
-
-
-        var $ = await cheerio.load(htmlResult.data);
-
-        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
-            if ($(element).text().includes("Best Sellers Rank")) {
-                console.log("hi")
-                items[4].description = $(element).text();
-            }
-        })
-    } catch (err) {
-        console.log(err)
-
-    }
-    try {
-        console.log(items[5].link)
-        var htmlResult = await axios.get(items[5].link);
-
-
-        var $ = await cheerio.load(htmlResult.data);
-
-        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
-            if ($(element).text().includes("Best Sellers Rank")) {
-                console.log("hi")
-                items[5].description = $(element).text();
-            }
-        })
-
-    } catch (err) {
-        console.log(err)
-
-    }
-    try {
-        var htmlResult = await axios.get(items[6].link);
-
-
-        var $ = await cheerio.load(htmlResult.data);
-
-        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
-            if ($(element).text().includes("Best Sellers Rank")) {
-                console.log("hi")
-                items[6].description = $(element).text();
-            }
-        })
-
-
-    } catch (err) {
-        // console.log(err)
-
-    }
-    try {
-        console.log(items[7].link)
-        var htmlResult = await axios.get(items[7].link);
-
-
-        var $ = await cheerio.load(htmlResult.data);
-
-        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
-            if ($(element).text().includes("Best Sellers Rank")) {
-                console.log("hi")
-                items[7].description = $(element).text();
-            }
-        })
-
-    } catch (err) {
-        // console.log(err)
-
-    }
-    try {
-        console.log(items[8].link)
-        var htmlResult = await axios.get(items[8].link);
-
-
-        var $ = await cheerio.load(htmlResult.data);
-
-        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
-            if ($(element).text().includes("Best Sellers Rank")) {
-                console.log("hi")
-                items[8].description = $(element).text();
-            }
-        })
-
-    } catch (err) {
-        // console.log(err)
+        });
+    
 
     }
 
-    try {
-        console.log(items[9].link)
-        var htmlResult = await axios.get(items[9].link);
+    
+   return newObj;
 
-
-        var $ = await cheerio.load(htmlResult.data);
-
-        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
-            if ($(element).text().includes("Best Sellers Rank")) {
-                items[9].description = $(element).text();
-            }
-        })
-
-    } catch (err) {
-        // console.log(err)
-
-    }
-    try {
-        console.log(items[10].link)
-        var htmlResult = await axios.get(items[10].link);
-
-
-        var $ = await cheerio.load(htmlResult.data);
-
-        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
-            if ($(element).text().includes("Best Sellers Rank")) {
-                items[10].description = $(element).text();
-            }
-        })
-
-    } catch (err) {
-        // console.log(err)
-
-    }
-    try {
-        console.log(items[11].link)
-        var htmlResult = await axios.get(items[11].link);
-
-
-        var $ = await cheerio.load(htmlResult.data);
-
-        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
-            if ($(element).text().includes("Best Sellers Rank")) {
-                items[11].description = $(element).text();
-            }
-        })
-
-    } catch (err) {
-        // console.log(err)
-
-    }
-    try {
-        console.log(items[12].link)
-        var htmlResult = await axios.get(items[12].link);
-
-
-        var $ = await cheerio.load(htmlResult.data);
-
-        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
-            if ($(element).text().includes("Best Sellers Rank")) {
-                items[12].description = $(element).text();
-            }
-        })
-
-    } catch (err) {
-
-    }
-    try {
-        console.log(items[13].link)
-        var htmlResult = await axios.get(items[13].link);
-
-
-        var $ = await cheerio.load(htmlResult.data);
-        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
-            if ($(element).text().includes("Best Sellers Rank")) {
-                items[13].description = $(element).text();
-            }
-        })
-    } catch (err) {
-        // console.log(err)
-
-    }
-    try {
-        console.log(items[14].link)
-        var htmlResult = await axios.get(items[14].link);
-
-
-        var $ = await cheerio.load(htmlResult.data);
-
-        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
-            if ($(element).text().includes("Best Sellers Rank")) {
-                items[14].description = $(element).text();
-            }
-        })
-    } catch (err) {
-        // console.log(err)
-
-    }
-    try {
-        console.log(items[15].link)
-        var htmlResult = await axios.get(items[15].link);
-
-
-        var $ = await cheerio.load(htmlResult.data);
-
-        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
-            if ($(element).text().includes("Best Sellers Rank")) {
-                items[15].description = $(element).text();
-            }
-        })
-
-    } catch (err) {
-        // console.log(err)
-
-    }
-    return items
 }
-
-
-
-app.post('/get-items', async (req, res) => {
-
-    let url = `https://www.amazon.com/s?k=${req.body.itemSearch}&ref=nb_sb_noss_2`;
-    // getItems(url)
-
-    var items = await getItems(url).then(async (response) => {
-        console.log(response.link)
-        var newItems = await getNewItems(response).then(async (items) => {
-            var avgPrice = await getAvgP(items);
-
-            res.render('show', {
-                items,
-                avgPrice
-            });
-
-
-        })
-    });
-});
 
 const getAvgP = async (items) => {
     var totalPrice = 0;
@@ -455,6 +191,37 @@ const getAvgP = async (items) => {
         avgBestSell
     };
 }
+
+
+
+
+app.get('/', (req, res) => {
+    res.render('index');
+
+});
+
+
+app.post('/get-items', async (req, res) => {
+
+    let url = `https://www.amazon.com/s?k=${req.body.itemSearch}&ref=nb_sb_noss_2`;
+    // getItems(url)
+
+    var newitems = await myfun(url);
+    var seller = await sellerRank(newitems)
+    var avgPrice = await getAvgP(seller);
+
+            res.render('show', {
+                items:seller,
+                avgPrice
+            });
+
+
+
+
+
+});
+
+
 
 app.listen(process.env.PORT || 3001, () => {
     console.log('Server is Fired on Port : ' + 3001);
