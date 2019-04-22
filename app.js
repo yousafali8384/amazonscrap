@@ -8,8 +8,7 @@ var bodyParser = require("body-parser"),
 
     var request=require('request-promise');
 
-const Nightmare = require('nightmare');
-const nightmare = Nightmare({ show: true,restart: false });
+
 
         
         
