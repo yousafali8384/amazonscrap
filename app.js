@@ -6,9 +6,10 @@ var bodyParser = require("body-parser"),
     async = require('async'),
      app = express();
 
+    var request=require('request-promise');
 
 const Nightmare = require('nightmare');
-const nightmare = Nightmare({ show: false,restart: false });
+const nightmare = Nightmare({ show: true,restart: false });
 
         
         
@@ -26,130 +27,114 @@ app.use(bodyParser.urlencoded({
 
 
 var myfun = async (url) => {
-
-    var arrItems = [];
-
-    var myHtml = await nightmare.goto(url).wait().evaluate(function () {
-
-        //here is where I want to return the html body
-        return document.body.innerHTML;
+    try {
 
 
-    })
-        .then(async function (body) {
-            //loading html body to cheerio
-
-            var $ = await cheerio.load(body);
+        var arrItems = []
+        var htmlResult = await request.get(url);
+        var $ = await cheerio.load(htmlResult);
 
 
-            var htmlKing = await $('.s-include-content-margin').each((index, element) => {
-                var obj = {};
-                if (index < 16) {
-                    $(element).find('.s-image').each(function (i, ele) {
+        var htmlKing = await $('.s-include-content-margin').each((index, element) => {
+            var obj = {};
+            if (index < 16) {
+                $(element).find('.s-image').each(function (i, ele) {
 
-                        obj.image = $(ele).attr('src');
+                    obj.image = $(ele).attr('src');
 
-                    });
-                    if ($(element).find('.s-line-clamp-2 > a').text() != "") {
-                        $(element).find('.s-line-clamp-2 > a').each(function (i, ele2) {
+                });
+                if ($(element).find('.s-line-clamp-2 > a').text() != "") {
+                    $(element).find('.s-line-clamp-2 > a').each(function (i, ele2) {
 
-                            obj.link = "https://www.amazon.com" + $(ele2).attr('href');
-
-
-                        });
-                    } else {
-                        $(element).find('[data-component-type=s-product-image] > a').each(function (i, ele2) {
-
-                            obj.link = "https://www.amazon.com" + $(ele2).attr('href');
-
-
-                        });
-
-                    }
-                    console.log($(element).find('.s-line-clamp-2 > a > span').text())
-                    if ($(element).find('.s-line-clamp-2 > a > span').text() != "") {
-                        console.log("hias")
-                        $(element).find('.s-line-clamp-2 > a > span').each(function (i, ele2) {
-                            obj.title = $(ele2).text();
-
-                        });
-                    } else {
-
-                        $(element).find('.a-size-base-plus').each(function (i, ele2) {
-                            obj.title = $(ele2).text();
-
-                        });
-                    }
-
-                    $(element).find('.a-offscreen').each(function (i, ele) {
-
-                        obj.price = $(ele).text();
+                        obj.link = "https://www.amazon.com" + $(ele2).attr('href');
 
 
                     });
-                    $(element).find('.a-icon-alt').each(function (i, ele) {
+                } else {
+                    $(element).find('[data-component-type=s-product-image] > a').each(function (i, ele2) {
 
-                        obj.rattings = $(ele).text();
+                        obj.link = "https://www.amazon.com" + $(ele2).attr('href');
 
 
                     });
 
-                    arrItems.push(obj)
+                }
+                console.log($(element).find('.s-line-clamp-2 > a > span').text())
+                if ($(element).find('.s-line-clamp-2 > a > span').text() != "") {
+                    console.log("hias")
+                    $(element).find('.s-line-clamp-2 > a > span').each(function (i, ele2) {
+                        obj.title = $(ele2).text();
+
+                    });
+                } else {
+
+                    $(element).find('.a-size-base-plus').each(function (i, ele2) {
+                        obj.title = $(ele2).text();
+
+                    });
                 }
 
+                $(element).find('.a-offscreen').each(function (i, ele) {
 
-            });
-            // console.log(arrItems) ;
-        });
-    return arrItems;
-}
-
-const sellerRank = async (newitems) => {
-    var newObj = []
-
-    
-   
-
-    for(const link of newitems){
-        console.log(link.link);
-        var myHtml = await nightmare.goto(link.link).wait().evaluate(function () {
-        //here is where I want to return the html body
-        return document.body.innerHTML;
+                    obj.price = $(ele).text();
 
 
-    })
-        .then(async function (body) {
-            //loading html body to cheerio
-    
-        try {
-      
-        var $ = cheerio.load(body);
+                });
+                $(element).find('.a-icon-alt').each(function (i, ele) {
 
-        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
-            if ($(element).text().includes("Best Sellers Rank")) {
-                link.description = $(element).text();
+                    obj.rattings = $(ele).text();
+
+
+                });
+
+                arrItems.push(obj)
             }
 
 
-        })
+        });
 
-        newObj.push(link);
+        return arrItems;
+
 
     } catch (err) {
-        console.log(err)
-
+        console.log(err);
     }
 
-        }).catch((err)=>{
-            console.log("hi")
-        });
-    
+}
 
+
+
+
+const sellerRank = async (items) => {
+    var newObj = []
+    for(const link of items){
+        try {
+            console.log(link.link)
+    
+         var newData= await request.get(link.link).then(function(response, body){
+                                var $ =  cheerio.load(response);
+    
+                 $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+                     if ($(element).text().includes("Best Sellers Rank")) {
+                        link.description = $(element).text();
+                     }
+         
+         
+                 })
+         
+               }).catch(function(error) {
+            
+                    console.log(error)
+               });
+    
+        } catch (err) {
+            console.log(err)
+    
+        }
     }
 
-    
-   return newObj;
-
+    console.log(items)
+    return items
 }
 
 const getAvgP = async (items) => {
