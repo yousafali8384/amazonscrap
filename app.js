@@ -30,67 +30,75 @@ var myfun = async (url) => {
 
 
         var arrItems = []
-        var htmlResult = await request.get(url);
-        var $ = await cheerio.load(htmlResult);
+        
 
+        var newData= await request.get(url).then(function(response, body){
+            var $ =  cheerio.load(response);
 
-        var htmlKing = await $('.s-include-content-margin').each((index, element) => {
-            var obj = {};
-            if (index < 16) {
-                $(element).find('.s-image').each(function (i, ele) {
-
-                    obj.image = $(ele).attr('src');
-
-                });
-                if ($(element).find('.s-line-clamp-2 > a').text() != "") {
-                    $(element).find('.s-line-clamp-2 > a').each(function (i, ele2) {
-
-                        obj.link = "https://www.amazon.com" + $(ele2).attr('href');
-
-
+            var htmlKing =  $('.s-include-content-margin').each((index, element) => {
+                var obj = {};
+                if (index < 16) {
+                    $(element).find('.s-image').each(function (i, ele) {
+    
+                        obj.image = $(ele).attr('src');
+    
                     });
-                } else {
-                    $(element).find('[data-component-type=s-product-image] > a').each(function (i, ele2) {
-
-                        obj.link = "https://www.amazon.com" + $(ele2).attr('href');
-
-
+                    if ($(element).find('.s-line-clamp-2 > a').text() != "") {
+                        $(element).find('.s-line-clamp-2 > a').each(function (i, ele2) {
+    
+                            obj.link = "https://www.amazon.com" + $(ele2).attr('href');
+    
+    
+                        });
+                    } else {
+                        $(element).find('[data-component-type=s-product-image] > a').each(function (i, ele2) {
+    
+                            obj.link = "https://www.amazon.com" + $(ele2).attr('href');
+    
+    
+                        });
+    
+                    }
+                    console.log($(element).find('.s-line-clamp-2 > a > span').text())
+                    if ($(element).find('.s-line-clamp-2 > a > span').text() != "") {
+                        console.log("hias")
+                        $(element).find('.s-line-clamp-2 > a > span').each(function (i, ele2) {
+                            obj.title = $(ele2).text();
+    
+                        });
+                    } else {
+    
+                        $(element).find('.a-size-base-plus').each(function (i, ele2) {
+                            obj.title = $(ele2).text();
+    
+                        });
+                    }
+    
+                    $(element).find('.a-offscreen').each(function (i, ele) {
+    
+                        obj.price = $(ele).text();
+    
+    
                     });
-
+                    $(element).find('.a-icon-alt').each(function (i, ele) {
+    
+                        obj.rattings = $(ele).text();
+    
+    
+                    });
+    
+                    arrItems.push(obj)
                 }
-                console.log($(element).find('.s-line-clamp-2 > a > span').text())
-                if ($(element).find('.s-line-clamp-2 > a > span').text() != "") {
-                    console.log("hias")
-                    $(element).find('.s-line-clamp-2 > a > span').each(function (i, ele2) {
-                        obj.title = $(ele2).text();
+    
+    
+            });
 
-                    });
-                } else {
+                }).catch(function(error) {
 
-                    $(element).find('.a-size-base-plus').each(function (i, ele2) {
-                        obj.title = $(ele2).text();
-
-                    });
-                }
-
-                $(element).find('.a-offscreen').each(function (i, ele) {
-
-                    obj.price = $(ele).text();
-
-
-                });
-                $(element).find('.a-icon-alt').each(function (i, ele) {
-
-                    obj.rattings = $(ele).text();
-
-
+                console.log(error)
                 });
 
-                arrItems.push(obj)
-            }
-
-
-        });
+        
 
         return arrItems;
 
