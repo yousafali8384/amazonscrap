@@ -3,17 +3,13 @@ var bodyParser = require("body-parser"),
     cheerio = require('cheerio'),
     cheerioAdv = require('cheerio-advanced-selectors'),
     axios = require('axios'),
-    async = require('async'),
-     app = express();
-
-    var request=require('request-promise');
+    app = express();
 
 
 
-        
-        
-          
- 
+cheerio = cheerioAdv.wrap(cheerio);
+
+
 app.set("view engine", "ejs");
 app.use(bodyParser.json({
     limit: '50mb',
@@ -25,25 +21,24 @@ app.use(bodyParser.urlencoded({
 }));
 
 
-var myfun = async (url) => {
+app.get('/', (req, res) => {
+    res.render('index');
+
+});
+
+
+
+const getItems = async (url) => {
     try {
 
 
-        var arrItems = []
-       var  options = {
-        'url':url,   
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-       'Accept-Language': 'en-US,en;q=0.8',
-       'Cache-Control': 'no-cache',
-       'Connection': 'keep-alive',
-       'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3'}
-       var htmlResult = await axios.get(url,{
+        var arrItems = [];
+        var htmlResult = await axios.get(url,{
             
-        headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36','cookie':'session-id=130-6204732-5270907; session-id-time=2082787201l; i18n-prefs=USD; sp-cdn="L5Z9:PK"; ubid-main=134-2184397-8776459; session-token=mU2A9LlqukWQfGa7O6asGQzqEc5iMx5swpxzmHZ7jSQHxicxyu1Rjm9a+bejWjEpqNSMPCylyRKeAYBzCPnNycrC1WXAGVdUZiWRlQBoUf4cqYMSDCJwTKQDwRjaWGDu4wxaxXo7q0LAc7kVStFSSwgDlMz2c5ANXGRWGoAekjGZuPBn7A2e7qddts0PMTa5; x-wl-uid=19GVCz1vYVQmbpADNdau6SPgQkWOZGXS9nIFKmp/xUOrXbPAqlv6d9iLerGSUGsF2GJ2zasbCANg=; csm-hit=tb:s-M134W92HQWZ4K99G6T2D|1555400479351&t:1555400482545&adb:adblk_no'}
-        
-      
-});
-        console.log(htmlResult)
+                headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36','cookie':'session-id=130-6204732-5270907; session-id-time=2082787201l; i18n-prefs=USD; sp-cdn="L5Z9:PK"; ubid-main=134-2184397-8776459; session-token=mU2A9LlqukWQfGa7O6asGQzqEc5iMx5swpxzmHZ7jSQHxicxyu1Rjm9a+bejWjEpqNSMPCylyRKeAYBzCPnNycrC1WXAGVdUZiWRlQBoUf4cqYMSDCJwTKQDwRjaWGDu4wxaxXo7q0LAc7kVStFSSwgDlMz2c5ANXGRWGoAekjGZuPBn7A2e7qddts0PMTa5; x-wl-uid=19GVCz1vYVQmbpADNdau6SPgQkWOZGXS9nIFKmp/xUOrXbPAqlv6d9iLerGSUGsF2GJ2zasbCANg=; csm-hit=tb:s-M134W92HQWZ4K99G6T2D|1555400479351&t:1555400482545&adb:adblk_no'}
+                
+              
+        });
         var $ = await cheerio.load(htmlResult.data);
 
 
@@ -113,37 +108,402 @@ var myfun = async (url) => {
     }
 
 }
-
-
-
-
-const sellerRank = async (items) => {
+const getNewItems = async (items) => {
     var newObj = []
-    for(const link of items){
-        try {
-            console.log(link.link)
-    
-         var newData=await axios.get(link.link);
-                    var $ =  cheerio.load(newData.data);
-    
-                 $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
-                     if ($(element).text().includes("Best Sellers Rank")) {
-                        link.description = $(element).text();
-                     }
-         
-         
-                 })
-         
-    
-        } catch (err) {
-            console.log(err)
-    
-        }
+
+    try {
+        console.log(items[0].link)
+        var htmlResult = await axios.get(items[0].link.replace(/ref.*/g,''),{
+            
+            headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'},
+            
+          
+    });
+        var $ = await cheerio.load(htmlResult.data);
+
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if ($(element).text().includes("Best Sellers Rank")) {
+                items[0].description = $(element).text();
+            }
+
+
+        })
+
+
+
+    } catch (err) {
+        console.log(err)
+
     }
 
-    console.log(items)
+    try {
+        console.log(items[1].link)
+        var htmlResult = await axios.get(items[1].link.replace(/ref.*/g,''),{
+            
+            headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'},
+            
+          
+    });
+        var $ = await cheerio.load(htmlResult.data);
+
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if ($(element).text().includes("Best Sellers Rank")) {
+                console.log("hi")
+                items[1].description = $(element).text();
+            }
+        })
+
+    } catch (err) {
+        console.log(err)
+
+    }
+    try {
+        console.log(items[2].link)
+
+        var htmlResult = await axios.get(items[2].link.replace(/ref.*/g,''),{
+            
+            headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'},
+            
+          
+    });
+
+
+        var $ = await cheerio.load(htmlResult.data);
+
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if ($(element).text().includes("Best Sellers Rank")) {
+                console.log("hi")
+                items[2].description = $(element).text();
+            }
+        })
+
+    } catch (err) {
+        // console.log(err)
+
+    }
+    try {
+        console.log(items[3].link)
+
+        var htmlResult = await axios.get(items[3].link.replace(/ref.*/g,''),{
+            
+            headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'},
+            
+          
+    });
+
+
+        var $ = await cheerio.load(htmlResult.data);
+
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if ($(element).text().includes("Best Sellers Rank")) {
+                console.log("hi")
+                items[3].description = $(element).text();
+            } else {
+                items[3].description = "";
+            }
+        })
+
+
+    } catch (err) {
+        console.log(err)
+
+    }
+    try {
+        console.log(items[4].link)
+        var htmlResult = await axios.get(items[4].link.replace(/ref.*/g,''),{
+            
+            headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'},
+            
+          
+    });
+
+
+        var $ = await cheerio.load(htmlResult.data);
+
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if ($(element).text().includes("Best Sellers Rank")) {
+                console.log("hi")
+                items[4].description = $(element).text();
+            }
+        })
+    } catch (err) {
+        if(err){
+
+        }
+        console.log(err)
+
+    }
+    try {
+        console.log(items[5].link)
+        var htmlResult = await axios.get(items[5].link.replace(/ref.*/g,''),{
+            
+            headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'},
+            
+          
+    });
+
+
+        var $ = await cheerio.load(htmlResult.data);
+
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if ($(element).text().includes("Best Sellers Rank")) {
+                console.log("hi")
+                items[5].description = $(element).text();
+            }
+        })
+
+    } catch (err) {
+        console.log(err)
+
+    }
+    try {
+        var htmlResult = await axios.get(items[6].link.replace(/ref.*/g,''),{
+            
+            headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'},
+            
+          
+    });
+
+
+        var $ = await cheerio.load(htmlResult.data);
+
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if ($(element).text().includes("Best Sellers Rank")) {
+                console.log("hi")
+                items[6].description = $(element).text();
+            }
+        })
+
+
+    } catch (err) {
+        // console.log(err)
+
+    }
+    try {
+        console.log(items[7].link)
+        var htmlResult = await axios.get(items[7].link.replace(/ref.*/g,''),{
+            
+            headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'},
+            
+          
+    });
+
+
+        var $ = await cheerio.load(htmlResult.data);
+
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if ($(element).text().includes("Best Sellers Rank")) {
+                console.log("hi")
+                items[7].description = $(element).text();
+            }
+        })
+
+    } catch (err) {
+        // console.log(err)
+
+    }
+    try {
+        console.log(items[8].link)
+        var htmlResult = await axios.get(items[8].link.replace(/ref.*/g,''),{
+            
+            headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'},
+            
+          
+    });
+
+
+        var $ = await cheerio.load(htmlResult.data);
+
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if ($(element).text().includes("Best Sellers Rank")) {
+                console.log("hi")
+                items[8].description = $(element).text();
+            }
+        })
+
+    } catch (err) {
+        // console.log(err)
+
+    }
+
+    try {
+        console.log(items[9].link)
+        var htmlResult = await axios.get(items[9].link.replace(/ref.*/g,''),{
+            
+            headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'},
+            
+          
+    });
+
+
+        var $ = await cheerio.load(htmlResult.data);
+
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if ($(element).text().includes("Best Sellers Rank")) {
+                items[9].description = $(element).text();
+            }
+        })
+
+    } catch (err) {
+        // console.log(err)
+
+    }
+    try {
+        console.log(items[10].link)
+        var htmlResult = await axios.get(items[10].link.replace(/ref.*/g,''),{
+            
+            headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'},
+            
+          
+    });
+
+
+        var $ = await cheerio.load(htmlResult.data);
+
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if ($(element).text().includes("Best Sellers Rank")) {
+                items[10].description = $(element).text();
+            }
+        })
+
+    } catch (err) {
+        // console.log(err)
+
+    }
+    try {
+        console.log(items[11].link)
+
+        var htmlResult = await axios.get(items[11].link.replace(/ref.*/g,''),{
+            
+            headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'},
+            
+          
+    });
+
+
+        var $ = await cheerio.load(htmlResult.data);
+
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if ($(element).text().includes("Best Sellers Rank")) {
+                items[11].description = $(element).text();
+            }
+        })
+
+    } catch (err) {
+        // console.log(err)
+
+    }
+    try {
+        console.log(items[12].link)
+        var htmlResult = await axios.get(items[12].link.replace(/ref.*/g,''),{
+            
+            headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'},
+            
+          
+    });
+
+
+        var $ = await cheerio.load(htmlResult.data);
+
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if ($(element).text().includes("Best Sellers Rank")) {
+                items[12].description = $(element).text();
+            }
+        })
+
+    } catch (err) {
+
+    }
+    try {
+        console.log(items[13].link)
+        var htmlResult = await axios.get(items[13].link.replace(/ref.*/g,''),{
+            
+            headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'},
+            
+          
+    });
+
+
+        var $ = await cheerio.load(htmlResult.data);
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if ($(element).text().includes("Best Sellers Rank")) {
+                items[13].description = $(element).text();
+            }
+        })
+    } catch (err) {
+        // console.log(err)
+
+    }
+    try {
+        console.log(items[14].link)
+        var htmlResult = await axios.get(items[14].link.replace(/ref.*/g,''),{
+            
+            headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'},
+            
+          
+    });
+
+
+        var $ = await cheerio.load(htmlResult.data);
+
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if ($(element).text().includes("Best Sellers Rank")) {
+                items[14].description = $(element).text();
+            }
+        })
+    } catch (err) {
+        // console.log(err)
+
+    }
+    try {
+        console.log(items[15].link)
+        var htmlResult = await axios.get(items[15].link.replace(/ref.*/g,''),{
+            
+            headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36'},
+            
+          
+    });
+
+
+        var $ = await cheerio.load(htmlResult.data);
+
+        $('#productDetails_detailBullets_sections1 > tbody > tr').each((index, element) => {
+            if ($(element).text().includes("Best Sellers Rank")) {
+                items[15].description = $(element).text();
+            }
+        })
+
+    } catch (err) {
+        // console.log(err)
+
+    }
     return items
 }
+
+
+
+app.post('/get-items', async (req, res) => {
+
+    let url = `https://www.amazon.com/s?k=${req.body.itemSearch}&ref=nb_sb_noss_2`;
+    // getItems(url)
+
+    var items = await getItems(url).then(async (response) => {
+        var newItems = await getNewItems(response).then(async (items) => {
+            var avgPrice = await getAvgP(items);
+
+            res.render('show', {
+                items,
+                avgPrice
+            });
+
+
+        })
+    });
+
+
+
+
+});
 
 const getAvgP = async (items) => {
     var totalPrice = 0;
@@ -187,37 +547,6 @@ const getAvgP = async (items) => {
         avgBestSell
     };
 }
-
-
-
-
-app.get('/', (req, res) => {
-    res.render('index');
-
-});
-
-
-app.post('/get-items', async (req, res) => {
-
-    let url = `https://www.amazon.com/s?k=${req.body.itemSearch}&ref=nb_sb_noss_2`;
-    // getItems(url)
-
-    var newitems = await myfun(url);
-    var seller = await sellerRank(newitems)
-    var avgPrice = await getAvgP(seller);
-
-            res.render('show', {
-                items:seller,
-                avgPrice
-            });
-
-
-
-
-
-});
-
-
 
 app.listen(process.env.PORT || 3001, () => {
     console.log('Server is Fired on Port : ' + 3001);
