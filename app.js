@@ -205,6 +205,7 @@ const getAvgP = async items => {
     };
 };
 
-app.listen(process.env.PORT || 3001, () => {
-    console.log("Server is Fired on Port : " + 3001);
+const port = (process.env.PORT || "3001");
+app.listen(port, () => {
+    console.log('Server is Fired on Port : ' + port);
 });
