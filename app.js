@@ -6,8 +6,9 @@ var bodyParser = require("body-parser"),
     cheerio = require("cheerio"),
     cheerioAdv = require("cheerio-advanced-selectors"),
     axios = require("axios"),
+    env = require('dotenv'),
     app = express();
-
+env.config();
 cheerio = cheerioAdv.wrap(cheerio);
 
 app.set("view engine", "ejs");
