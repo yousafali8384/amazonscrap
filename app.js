@@ -8,6 +8,27 @@ var bodyParser = require("body-parser"),
     axios = require("axios"),
     env = require('dotenv'),
     app = express();
+
+
+
+    const winston = require('winston');
+
+    const logger = winston.createLogger({
+        level: 'info',
+        format: winston.format.json(),
+        defaultMeta: { service: 'user-service' },
+        transports: [
+          //
+          // - Write to all logs with level `info` and below to `combined.log` 
+          // - Write all logs error (and below) to `error.log`.
+          //
+          new winston.transports.File({ filename: 'error.log', level: 'error' }),
+          new winston.transports.File({ filename: 'combined.log' })
+        ]
+      });
+
+
+
 env.config();
 cheerio = cheerioAdv.wrap(cheerio);
 
@@ -33,7 +54,7 @@ app.post("/get-items", async (req, res) => {
         req.body.itemSearch
         }&ref=nb_sb_noss_2`;
     // getItems(url)
-
+try{
     var items = await getItems(url);
     console.log(items)
     var avgPrice = await getAvgP(items);
@@ -42,6 +63,10 @@ app.post("/get-items", async (req, res) => {
                 items,
                 avgPrice
             });
+}catch(error){
+logger.log(error);
+}
+   
       
     });
 
