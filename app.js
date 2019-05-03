@@ -54,8 +54,9 @@ app.post("/get-items", async (req, res) => {
         req.body.itemSearch
         }&ref=nb_sb_noss_2`;
     // getItems(url)
-try{
+
     var items = await getItems(url);
+    logger.info(items);
     console.log(items)
     var avgPrice = await getAvgP(items);
 
@@ -63,10 +64,6 @@ try{
                 items,
                 avgPrice
             });
-}catch(error){
-logger.log(error);
-}
-   
       
     });
 
