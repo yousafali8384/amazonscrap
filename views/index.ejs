@@ -13,129 +13,41 @@
 
 </head>
 <style>
-
-/* loader style */
-
-#loader-wrapper {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 1000;
+    .hide_class {
+        visibility: hidden;
+    }
+    .loader {
+        visibility: hidden;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 30px;
+  height: 30px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
 }
 
-#loader-ajax {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 1000;
-}
-
-#loader {
-	display: block;
-	position: relative;
-	left: 50%;
-	top: 50%;
-	width: 150px;
-	height: 150px;
-	margin: -75px 0 0 -75px;
-	border-radius: 50%;
-	border: 3px solid transparent;
-	border-top-color: #EE0C82;
-	-webkit-animation: spin 2s linear infinite;
-	animation: spin 2s linear infinite;
-}
-
-#loader:before {
-	content: "";
-	position: absolute;
-	top: 5px;
-	left: 5px;
-	right: 5px;
-	bottom: 5px;
-	border-radius: 50%;
-	border: 3px solid transparent;
-	border-top-color: #E556A4;
-	-webkit-animation: spin 3s linear infinite;
-	animation: spin 3s linear infinite;
-}
-
-#loader:after {
-	content: "";
-	position: absolute;
-	top: 15px;
-	left: 15px;
-	right: 15px;
-	bottom: 15px;
-	border-radius: 50%;
-	border: 3px solid transparent;
-	border-top-color: #d4d5d9;
-	-webkit-animation: spin 1.5s linear infinite;
-	animation: spin 1.5s linear infinite;
-}
-
+/* Safari */
 @-webkit-keyframes spin {
-	0% {
-		-webkit-transform: rotate(0);
-		transform: rotate(0);
-	}
-	100% {
-		-webkit-transform: rotate(360deg);
-		transform: rotate(360deg);
-	}
-}
-
-@-moz-keyframes spin {
-	0% {
-		-webkit-transform: rotate(0);
-		transform: rotate(0);
-	}
-	100% {
-		-webkit-transform: rotate(360deg);
-		transform: rotate(360deg);
-	}
-}
-
-@-o-keyframes spin {
-	0% {
-		-webkit-transform: rotate(0);
-		transform: rotate(0);
-	}
-	100% {
-		-webkit-transform: rotate(360deg);
-		transform: rotate(360deg);
-	}
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
 }
 
 @keyframes spin {
-	0% {
-		-webkit-transform: rotate(0);
-		transform: rotate(0);
-	}
-	100% {
-		-webkit-transform: rotate(360deg);
-		transform: rotate(360deg);
-	}
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
-
-/* end of loader style */
-
 </style>
 <body>
-        <div id="loader-ajax" style="background: rgba(255,255,255,.7); display: none;">
-                <div id="loader"></div>
-            </div>
     <div class="container">
         <div class="col">
             <div class="form-group" style="display: flex; margin-top:16px">
                 <input class="form-control col-sm-4" id="itemSearch" type="text" name="itemSearch"
-                    placeholder="Enter Item Name" style="margin-right: 2px">
+                    placeholder="Keyword 1" style="margin-right: 2px">
                 <p class="col-sm-5">Execution Time: <span id="exec_time"></span></p>
-                <button class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+                <button id="btn1" class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
                     data-target="#dataModal">Show Data</button>
+                <div class="loader" id="loader1" style="margin-left: 8px;"></div>
             </div>
             <div class="modal" id="dataModal">
                 <div class="modal-dialog modal-lg">
@@ -156,10 +68,11 @@
           
             <div class="form-group" style="display: flex; margin-top:16px">
                 <input class="form-control col-sm-4" id="itemSearch1" type="text" name="itemSearch1"
-                    placeholder="Enter Item Name" style="margin-right: 2px">
+                    placeholder="Keyword 2" style="margin-right: 2px">
                 <p class="col-sm-5">Execution Time: <span id="exec_time1"></span></p>
-                <button class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+                <button id="btn2" class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
                     data-target="#dataModal1">Show Data</button>
+                    <div class="loader" id="loader2" style="margin-left: 8px"></div>
             </div>
             <div class="modal" id="dataModal1">
                 <div class="modal-dialog modal-lg">
@@ -180,10 +93,11 @@
         
             <div class="form-group" style="display: flex; margin-top:16px">
                 <input class="form-control col-sm-4" id="itemSearch2" type="text" name="itemSearch2"
-                    placeholder="Enter Item Name" style="margin-right: 2px">
+                    placeholder="Keyword 3" style="margin-right: 2px">
                 <p class="col-sm-5">Execution Time: <span id="exec_time2"></span></p>
-                <button class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+                <button id="btn3" class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
                     data-target="#dataModal2">Show Data</button>
+                    <div class="loader" id="loader3" style="margin-left: 8px"></div>
             </div>
             <div class="modal" id="dataModal2">
                 <div class="modal-dialog modal-lg">
@@ -204,10 +118,11 @@
 
             <div class="form-group" style="display: flex; margin-top:16px">
                 <input class="form-control col-sm-4" id="itemSearch3" type="text" name="itemSearch3"
-                    placeholder="Enter Item Name" style="margin-right: 2px">
+                    placeholder="Keyword 4" style="margin-right: 2px">
                 <p class="col-sm-5">Execution Time: <span id="exec_time3"></span></p>
-                <button class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+                <button id="btn4" class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
                     data-target="#dataModal3">Show Data</button>
+                    <div class="loader" id="loader4" style="margin-left: 8px"></div>
             </div>
             <div class="modal" id="dataModal3">
                 <div class="modal-dialog modal-lg">
@@ -228,10 +143,11 @@
 
             <div class="form-group" style="display: flex; margin-top:16px">
                 <input class="form-control col-sm-4" id="itemSearch4" type="text" name="itemSearch4"
-                    placeholder="Enter Item Name" style="margin-right: 2px">
+                    placeholder="Keyword 5" style="margin-right: 2px">
                 <p class="col-sm-5">Execution Time: <span id="exec_time4"></span></p>
-                <button class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+                <button id="btn5" class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
                 data-target="#dataModal4">Show Data</button>
+                <div class="loader" id="loader5" style="margin-left: 8px"></div>
             </div>
             <div class="modal" id="dataModal4">
                 <div class="modal-dialog modal-lg">
@@ -251,10 +167,11 @@
             </div>
             <div class="form-group" style="display: flex; margin-top:16px">
                 <input class="form-control col-sm-4" id="itemSearch5" type="text" name="itemSearch5"
-                    placeholder="Enter Item Name" style="margin-right: 2px">
+                    placeholder="Keyword 6" style="margin-right: 2px">
                 <p class="col-sm-5">Execution Time: <span id="exec_time5"></span></p>
-                <button class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+                <button id="btn6" class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
                     data-target="#dataModal5">Show Data</button>
+                    <div class="loader" id="loader6" style="margin-left: 8px"></div>
             </div>
             <div class="modal" id="dataModal5">
                 <div class="modal-dialog modal-lg">
@@ -339,7 +256,20 @@
         }
 
         function myfunction() {
-            $('#loader-ajax').show();
+            $("#loader1").css('visibility', 'visible');
+            $("#loader2").css('visibility', 'visible');
+            $("#loader3").css('visibility', 'visible');
+            $("#loader4").css('visibility', 'visible');
+            $("#loader5").css('visibility', 'visible');
+            $("#loader6").css('visibility', 'visible');
+
+            $("#btn1").addClass('hide_class')
+            $("#btn2").addClass('hide_class')
+            $("#btn3").addClass('hide_class')
+            $("#btn4").addClass('hide_class')
+            $("#btn5").addClass('hide_class')
+            $("#btn6").addClass('hide_class')
+
             var start = performance.now();
             var x = document.getElementById('itemSearch').value;
 
@@ -348,6 +278,9 @@
                 type: 'POST',
                 data: 'search',
                 success: function (data) {
+                    
+            $("#btn1").removeClass('hide_class')
+            $("#loader1").css('visibility', 'hidden');
                     var end = performance.now();
                     var time = end - start;
                     document.getElementById('exec_time').innerHTML=msToTime(time);
@@ -355,8 +288,6 @@
 
                   var modelHtml =  updateModal(data);
                   modalBody.innerHTML=modelHtml;
-                  $('#loader-ajax').hide();
-
                     myfunction1();
                 },
                 error: function (error) {
@@ -368,8 +299,6 @@
         }
 
         function myfunction1() {
-            $('#loader-ajax').show();
-
             var start = performance.now();
 
             var x = document.getElementById('itemSearch1').value;
@@ -379,6 +308,8 @@
                 type: 'POST',
                 data: 'search',
                 success: function (data) {
+            $("#btn2").removeClass('hide_class')
+            $("#loader2").css('visibility', 'hidden');
                     var end = performance.now();
                     var time = end - start;
                     document.getElementById('exec_time1').innerHTML=msToTime(time);
@@ -386,8 +317,7 @@
 
                     var modelHtml =  updateModal(data);
                     modalBody.innerHTML=modelHtml;
-                    $('#loader-ajax').hide();
-
+                    
                     myfunction2();
                 },
                 error: function (error) {
@@ -398,8 +328,6 @@
         }
 
         function myfunction2() {
-            $('#loader-ajax').show();
-
             var start = performance.now();
 
             var x = document.getElementById('itemSearch2').value;
@@ -409,6 +337,8 @@
                 type: 'POST',
                 data: 'search',
                 success: function (data) {
+            $("#btn3").removeClass('hide_class')
+            $("#loader3").css('visibility', 'hidden');
                     var end = performance.now();
                     var time = end - start;
                     document.getElementById('exec_time2').innerHTML=msToTime(time);
@@ -416,8 +346,7 @@
 
                   var modelHtml =  updateModal(data);
                   modalBody.innerHTML=modelHtml;
-                  $('#loader-ajax').hide();
-
+                  
                     myfunction3();
                 },
                 error: function (error) {
@@ -428,8 +357,6 @@
         }
 
         function myfunction3() {
-            $('#loader-ajax').show();
-
             var start = performance.now();
 
             var x = document.getElementById('itemSearch3').value;
@@ -439,6 +366,9 @@
                 type: 'POST',
                 data: 'search',
                 success: function (data) {
+                    
+            $("#btn4").removeClass('hide_class')
+            $("#loader4").css('visibility', 'hidden');
                     var end = performance.now();
                     var time = end - start;
                     document.getElementById('exec_time3').innerHTML=msToTime(time);
@@ -446,8 +376,7 @@
 
                   var modelHtml =  updateModal(data);
                   modalBody.innerHTML=modelHtml;
-                  $('#loader-ajax').hide();
-
+                  
                     myfunction4();
                 },
                 error: function (error) {
@@ -457,8 +386,6 @@
 
         }
         function myfunction4() {
-            $('#loader-ajax').show();
-
             var start = performance.now();
 
             var x = document.getElementById('itemSearch4').value;
@@ -468,6 +395,8 @@
                 type: 'POST',
                 data: 'search',
                 success: function (data) {
+            $("#btn5").removeClass('hide_class')
+            $("#loader5").css('visibility', 'hidden');
                     var end = performance.now();
                     var time = end - start;
                     document.getElementById('exec_time4').innerHTML=msToTime(time);
@@ -475,8 +404,7 @@
 
                   var modelHtml =  updateModal(data);
                   modalBody.innerHTML=modelHtml;
-                  $('#loader-ajax').hide();
-
+                  
                     myfunction5();
                 },
                 error: function (error) {
@@ -486,8 +414,6 @@
 
         }
         function myfunction5() {
-            $('#loader-ajax').show();
-
             var start = performance.now();
 
             var x = document.getElementById('itemSearch5').value;
@@ -497,6 +423,9 @@
                 type: 'POST',
                 data: 'search',
                 success: function (data) {
+                    
+            $("#btn6").removeClass('hide_class')
+            $("#loader6").css('visibility', 'hidden');
                     var end = performance.now();
                     var time = end - start;
                     document.getElementById('exec_time5').innerHTML=msToTime(time);
@@ -504,8 +433,7 @@
 
                   var modelHtml =  updateModal(data);
                   modalBody.innerHTML=modelHtml;
-                  $('#loader-ajax').hide();
-
+                  
                 },
                 error: function (error) {
 
