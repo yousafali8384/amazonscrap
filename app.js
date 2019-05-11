@@ -11,21 +11,8 @@ var bodyParser = require("body-parser"),
 
 
 
-    const winston = require('winston');
+  
 
-    const logger = winston.createLogger({
-        level: 'info',
-        format: winston.format.json(),
-        defaultMeta: { service: 'user-service' },
-        transports: [
-          //
-          // - Write to all logs with level `info` and below to `combined.log` 
-          // - Write all logs error (and below) to `error.log`.
-          //
-          new winston.transports.File({ filename: 'error.log', level: 'error' }),
-          new winston.transports.File({ filename: 'combined.log' })
-        ]
-      });
 
 
 
@@ -49,21 +36,19 @@ app.use(
 app.get("/", (req, res) => {
     res.render("index");
 });
-app.post("/get-items", async (req, res) => {
+app.post("/get-items/:itemSearch", async (req, res) => {
     let url = `https://www.amazon.com/s?k=${
-        req.body.itemSearch
+        req.params.itemSearch
         }&ref=nb_sb_noss_2`;
     // getItems(url)
 
     var items = await getItems(url);
-    logger.info(items);
-    console.log(items)
     var avgPrice = await getAvgP(items);
-
-            res.render("show", {
-                items,
-                avgPrice
-            });
+        res.send({items,avgPrice});
+            // res.render("show", {
+            //     items,
+            //     avgPrice
+            // });
       
     });
 
@@ -72,7 +57,7 @@ app.post("/get-items", async (req, res) => {
 const getItems = async url => {
     var arrItems = [];
 
-    const browser = await puppeteer.launch({ headless: true ,args: ['--no-sandbox']});
+    const browser = await puppeteer.launch({ headless: false ,args: ['--no-sandbox']});
     const page = await browser.newPage();
     await page.setViewport({ width: 1920, height: 926 });
     await page.goto(url);
