@@ -165,7 +165,7 @@ const getItems = async url => {
             }
         });
       }
-    
+      browser.close();
       return arrItems;
 };
 
