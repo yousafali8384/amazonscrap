@@ -6,181 +6,376 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-</head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
     <div class="container">
         <div class="col">
-            <div class="form-group">
-                <input class="form-control" id="itemSearch" type="text" name="itemSearch" placeholder="Enter Item Name" style="margin-right: 2px">
+            <div class="form-group" style="display: flex; margin-top:16px">
+                <input class="form-control col-sm-4" id="itemSearch" type="text" name="itemSearch"
+                    placeholder="Enter Item Name" style="margin-right: 2px">
+                <p class="col-sm-5">Execution Time: <span id="exec_time"></span></p>
+                <button class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+                    data-target="#dataModal">Show Data</button>
             </div>
-            <div class="form-group">
-                    <input class="form-control" id="itemSearch1" type="text" name="itemSearch1" placeholder="Enter Item Name" style="margin-right: 2px">
-                </div>
-                <div class="form-group">
-                        <input class="form-control" id="itemSearch2" type="text" name="itemSearch2" placeholder="Enter Item Name" style="margin-right: 2px">
-                    </div>
-                    <div class="form-group">
-                            <input class="form-control" id="itemSearch3" type="text" name="itemSearch3" placeholder="Enter Item Name" style="margin-right: 2px">
+            <div class="modal" id="dataModal">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Product Details</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
-                <div class="form-group">
-                                <input class="form-control" id="itemSearch4" type="text" name="itemSearch4" placeholder="Enter Item Name" style="margin-right: 2px">
-                            </div>
-                    <div class="form-group">
-                                    <input class="form-control" id="itemSearch5" type="text" name="itemSearch5" placeholder="Enter Item Name" style="margin-right: 2px">
-                                </div>
-               <button onclick="myfunction()">Submit</button>
+
+                        <div class="modal-body" id="modalBody1">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+          
+            <div class="form-group" style="display: flex; margin-top:16px">
+                <input class="form-control col-sm-4" id="itemSearch1" type="text" name="itemSearch1"
+                    placeholder="Enter Item Name" style="margin-right: 2px">
+                <p class="col-sm-5">Execution Time: <span id="exec_time1"></span></p>
+                <button class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+                    data-target="#dataModal1">Show Data</button>
+            </div>
+            <div class="modal" id="dataModal1">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Product Details</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <div class="modal-body" id="modalBody2">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="form-group" style="display: flex; margin-top:16px">
+                <input class="form-control col-sm-4" id="itemSearch2" type="text" name="itemSearch2"
+                    placeholder="Enter Item Name" style="margin-right: 2px">
+                <p class="col-sm-5">Execution Time: <span id="exec_time2"></span></p>
+                <button class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+                    data-target="#dataModal2">Show Data</button>
+            </div>
+            <div class="modal" id="dataModal2">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Product Details</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <div class="modal-body" id="modalBody3">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" style="display: flex; margin-top:16px">
+                <input class="form-control col-sm-4" id="itemSearch3" type="text" name="itemSearch3"
+                    placeholder="Enter Item Name" style="margin-right: 2px">
+                <p class="col-sm-5">Execution Time: <span id="exec_time3"></span></p>
+                <button class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+                    data-target="#dataModal3">Show Data</button>
+            </div>
+            <div class="modal" id="dataModal3">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Product Details</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <div class="modal-body" id="modalBody4">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group" style="display: flex; margin-top:16px">
+                <input class="form-control col-sm-4" id="itemSearch4" type="text" name="itemSearch4"
+                    placeholder="Enter Item Name" style="margin-right: 2px">
+                <p class="col-sm-5">Execution Time: <span id="exec_time4"></span></p>
+                <button class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+                data-target="#dataModal4">Show Data</button>
+            </div>
+            <div class="modal" id="dataModal4">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Product Details</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <div class="modal-body" id="modalBody5">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" style="display: flex; margin-top:16px">
+                <input class="form-control col-sm-4" id="itemSearch5" type="text" name="itemSearch5"
+                    placeholder="Enter Item Name" style="margin-right: 2px">
+                <p class="col-sm-5">Execution Time: <span id="exec_time5"></span></p>
+                <button class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+                    data-target="#dataModal5">Show Data</button>
+            </div>
+            <div class="modal" id="dataModal5">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Product Details</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <div class="modal-body" id="modalBody6">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button onclick="myfunction()">Submit</button>
         </div>
     </div>
-  
     <script>
         function msToTime(duration) {
-  var milliseconds = parseInt((duration % 1000) / 100),
-    seconds = Math.floor((duration / 1000) % 60),
-    minutes = Math.floor((duration / (1000 * 60)) % 60),
-    hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+            var milliseconds = parseInt((duration % 1000) / 100),
+                seconds = Math.floor((duration / 1000) % 60),
+                minutes = Math.floor((duration / (1000 * 60)) % 60),
+                hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
 
-  hours = (hours < 10) ? "0" + hours : hours;
-  minutes = (minutes < 10) ? "0" + minutes : minutes;
-  seconds = (seconds < 10) ? "0" + seconds : seconds;
+            hours = (hours < 10) ? "0" + hours : hours;
+            minutes = (minutes < 10) ? "0" + minutes : minutes;
+            seconds = (seconds < 10) ? "0" + seconds : seconds;
 
-  return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
-}
+            return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
+        }
 
+        function updateModal(data) {
+            console.log(data)
+            var list = ""
+            list += '<div class="card" style="width: 100%;margin: 10px 0px;">'
 
-    function myfunction(){
-        var start = performance.now();
+            list += '<div class="card-body p-0">'
+            list += '<Strong>Average Price</Strong> &nbsp; $'+data.avgPrice.avgPrice+'&nbsp;&nbsp;&nbsp;'
+            list += '<Strong>Average Ratings</Strong> &nbsp; '+data.avgPrice.avgStar+' out of 5 stars&nbsp;&nbsp;&nbsp;'
+            list += '<Strong>Average Seller Rank</Strong> &nbsp;'
+            var b=new Number(data.avgPrice.avgBestSell);
+            list += ''+b.toLocaleString()+''
+            list += '</div>'
+            list += '</div>'
+            data.items.forEach(function (item) {
+                list += '<div class="row">'
+                list += '<div class="col-md-8">'
+                list += '<div class="card" style="width: 100%; margin: 10px 0px; min-height: 227px">'
+                list += '<div class="card-body p-0">'
+                list += '<h6 style="padding: 8px; background: #ededed;">Product Details</h6>'
+                list += '<li class="media">'
+                list += '<a href="' + item.link + '" target="_blank" style="text-decoration: none; color:inherit;">'
+                list += '<img class="mr-3" src="' + item.image + '" style="padding: 5px;" width="165px" height="165px" alt="Generic placeholder image"></a>'
+                list += '<div class="media-body p-2">'
+                list += '<a class="img-size" href="' + item.link + '">'
+                list += '<h5 class="mt-0 mb-1">' + item.title
+                list += '</h5>'
+                list += '</a>'
+                list += '<h5>' + item.price + '</h5>'
+                list += '<h6>' + item.rattings + '</h6>' + item.description
+                list += '</div>'
+                list += ' </li>'
+                list += '</div>'
+                list += '</div>'
+                list += '</div>'
+                list += '<div class="col-md-4">'
+                list += '<div class="card" style="width: 100%; margin: 10px 0px; min-height: 227px">'
+                list += '<h6 style="padding: 8px;background: #ededed;">Product Seller Rank</h6>'
+                if (item.description != "" && item.description != undefined) {
+                    list += '<span style="padding: 8px;">' + item.description + '</span>'
+                } else {
+                    list += ' <span style="padding: 8px;">No Seller Rank for this item.</span>'
+                }
+                list += '</div>'
+                list += ' </div>'
+                list += ' </div>'
+            })
+            return list;
+        }
+
+        function myfunction() {
+            var start = performance.now();
             var x = document.getElementById('itemSearch').value;
 
-        $.ajax({
-        url: '/get-items/'+x,
-			type: 'POST',
-			data: 'search',
-			success: function (data) {
-                var end = performance.now();
-                var time = end - start;
-                console.log('Execution time: ' + msToTime(time));
-                console.log(data);
-                myfunction1();
-        },
-			error: function (error) {
+            $.ajax({
+                url: '/get-items/' + x,
+                type: 'POST',
+                data: 'search',
+                success: function (data) {
+                    var end = performance.now();
+                    var time = end - start;
+                    document.getElementById('exec_time').innerHTML=msToTime(time);
+                    var modalBody = document.getElementById("modalBody1")
 
-			}
-    })
-
-
-    }
-    
-    function myfunction1(){
-        var start = performance.now();
-
-        var x = document.getElementById('itemSearch1').value;
-
-                $.ajax({
-                url: '/get-items/'+x,
-                    type: 'POST',
-                    data: 'search',
-                    success: function (data) {
-                        var end = performance.now();
-                var time = end - start;
-                console.log('Execution time: ' + msToTime(time));
-                        myfunction2();
+                  var modelHtml =  updateModal(data);
+                  modalBody.innerHTML=modelHtml;
+                    myfunction1();
                 },
-                    error: function (error) {
+                error: function (error) {
 
-                    }
-                })
+                }
+            })
 
-    }
 
-    function myfunction2(){
-        var start = performance.now();
+        }
 
-        var x = document.getElementById('itemSearch2').value;
+        function myfunction1() {
+            var start = performance.now();
+
+            var x = document.getElementById('itemSearch1').value;
 
             $.ajax({
-            url: '/get-items/'+x,
+                url: '/get-items/' + x,
                 type: 'POST',
                 data: 'search',
                 success: function (data) {
                     var end = performance.now();
-                var time = end - start;
-                console.log('Execution time: ' + msToTime(time));
+                    var time = end - start;
+                    document.getElementById('exec_time1').innerHTML=msToTime(time);
+                    var modalBody = document.getElementById("modalBody2")
+
+                    var modelHtml =  updateModal(data);
+                    modalBody.innerHTML=modelHtml;
+                    myfunction2();
+                },
+                error: function (error) {
+
+                }
+            })
+
+        }
+
+        function myfunction2() {
+            var start = performance.now();
+
+            var x = document.getElementById('itemSearch2').value;
+
+            $.ajax({
+                url: '/get-items/' + x,
+                type: 'POST',
+                data: 'search',
+                success: function (data) {
+                    var end = performance.now();
+                    var time = end - start;
+                    document.getElementById('exec_time2').innerHTML=msToTime(time);
+                    var modalBody = document.getElementById("modalBody3")
+
+                  var modelHtml =  updateModal(data);
+                  modalBody.innerHTML=modelHtml;
                     myfunction3();
-            },
+                },
                 error: function (error) {
 
                 }
             })
 
-    }
+        }
 
-    function myfunction3(){
-        var start = performance.now();
+        function myfunction3() {
+            var start = performance.now();
 
-        var x = document.getElementById('itemSearch3').value;
+            var x = document.getElementById('itemSearch3').value;
 
             $.ajax({
-            url: '/get-items/'+x,
+                url: '/get-items/' + x,
                 type: 'POST',
                 data: 'search',
                 success: function (data) {
                     var end = performance.now();
-                var time = end - start;
-                console.log('Execution time: ' + msToTime(time));
+                    var time = end - start;
+                    document.getElementById('exec_time3').innerHTML=msToTime(time);
+                    var modalBody = document.getElementById("modalBody4")
+
+                  var modelHtml =  updateModal(data);
+                  modalBody.innerHTML=modelHtml;
                     myfunction4();
-            },
+                },
                 error: function (error) {
 
                 }
             })
 
-    }
-    function myfunction4(){
-        var start = performance.now();
+        }
+        function myfunction4() {
+            var start = performance.now();
 
-        var x = document.getElementById('itemSearch4').value;
+            var x = document.getElementById('itemSearch4').value;
 
             $.ajax({
-            url: '/get-items/'+x,
+                url: '/get-items/' + x,
                 type: 'POST',
                 data: 'search',
                 success: function (data) {
                     var end = performance.now();
-                var time = end - start;
-                console.log('Execution time: ' + msToTime(time));
+                    var time = end - start;
+                    document.getElementById('exec_time4').innerHTML=msToTime(time);
+                    var modalBody = document.getElementById("modalBody5")
+
+                  var modelHtml =  updateModal(data);
+                  modalBody.innerHTML=modelHtml;
                     myfunction5();
-            },
+                },
                 error: function (error) {
 
                 }
             })
 
-    }
-    function myfunction5(){
-        var start = performance.now();
+        }
+        function myfunction5() {
+            var start = performance.now();
 
-        var x = document.getElementById('itemSearch5').value;
+            var x = document.getElementById('itemSearch5').value;
 
             $.ajax({
-            url: '/get-items/'+x,
+                url: '/get-items/' + x,
                 type: 'POST',
                 data: 'search',
                 success: function (data) {
                     var end = performance.now();
-                var time = end - start;
-                console.log('Execution time: ' + msToTime(time));
+                    var time = end - start;
+                    document.getElementById('exec_time5').innerHTML=msToTime(time);
+                    var modalBody = document.getElementById("modalBody6")
+
+                  var modelHtml =  updateModal(data);
+                  modalBody.innerHTML=modelHtml;
                     alert("done")
-         },
+                },
                 error: function (error) {
 
                 }
             })
 
-    }
+        }
     </script>
 
 
