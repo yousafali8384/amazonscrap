@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
-var fetchCheerioObject = require("fetch-cheerio-object");
+let fetchCheerioObject = require("fetch-cheerio-object");
 
-var bodyParser = require("body-parser"),
+let bodyParser = require("body-parser"),
     express = require("express"),
     cheerio = require("cheerio"),
     cheerioAdv = require("cheerio-advanced-selectors"),
@@ -43,8 +43,8 @@ app.post("/get-items/:itemSearch", async (req, res) => {
         }&ref=nb_sb_noss_2`;
     // getItems(url)
 
-    var items = await getItems(url);
-    var avgPrice = await getAvgP(items);
+    let items = await getItems(url);
+    let avgPrice = await getAvgP(items);
         res.send({items,avgPrice});
             // res.render("show", {
             //     items,
@@ -56,21 +56,20 @@ app.post("/get-items/:itemSearch", async (req, res) => {
 
 
 const getItems = async url => {
-    var arrItems = [];
+    let arrItems = [];
 
-    const browser = await puppeteer.launch({ headless: true ,args: ['--no-sandbox']});
-    const page = await browser.newPage();
+    let browser = await puppeteer.launch({ headless: true ,args: ['--no-sandbox']});
+    let page = await browser.newPage();
     await page.setViewport({ width: 1920, height: 926 });
     await page.goto(url);
 
     // get hotel details
     let bodyHTML = await page.evaluate(() => document.body.innerHTML);
 
-    console.log(bodyHTML);
-    var $ = cheerio.load(bodyHTML);
+    let $ = cheerio.load(bodyHTML);
 
-      var htmlKing = await $(".s-include-content-margin").each((index, element) => {
-          var obj = {};
+      let htmlKing = await $(".s-include-content-margin").each((index, element) => {
+          let obj = {};
           if (index < 16) {
               $(element)
                   .find(".s-image")
@@ -94,17 +93,13 @@ const getItems = async url => {
                           obj.link = "https://www.amazon.com" + $(ele2).attr("href");
                       });
               }
-              console.log(
-                  $(element)
-                      .find(".s-line-clamp-2 > a > span")
-                      .text()
-              );
+            
               if (
                   $(element)
                       .find(".s-line-clamp-2 > a > span")
                       .text() != ""
               ) {
-                  console.log("hias");
+                
                   $(element)
                       .find(".s-line-clamp-2 > a > span")
                       .each(function (i, ele2) {
@@ -134,15 +129,15 @@ const getItems = async url => {
       });
       const newpage = await browser.newPage();
         await newpage.setViewport({ width: 1920, height: 926 });
-      for(var i=0;i<arrItems.length;i++){
+      for(let i=0;i<arrItems.length;i++){
         
       await newpage.goto(arrItems[i].link);
       let bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
   
         
-        var $ = cheerio.load(bodyHTMLNew);
+        let $ = cheerio.load(bodyHTMLNew);
       
-        var htmlKing = await $("tr").each((index, element) => {
+        let htmlKing = await $("tr").each((index, element) => {
             if (
                 $(element)
                     .text()
@@ -171,18 +166,18 @@ const getItems = async url => {
 };
 
 const getAvgP = async items => {
-    var totalPrice = 0;
-    var totalStar = 0;
-    var totalBest = 0;
-    var price;
-    var star;
-    var bestSell;
-    var count = 0;
-    var BestSellrCount = 0;
+    let totalPrice = 0;
+    let totalStar = 0;
+    let totalBest = 0;
+    let price;
+    let star;
+    let bestSell;
+    let count = 0;
+    let BestSellrCount = 0;
     items.forEach(element => {
         if (element.price != undefined) {
             price = element.price.substring(1, 500);
-            var a = parseFloat(price);
+            let a = parseFloat(price);
 
             totalPrice += a;
         }
@@ -195,16 +190,16 @@ const getAvgP = async items => {
 
         if (element.description != undefined && element.description != "") {
             BestSellrCount++;
-            var newKing = element.description.replace(/\s+/g, " ").trim();
-            var newDescription = newKing.substring((newKing.indexOf("#")+1), 40).split(" ")[0];
+            let newKing = element.description.replace(/\s+/g, " ").trim();
+            let newDescription = newKing.substring((newKing.indexOf("#")+1), 40).split(" ")[0];
             bestSell = +newDescription.replace(/,/g, "");
             console.log(bestSell)
             totalBest += bestSell;
         }
     });
-    var avgPrice = (totalPrice / items.length).toFixed(2);
-    var avgStar = (totalStar / count).toFixed(2);
-    var avgBestSell = (totalBest / BestSellrCount).toFixed(2);
+    let avgPrice = (totalPrice / items.length).toFixed(2);
+    let avgStar = (totalStar / count).toFixed(2);
+    let avgBestSell = (totalBest / BestSellrCount).toFixed(2);
 
     return {
         avgPrice,
