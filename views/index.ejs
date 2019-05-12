@@ -269,7 +269,17 @@
             $("#btn4").addClass('hide_class')
             $("#btn5").addClass('hide_class')
             $("#btn6").addClass('hide_class')
+          
+         newFun();
+         myfunction1();
+         myfunction2();
+         myfunction3();
+         myfunction4();
+         myfunction5();
 
+        }
+
+        async function  newFun(){
             var start = performance.now();
             var x = document.getElementById('itemSearch').value;
 
@@ -288,17 +298,15 @@
 
                   var modelHtml =  updateModal(data);
                   modalBody.innerHTML=modelHtml;
-                    myfunction1();
+                    // myfunction1();
                 },
                 error: function (error) {
 
                 }
             })
-
-
         }
 
-        function myfunction1() {
+        async function myfunction1() {
             var start = performance.now();
 
             var x = document.getElementById('itemSearch1').value;
@@ -318,7 +326,7 @@
                     var modelHtml =  updateModal(data);
                     modalBody.innerHTML=modelHtml;
                     
-                    myfunction2();
+                    // myfunction2();
                 },
                 error: function (error) {
 
@@ -347,7 +355,7 @@
                   var modelHtml =  updateModal(data);
                   modalBody.innerHTML=modelHtml;
                   
-                    myfunction3();
+                    // myfunction3();
                 },
                 error: function (error) {
 
@@ -377,7 +385,7 @@
                   var modelHtml =  updateModal(data);
                   modalBody.innerHTML=modelHtml;
                   
-                    myfunction4();
+                    // myfunction4();
                 },
                 error: function (error) {
 
@@ -405,7 +413,7 @@
                   var modelHtml =  updateModal(data);
                   modalBody.innerHTML=modelHtml;
                   
-                    myfunction5();
+                    // myfunction5();
                 },
                 error: function (error) {
 

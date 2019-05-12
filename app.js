@@ -36,6 +36,7 @@ app.use(
 app.get("/", (req, res) => {
     res.render("index");
 });
+
 app.post("/get-items/:itemSearch", async (req, res) => {
     let url = `https://www.amazon.com/s?k=${
         req.params.itemSearch
