@@ -273,6 +273,156 @@
             </div>
           </div>
         </div>
+
+        <div class="form-group" style="display: flex; margin-top:16px">
+          <input
+            class="form-control col-sm-4"
+            id="itemSearch"
+            type="text"
+            name="itemSearch6"
+            placeholder="Keyword 7"
+            style="margin-right: 2px"
+          />
+          <p class="col-sm-5">Execution Time: <span id="exec_time6"></span></p>
+          <button
+            id="btn7"
+            class="btn btn-primary col-sm-3"
+            style="width: 120px"
+            data-toggle="modal"
+            data-target="#dataModal6"
+          >
+            Show Data
+          </button>
+          <div class="loader" id="loader7" style="margin-left: 8px;"></div>
+        </div>
+        <div class="modal" id="dataModal6">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Product Details</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                  &times;
+                </button>
+              </div>
+
+              <div class="modal-body" id="modalBody7"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" style="display: flex; margin-top:16px">
+          <input
+            class="form-control col-sm-4"
+            id="itemSearch"
+            type="text"
+            name="itemSearch7"
+            placeholder="Keyword 8"
+            style="margin-right: 2px"
+          />
+          <p class="col-sm-5">Execution Time: <span id="exec_time7"></span></p>
+          <button
+            id="btn8"
+            class="btn btn-primary col-sm-3"
+            style="width: 120px"
+            data-toggle="modal"
+            data-target="#dataModal7"
+          >
+            Show Data
+          </button>
+          <div class="loader" id="loader8" style="margin-left: 8px;"></div>
+        </div>
+        <div class="modal" id="dataModal7">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Product Details</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                  &times;
+                </button>
+              </div>
+
+              <div class="modal-body" id="modalBody8"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" style="display: flex; margin-top:16px">
+          <input
+            class="form-control col-sm-4"
+            id="itemSearch"
+            type="text"
+            name="itemSearch8"
+            placeholder="Keyword 9"
+            style="margin-right: 2px"
+          />
+          <p class="col-sm-5">Execution Time: <span id="exec_time8"></span></p>
+          <button
+            id="btn9"
+            class="btn btn-primary col-sm-3"
+            style="width: 120px"
+            data-toggle="modal"
+            data-target="#dataModal8"
+          >
+            Show Data
+          </button>
+          <div class="loader" id="loader9" style="margin-left: 8px;"></div>
+        </div>
+        <div class="modal" id="dataModal8">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Product Details</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                  &times;
+                </button>
+              </div>
+
+              <div class="modal-body" id="modalBody9"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" style="display: flex; margin-top:16px">
+          <input
+            class="form-control col-sm-4"
+            id="itemSearch"
+            type="text"
+            name="itemSearch9"
+            placeholder="Keyword 10"
+            style="margin-right: 2px"
+          />
+          <p class="col-sm-5">Execution Time: <span id="exec_time9"></span></p>
+          <button
+            id="btn10"
+            class="btn btn-primary col-sm-3"
+            style="width: 120px"
+            data-toggle="modal"
+            data-target="#dataModal9"
+          >
+            Show Data
+          </button>
+          <div class="loader" id="loader10" style="margin-left: 8px;"></div>
+        </div>
+        <div class="modal" id="dataModal9">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Product Details</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                  &times;
+                </button>
+              </div>
+
+              <div class="modal-body" id="modalBody10"></div>
+            </div>
+          </div>
+        </div>
+
+        
         <button onclick="myfunction()">Submit</button>
       </div>
     </div>
@@ -357,6 +507,7 @@
         return list;
       }
       var stopTime = 0;
+      var timeLimit = 10;
       var h1 = document.getElementsByTagName("h1")[0],
         seconds = 0,
         minutes = 0,
@@ -395,6 +546,10 @@
         $("#loader4").css("visibility", "visible");
         $("#loader5").css("visibility", "visible");
         $("#loader6").css("visibility", "visible");
+        $("#loader7").css("visibility", "visible");
+        $("#loader8").css("visibility", "visible");
+        $("#loader9").css("visibility", "visible");
+        $("#loader10").css("visibility", "visible");
 
         $("#btn1").addClass("hide_class");
         $("#btn2").addClass("hide_class");
@@ -402,6 +557,11 @@
         $("#btn4").addClass("hide_class");
         $("#btn5").addClass("hide_class");
         $("#btn6").addClass("hide_class");
+        $("#btn7").addClass("hide_class");
+        $("#btn8").addClass("hide_class");
+        $("#btn9").addClass("hide_class");
+        $("#btn10").addClass("hide_class");
+
 
         newFun();
         myfunction1();
@@ -409,6 +569,10 @@
         myfunction3();
         myfunction4();
         myfunction5();
+        myfunction6();
+        myfunction7();
+        myfunction8();
+        myfunction9();
       }
 
       async function newFun() {
@@ -421,7 +585,7 @@
           data: "search",
           success: function(data) {
             stopTime++;
-            if (stopTime == 6) {
+            if (stopTime == timeLimit) {
               clearTimeout(t);
             }
             $("#btn1").removeClass("hide_class");
@@ -450,7 +614,7 @@
           data: "search",
           success: function(data) {
             stopTime++;
-            if (stopTime == 6) {
+            if (stopTime == timeLimit) {
               clearTimeout(t);
             }
             $("#btn2").removeClass("hide_class");
@@ -480,7 +644,7 @@
           data: "search",
           success: function(data) {
             stopTime++;
-            if (stopTime == 6) {
+            if (stopTime == timeLimit) {
               clearTimeout(t);
             }
             $("#btn3").removeClass("hide_class");
@@ -510,7 +674,7 @@
           data: "search",
           success: function(data) {
             stopTime++;
-            if (stopTime == 6) {
+            if (stopTime == timeLimit) {
               clearTimeout(t);
             }
             $("#btn4").removeClass("hide_class");
@@ -539,7 +703,7 @@
           data: "search",
           success: function(data) {
             stopTime++;
-            if (stopTime == 6) {
+            if (stopTime == timeLimit) {
               clearTimeout(t);
             }
             $("#btn5").removeClass("hide_class");
@@ -557,6 +721,7 @@
           error: function(error) {}
         });
       }
+
       function myfunction5() {
         var start = performance.now();
 
@@ -568,7 +733,7 @@
           data: "search",
           success: function(data) {
             stopTime++;
-            if (stopTime == 6) {
+            if (stopTime == timeLimit) {
               clearTimeout(t);
             }
             $("#btn6").removeClass("hide_class");
@@ -584,6 +749,120 @@
           error: function(error) {}
         });
       }
+
+      function myfunction6() {
+        var start = performance.now();
+
+        var x = document.getElementById("itemSearch6").value;
+
+        $.ajax({
+          url: "/get-items/" + x,
+          type: "POST",
+          data: "search",
+          success: function(data) {
+            stopTime++;
+            if (stopTime == timeLimit) {
+              clearTimeout(t);
+            }
+            $("#btn7").removeClass("hide_class");
+            $("#loader7").css("visibility", "hidden");
+            var end = performance.now();
+            var time = end - start;
+            document.getElementById("exec_time6").innerHTML = msToTime(time);
+            var modalBody = document.getElementById("modalBody7");
+
+            var modelHtml = updateModal(data);
+            modalBody.innerHTML = modelHtml;
+          },
+          error: function(error) {}
+        });
+      }
+
+      function myfunction7() {
+        var start = performance.now();
+
+        var x = document.getElementById("itemSearch7").value;
+
+        $.ajax({
+          url: "/get-items/" + x,
+          type: "POST",
+          data: "search",
+          success: function(data) {
+            stopTime++;
+            if (stopTime == timeLimit) {
+              clearTimeout(t);
+            }
+            $("#btn8").removeClass("hide_class");
+            $("#loader8").css("visibility", "hidden");
+            var end = performance.now();
+            var time = end - start;
+            document.getElementById("exec_time7").innerHTML = msToTime(time);
+            var modalBody = document.getElementById("modalBody8");
+
+            var modelHtml = updateModal(data);
+            modalBody.innerHTML = modelHtml;
+          },
+          error: function(error) {}
+        });
+      }
+
+      function myfunction8() {
+        var start = performance.now();
+
+        var x = document.getElementById("itemSearch8").value;
+
+        $.ajax({
+          url: "/get-items/" + x,
+          type: "POST",
+          data: "search",
+          success: function(data) {
+            stopTime++;
+            if (stopTime == timeLimit) {
+              clearTimeout(t);
+            }
+            $("#btn9").removeClass("hide_class");
+            $("#loader9").css("visibility", "hidden");
+            var end = performance.now();
+            var time = end - start;
+            document.getElementById("exec_time8").innerHTML = msToTime(time);
+            var modalBody = document.getElementById("modalBody9");
+
+            var modelHtml = updateModal(data);
+            modalBody.innerHTML = modelHtml;
+          },
+          error: function(error) {}
+        });
+      }
+
+
+      function myfunction9() {
+        var start = performance.now();
+
+        var x = document.getElementById("itemSearch9").value;
+
+        $.ajax({
+          url: "/get-items/" + x,
+          type: "POST",
+          data: "search",
+          success: function(data) {
+            stopTime++;
+            if (stopTime == timeLimit) {
+              clearTimeout(t);
+            }
+            $("#btn10").removeClass("hide_class");
+            $("#loader10").css("visibility", "hidden");
+            var end = performance.now();
+            var time = end - start;
+            document.getElementById("exec_time9").innerHTML = msToTime(time);
+            var modalBody = document.getElementById("modalBody10");
+
+            var modelHtml = updateModal(data);
+            modalBody.innerHTML = modelHtml;
+          },
+          error: function(error) {}
+        });
+      }
+      
     </script>
   </body>
 </html>
