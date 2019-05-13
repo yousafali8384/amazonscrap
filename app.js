@@ -143,20 +143,16 @@ const getItems = async url => {
                     .text()
                     .includes("Best Sellers Rank")
             ) {
-                console.log("out")
                 if ($(element).find("#SalesRank").length>0) {
-                    console.log()
-      
-                    console.log("if")
+                 
       
                     arrItems[i].description = $(element)
                         .find("#SalesRank")
                         .text();
                 } else {
-                    console.log("else")
       
                     arrItems[i].description = $(element).text();
-                    console.log($(element).text());
+                   
                 }
             }
         });
@@ -193,7 +189,6 @@ const getAvgP = async items => {
             let newKing = element.description.replace(/\s+/g, " ").trim();
             let newDescription = newKing.substring((newKing.indexOf("#")+1), 40).split(" ")[0];
             bestSell = +newDescription.replace(/,/g, "");
-            console.log(bestSell)
             totalBest += bestSell;
         }
     });
