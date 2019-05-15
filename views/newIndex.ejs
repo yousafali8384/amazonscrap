@@ -15,7 +15,7 @@
   </head>
   <style>
     .modal-body {
-      min-height: 300px
+      min-height: 300px;
     }
     #loader-wrapper {
       margin-top: 100px;
@@ -237,11 +237,11 @@
                 </button>
               </div>
 
-              <div class="modal-body" id="modalBody2"></div>
-            </div>
-
-            <div id="loader-wrapper">
-              <div id="loader"></div>
+              <div class="modal-body" id="modalBody2">
+                <div id="loader-wrapper">
+                  <div id="loader"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -286,11 +286,11 @@
                 </button>
               </div>
 
-              <div class="modal-body" id="modalBody3"></div>
-            </div>
-
-            <div id="loader-wrapper">
-              <div id="loader"></div>
+              <div class="modal-body" id="modalBody3">
+                <div id="loader-wrapper">
+                  <div id="loader"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -335,11 +335,11 @@
                 </button>
               </div>
 
-              <div class="modal-body" id="modalBody4"></div>
-            </div>
-
-            <div id="loader-wrapper">
-              <div id="loader"></div>
+              <div class="modal-body" id="modalBody4">
+                <div id="loader-wrapper">
+                  <div id="loader"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -384,11 +384,11 @@
                 </button>
               </div>
 
-              <div class="modal-body" id="modalBody5"></div>
-            </div>
-
-            <div id="loader-wrapper">
-              <div id="loader"></div>
+              <div class="modal-body" id="modalBody5">
+                <div id="loader-wrapper">
+                  <div id="loader"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -432,11 +432,11 @@
                 </button>
               </div>
 
-              <div class="modal-body" id="modalBody6"></div>
-            </div>
-
-            <div id="loader-wrapper">
-              <div id="loader"></div>
+              <div class="modal-body" id="modalBody6">
+                <div id="loader-wrapper">
+                  <div id="loader"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -481,11 +481,11 @@
                 </button>
               </div>
 
-              <div class="modal-body" id="modalBody7"></div>
-            </div>
-
-            <div id="loader-wrapper">
-              <div id="loader"></div>
+              <div class="modal-body" id="modalBody7">
+                <div id="loader-wrapper">
+                  <div id="loader"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -530,11 +530,11 @@
                 </button>
               </div>
 
-              <div class="modal-body" id="modalBody8"></div>
-            </div>
-
-            <div id="loader-wrapper">
-              <div id="loader"></div>
+              <div class="modal-body" id="modalBody8">
+                <div id="loader-wrapper">
+                  <div id="loader"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -579,11 +579,11 @@
                 </button>
               </div>
 
-              <div class="modal-body" id="modalBody9"></div>
-            </div>
-
-            <div id="loader-wrapper">
-              <div id="loader"></div>
+              <div class="modal-body" id="modalBody9">
+                <div id="loader-wrapper">
+                  <div id="loader"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -628,10 +628,11 @@
                 </button>
               </div>
 
-              <div class="modal-body" id="modalBody10"></div>
-            </div>
-            <div id="loader-wrapper">
-              <div id="loader"></div>
+              <div class="modal-body" id="modalBody10">
+                <div id="loader-wrapper">
+                  <div id="loader"></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -830,7 +831,6 @@
           success: function(data) {
             console.log(data);
             arr2 = data.arrItems;
-
 
             $("#ap2").html(data.itemsAverage.avgPrice);
             $("#ar2").html(data.itemsAverage.avgStar);
@@ -1063,6 +1063,9 @@
       }
 
       function getItems1() {
+        $("#btn1")
+              .prop("onclick", null)
+              .off("click");
         $.ajax({
           url: "/getItems",
           type: "POST",
@@ -1071,7 +1074,7 @@
             var modalBody = document.getElementById("modalBody1");
             var modelHtml = updateModal(data);
             modalBody.innerHTML = modelHtml;
-            $('#btn1').prop("onclick",null).off("click");
+           
             // $("#ap10").html(data.itemsAverage.avgPrice)
             // $("#ar10").html(data.itemsAverage.avgStar)
             // stopTime++;
@@ -1084,6 +1087,9 @@
         });
       }
       function getItems2() {
+        $("#btn2")
+              .prop("onclick", null)
+              .off("click");
         $.ajax({
           url: "/getItems",
           type: "POST",
@@ -1093,7 +1099,7 @@
             var modalBody = document.getElementById("modalBody2");
             var modelHtml = updateModal(data);
             modalBody.innerHTML = modelHtml;
-            $('#btn2').prop("onclick",null).off("click");
+           
 
             // $("#ap10").html(data.itemsAverage.avgPrice)
             // $("#ar10").html(data.itemsAverage.avgStar)
@@ -1116,7 +1122,9 @@
             var modalBody = document.getElementById("modalBody3");
             var modelHtml = updateModal(data);
             modalBody.innerHTML = modelHtml;
-            $('#btn3').prop("onclick",null).off("click");
+            $("#btn3")
+              .prop("onclick", null)
+              .off("click");
 
             // $("#ap10").html(data.itemsAverage.avgPrice)
             // $("#ar10").html(data.itemsAverage.avgStar)
@@ -1130,6 +1138,9 @@
         });
       }
       function getItems4() {
+        $("#btn4")
+              .prop("onclick", null)
+              .off("click");
         $.ajax({
           url: "/getItems",
           type: "POST",
@@ -1139,7 +1150,7 @@
             var modalBody = document.getElementById("modalBody4");
             var modelHtml = updateModal(data);
             modalBody.innerHTML = modelHtml;
-            $('#btn4').prop("onclick",null).off("click");
+           
 
             // $("#ap10").html(data.itemsAverage.avgPrice)
             // $("#ar10").html(data.itemsAverage.avgStar)
@@ -1153,6 +1164,9 @@
         });
       }
       function getItems5() {
+        $("#btn5")
+              .prop("onclick", null)
+              .off("click");
         $.ajax({
           url: "/getItems",
           type: "POST",
@@ -1162,7 +1176,7 @@
             var modalBody = document.getElementById("modalBody5");
             var modelHtml = updateModal(data);
             modalBody.innerHTML = modelHtml;
-            $('#btn5').prop("onclick",null).off("click");
+           
 
             // $("#ap10").html(data.itemsAverage.avgPrice)
             // $("#ar10").html(data.itemsAverage.avgStar)
@@ -1176,6 +1190,9 @@
         });
       }
       function getItems6() {
+        $("#btn6")
+              .prop("onclick", null)
+              .off("click");
         $.ajax({
           url: "/getItems",
           type: "POST",
@@ -1185,7 +1202,7 @@
             var modalBody = document.getElementById("modalBody6");
             var modelHtml = updateModal(data);
             modalBody.innerHTML = modelHtml;
-            $('#btn6').prop("onclick",null).off("click");
+            
 
             // $("#ap10").html(data.itemsAverage.avgPrice)
             // $("#ar10").html(data.itemsAverage.avgStar)
@@ -1199,6 +1216,9 @@
         });
       }
       function getItems7() {
+        $("#btn7")
+              .prop("onclick", null)
+              .off("click");
         $.ajax({
           url: "/getItems",
           type: "POST",
@@ -1208,7 +1228,7 @@
             var modalBody = document.getElementById("modalBody7");
             var modelHtml = updateModal(data);
             modalBody.innerHTML = modelHtml;
-            $('#btn7').prop("onclick",null).off("click");
+           
 
             // $("#ap10").html(data.itemsAverage.avgPrice)
             // $("#ar10").html(data.itemsAverage.avgStar)
@@ -1222,6 +1242,9 @@
         });
       }
       function getItems8() {
+        $("#btn8")
+              .prop("onclick", null)
+              .off("click");
         $.ajax({
           url: "/getItems",
           type: "POST",
@@ -1231,7 +1254,7 @@
             var modalBody = document.getElementById("modalBody8");
             var modelHtml = updateModal(data);
             modalBody.innerHTML = modelHtml;
-            $('#btn8').prop("onclick",null).off("click");
+           
 
             // $("#ap10").html(data.itemsAverage.avgPrice)
             // $("#ar10").html(data.itemsAverage.avgStar)
@@ -1245,6 +1268,9 @@
         });
       }
       function getItems9() {
+        $("#btn9")
+              .prop("onclick", null)
+              .off("click");
         $.ajax({
           url: "/getItems",
           type: "POST",
@@ -1254,7 +1280,7 @@
             var modalBody = document.getElementById("modalBody9");
             var modelHtml = updateModal(data);
             modalBody.innerHTML = modelHtml;
-            $('#btn9').prop("onclick",null).off("click");
+            
 
             // $("#ap10").html(data.itemsAverage.avgPrice)
             // $("#ar10").html(data.itemsAverage.avgStar)
@@ -1268,6 +1294,9 @@
         });
       }
       function getItems10() {
+        $("#btn10")
+              .prop("onclick", null)
+              .off("click");
         $.ajax({
           url: "/getItems",
           type: "POST",
@@ -1277,7 +1306,7 @@
             var modalBody = document.getElementById("modalBody10");
             var modelHtml = updateModal(data);
             modalBody.innerHTML = modelHtml;
-            $('#btn10').prop("onclick",null).off("click");
+            
 
             // $("#ap10").html(data.itemsAverage.avgPrice)
             // $("#ar10").html(data.itemsAverage.avgStar)
