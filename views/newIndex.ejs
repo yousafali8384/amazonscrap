@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </head>
+  <style>
+    .modal-body {
+      min-height: 300px
+    }
+    #loader-wrapper {
+      margin-top: 100px;
+    }
+    #loader {
+      display: block;
+      position: relative;
+      left: 50%;
+      top: 50%;
+      width: 150px;
+      height: 150px;
+      margin: -75px 0 0 -75px;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      border-top-color: #ee0c82;
+      -webkit-animation: spin 2s linear infinite;
+      animation: spin 2s linear infinite;
+    }
+
+    #loader:before {
+      content: "";
+      position: absolute;
+      top: 5px;
+      left: 5px;
+      right: 5px;
+      bottom: 5px;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      border-top-color: #e556a4;
+      -webkit-animation: spin 3s linear infinite;
+      animation: spin 3s linear infinite;
+    }
+
+    #loader:after {
+      content: "";
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      right: 15px;
+      bottom: 15px;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      border-top-color: #d4d5d9;
+      -webkit-animation: spin 1.5s linear infinite;
+      animation: spin 1.5s linear infinite;
+    }
+
+    @-webkit-keyframes spin {
+      0% {
+        -webkit-transform: rotate(0);
+        transform: rotate(0);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    @-moz-keyframes spin {
+      0% {
+        -webkit-transform: rotate(0);
+        transform: rotate(0);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    @-o-keyframes spin {
+      0% {
+        -webkit-transform: rotate(0);
+        transform: rotate(0);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes spin {
+      0% {
+        -webkit-transform: rotate(0);
+        transform: rotate(0);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    .hide_class {
+      visibility: hidden;
+    }
+    .loader {
+      visibility: hidden;
+      border: 16px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 16px solid #3498db;
+      width: 30px;
+      height: 30px;
+      margin-right: 6px;
+      -webkit-animation: spin 2s linear infinite; /* Safari */
+      animation: spin 2s linear infinite;
+    }
+
+    /* Safari */
+    @-webkit-keyframes spin {
+      0% {
+        -webkit-transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div class="col">
+        <h1 style="margin-top:16px; text-align: center">
+          <time>00:00:00</time>
+        </h1>
+        <div class="form-group" style="display: flex; margin-top:16px">
+          <input
+            class="form-control col-sm-3"
+            id="itemSearch"
+            type="text"
+            name="itemSearch"
+            placeholder="Keyword 1"
+            style="margin-right: 2px"
+          />
+
+          <div class="form-group col-sm-3" style="display: flex">
+            <label>Avg Price: &nbsp;</label>
+            <p id="ap1"></p>
+          </div>
+          <div class="form-group col-sm-3" style="display: flex">
+            <label>Avg Ratings: &nbsp;</label>
+            <p id="ar1"></p>
+          </div>
+          <div class="loader" id="loader1" style="margin-left: 8px;"></div>
+          <button
+            id="btn1"
+            class="btn btn-primary col-sm-3 hide_class"
+            style="width: 120px"
+            onclick="getItems1()"
+            data-toggle="modal"
+            data-target="#dataModal"
+          >
+            Show Data
+          </button>
+        </div>
+        <div class="modal" id="dataModal">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Product Details</h4>
+                <button type="button" class="close">
+                  &times;
+                </button>
+              </div>
+
+              <div class="modal-body" id="modalBody1">
+                <div id="loader-wrapper">
+                  <div id="loader"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" style="display: flex; margin-top:16px">
+          <input
+            class="form-control col-sm-3"
+            id="itemSearch1"
+            type="text"
+            name="itemSearch1"
+            placeholder="Keyword 2"
+            style="margin-right: 2px"
+          />
+          <div class="form-group col-sm-3" style="display: flex">
+            <label>Avg Price: &nbsp;</label>
+            <p id="ap2"></p>
+          </div>
+          <div class="form-group col-sm-3" style="display: flex">
+            <label>Avg Ratings: &nbsp;</label>
+            <p id="ar2"></p>
+          </div>
+          <div class="loader" id="loader2" style="margin-left: 8px"></div>
+          <button
+            id="btn2"
+            onclick="getItems2()"
+            class="btn btn-primary col-sm-3 hide_class"
+            style="width: 120px"
+            data-toggle="modal"
+            data-target="#dataModal1"
+          >
+            Show Data
+          </button>
+        </div>
+        <div class="modal" id="dataModal1">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Product Details</h4>
+                <button type="button" class="close">
+                  &times;
+                </button>
+              </div>
+
+              <div class="modal-body" id="modalBody2"></div>
+            </div>
+
+            <div id="loader-wrapper">
+              <div id="loader"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" style="display: flex; margin-top:16px">
+          <input
+            class="form-control col-sm-3"
+            id="itemSearch2"
+            type="text"
+            name="itemSearch2"
+            placeholder="Keyword 3"
+            style="margin-right: 2px"
+          />
+          <div class="form-group col-sm-3" style="display: flex">
+            <label>Avg Price: &nbsp;</label>
+            <p id="ap3"></p>
+          </div>
+          <div class="form-group col-sm-3" style="display: flex">
+            <label>Avg Ratings: &nbsp;</label>
+            <p id="ar3"></p>
+          </div>
+          <div class="loader" id="loader3" style="margin-left: 8px"></div>
+          <button
+            id="btn3"
+            onclick="getItems3()"
+            class="btn btn-primary col-sm-3 hide_class"
+            style="width: 120px"
+            data-toggle="modal"
+            data-target="#dataModal2"
+          >
+            Show Data
+          </button>
+        </div>
+        <div class="modal" id="dataModal2">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Product Details</h4>
+                <button type="button" class="close">
+                  &times;
+                </button>
+              </div>
+
+              <div class="modal-body" id="modalBody3"></div>
+            </div>
+
+            <div id="loader-wrapper">
+              <div id="loader"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" style="display: flex; margin-top:16px">
+          <input
+            class="form-control col-sm-3"
+            id="itemSearch3"
+            type="text"
+            name="itemSearch3"
+            placeholder="Keyword 4"
+            style="margin-right: 2px"
+          />
+          <div class="form-group col-sm-3" style="display: flex">
+            <label>Avg Price: &nbsp;</label>
+            <p id="ap4"></p>
+          </div>
+          <div class="form-group col-sm-3" style="display: flex">
+            <label>Avg Ratings: &nbsp;</label>
+            <p id="ar4"></p>
+          </div>
+          <div class="loader" id="loader4" style="margin-left: 8px"></div>
+          <button
+            id="btn4"
+            onclick="getItems4()"
+            class="btn btn-primary col-sm-3 hide_class"
+            style="width: 120px"
+            data-toggle="modal"
+            data-target="#dataModal3"
+          >
+            Show Data
+          </button>
+        </div>
+        <div class="modal" id="dataModal3">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Product Details</h4>
+                <button type="button" class="close">
+                  &times;
+                </button>
+              </div>
+
+              <div class="modal-body" id="modalBody4"></div>
+            </div>
+
+            <div id="loader-wrapper">
+              <div id="loader"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" style="display: flex; margin-top:16px">
+          <input
+            class="form-control col-sm-3"
+            id="itemSearch4"
+            type="text"
+            name="itemSearch4"
+            placeholder="Keyword 5"
+            style="margin-right: 2px"
+          />
+          <div class="form-group col-sm-3" style="display: flex">
+            <label>Avg Price: &nbsp;</label>
+            <p id="ap5"></p>
+          </div>
+          <div class="form-group col-sm-3" style="display: flex">
+            <label>Avg Ratings: &nbsp;</label>
+            <p id="ar5"></p>
+          </div>
+          <div class="loader" id="loader5" style="margin-left: 8px"></div>
+          <button
+            id="btn5"
+            onclick="getItems5()"
+            class="btn btn-primary col-sm-3 hide_class"
+            style="width: 120px"
+            data-toggle="modal"
+            data-target="#dataModal4"
+          >
+            Show Data
+          </button>
+        </div>
+        <div class="modal" id="dataModal4">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Product Details</h4>
+                <button type="button" class="close">
+                  &times;
+                </button>
+              </div>
+
+              <div class="modal-body" id="modalBody5"></div>
+            </div>
+
+            <div id="loader-wrapper">
+              <div id="loader"></div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group" style="display: flex; margin-top:16px">
+          <input
+            class="form-control col-sm-3"
+            id="itemSearch5"
+            type="text"
+            name="itemSearch5"
+            placeholder="Keyword 6"
+            style="margin-right: 2px"
+          />
+          <div class="form-group col-sm-3" style="display: flex">
+            <label>Avg Price: &nbsp;</label>
+            <p id="ap6"></p>
+          </div>
+          <div class="form-group col-sm-3" style="display: flex">
+            <label>Avg Ratings: &nbsp;</label>
+            <p id="ar6"></p>
+          </div>
+          <div class="loader" id="loader6" style="margin-left: 8px"></div>
+          <button
+            id="btn6"
+            onclick="getItems6()"
+            class="btn btn-primary col-sm-3 hide_class"
+            style="width: 120px"
+            data-toggle="modal"
+            data-target="#dataModal5"
+          >
+            Show Data
+          </button>
+        </div>
+        <div class="modal" id="dataModal5">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Product Details</h4>
+                <button type="button" class="close">
+                  &times;
+                </button>
+              </div>
+
+              <div class="modal-body" id="modalBody6"></div>
+            </div>
+
+            <div id="loader-wrapper">
+              <div id="loader"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" style="display: flex; margin-top:16px">
+          <input
+            class="form-control col-sm-3"
+            id="itemSearch6"
+            type="text"
+            name="itemSearch6"
+            placeholder="Keyword 7"
+            style="margin-right: 2px"
+          />
+          <div class="form-group col-sm-3" style="display: flex">
+            <label>Avg Price: &nbsp;</label>
+            <p id="ap7"></p>
+          </div>
+          <div class="form-group col-sm-3" style="display: flex">
+            <label>Avg Ratings: &nbsp;</label>
+            <p id="ar7"></p>
+          </div>
+          <div class="loader" id="loader7" style="margin-left: 8px;"></div>
+          <button
+            id="btn7"
+            onclick="getItems7()"
+            class="btn btn-primary col-sm-3 hide_class"
+            style="width: 120px"
+            data-toggle="modal"
+            data-target="#dataModal6"
+          >
+            Show Data
+          </button>
+        </div>
+        <div class="modal" id="dataModal6">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Product Details</h4>
+                <button type="button" class="close">
+                  &times;
+                </button>
+              </div>
+
+              <div class="modal-body" id="modalBody7"></div>
+            </div>
+
+            <div id="loader-wrapper">
+              <div id="loader"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" style="display: flex; margin-top:16px">
+          <input
+            class="form-control col-sm-3"
+            id="itemSearch7"
+            type="text"
+            name="itemSearch7"
+            placeholder="Keyword 8"
+            style="margin-right: 2px"
+          />
+          <div class="form-group col-sm-3" style="display: flex">
+            <label>Avg Price: &nbsp;</label>
+            <p id="ap8"></p>
+          </div>
+          <div class="form-group col-sm-3" style="display: flex">
+            <label>Avg Ratings: &nbsp;</label>
+            <p id="ar8"></p>
+          </div>
+          <div class="loader" id="loader8" style="margin-left: 8px;"></div>
+          <button
+            id="btn8"
+            onclick="getItems8()"
+            class="btn btn-primary col-sm-3 hide_class"
+            style="width: 120px"
+            data-toggle="modal"
+            data-target="#dataModal7"
+          >
+            Show Data
+          </button>
+        </div>
+        <div class="modal" id="dataModal7">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Product Details</h4>
+                <button type="button" class="close">
+                  &times;
+                </button>
+              </div>
+
+              <div class="modal-body" id="modalBody8"></div>
+            </div>
+
+            <div id="loader-wrapper">
+              <div id="loader"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" style="display: flex; margin-top:16px">
+          <input
+            class="form-control col-sm-3"
+            id="itemSearch8"
+            type="text"
+            name="itemSearch8"
+            placeholder="Keyword 9"
+            style="margin-right: 2px"
+          />
+          <div class="form-group col-sm-3" style="display: flex">
+            <label>Avg Price: &nbsp;</label>
+            <p id="ap9"></p>
+          </div>
+          <div class="form-group col-sm-3" style="display: flex">
+            <label>Avg Ratings: &nbsp;</label>
+            <p id="ar9"></p>
+          </div>
+          <div class="loader" id="loader9" style="margin-left: 8px;"></div>
+          <button
+            id="btn9"
+            onclick="getItems9()"
+            class="btn btn-primary col-sm-3 hide_class"
+            style="width: 120px"
+            data-toggle="modal"
+            data-target="#dataModal8"
+          >
+            Show Data
+          </button>
+        </div>
+        <div class="modal" id="dataModal8">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Product Details</h4>
+                <button type="button" class="close">
+                  &times;
+                </button>
+              </div>
+
+              <div class="modal-body" id="modalBody9"></div>
+            </div>
+
+            <div id="loader-wrapper">
+              <div id="loader"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" style="display: flex; margin-top:16px">
+          <input
+            class="form-control col-sm-3"
+            id="itemSearch9"
+            type="text"
+            name="itemSearch9"
+            placeholder="Keyword 10"
+            style="margin-right: 2px"
+          />
+          <div class="form-group col-sm-3" style="display: flex">
+            <label>Avg Price: &nbsp;</label>
+            <p id="ap10"></p>
+          </div>
+          <div class="form-group col-sm-3" style="display: flex">
+            <label>Avg Ratings: &nbsp;</label>
+            <p id="ar10"></p>
+          </div>
+          <div class="loader" id="loader10" style="margin-left: 8px;"></div>
+          <button
+            id="btn10"
+            onclick="getItems10()"
+            class="btn btn-primary col-sm-3 hide_class"
+            style="width: 120px"
+            data-toggle="modal"
+            data-target="#dataModal9"
+          >
+            Show Data
+          </button>
+        </div>
+        <div class="modal" id="dataModal9">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">Product Details</h4>
+                <button type="button" class="close">
+                  &times;
+                </button>
+              </div>
+
+              <div class="modal-body" id="modalBody10"></div>
+            </div>
+            <div id="loader-wrapper">
+              <div id="loader"></div>
+            </div>
+          </div>
+        </div>
+
+        <button
+          class="btn btn-danger"
+          onclick="myfunction()"
+          style="margin-bottom: 16px"
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+    <script>
+      let arr1 = [];
+      let arr2 = [];
+      let arr3 = [];
+      let arr4 = [];
+      let arr5 = [];
+      let arr6 = [];
+      let arr7 = [];
+      let arr8 = [];
+      let arr9 = [];
+      let arr10 = [];
+
+      function msToTime(duration) {
+        var milliseconds = parseInt((duration % 1000) / 100),
+          seconds = Math.floor((duration / 1000) % 60),
+          minutes = Math.floor((duration / (1000 * 60)) % 60),
+          hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
+        hours = hours < 10 ? "0" + hours : hours;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
+      }
+
+      function updateModal(data) {
+        var list = "";
+        list += '<div class="card" style="width: 100%;margin: 10px 0px;">';
+
+        list += '<div class="card-body p-0">';
+        list +=
+          "<Strong>Average Price</Strong> &nbsp; $" +
+          data.avgPrice.avgPrice +
+          "&nbsp;&nbsp;&nbsp;";
+        list +=
+          "<Strong>Average Ratings</Strong> &nbsp; " +
+          data.avgPrice.avgStar +
+          " out of 5 stars&nbsp;&nbsp;&nbsp;";
+        list += "<Strong>Average Seller Rank</Strong> &nbsp;";
+        var b = new Number(data.avgPrice.avgBestSell);
+        list += "" + b.toLocaleString() + "";
+        list += "</div>";
+        list += "</div>";
+        data.arrItems.forEach(function(item) {
+          list += '<div class="row">';
+          list += '<div class="col-md-8">';
+          list +=
+            '<div class="card" style="width: 100%; margin: 10px 0px; min-height: 227px">';
+          list += '<div class="card-body p-0">';
+          list +=
+            '<h6 style="padding: 8px; background: #ededed;">Product Details</h6>';
+          list += '<li class="media">';
+          list +=
+            '<a href="' +
+            item.link +
+            '" target="_blank" style="text-decoration: none; color:inherit;">';
+          list +=
+            '<img class="mr-3" src="' +
+            item.image +
+            '" style="padding: 5px;" width="165px" height="165px" alt="Generic placeholder image"></a>';
+          list += '<div class="media-body p-2">';
+          list += '<a class="img-size" href="' + item.link + '">';
+          list += '<h5 class="mt-0 mb-1">' + item.title;
+          list += "</h5>";
+          list += "</a>";
+          list += "<h5>" + item.price + "</h5>";
+          list += "<h6>" + item.rattings + "</h6>" + item.description;
+          list += "</div>";
+          list += " </li>";
+          list += "</div>";
+          list += "</div>";
+          list += "</div>";
+          list += '<div class="col-md-4">';
+          list +=
+            '<div class="card" style="width: 100%; margin: 10px 0px; min-height: 227px">';
+          list +=
+            '<h6 style="padding: 8px;background: #ededed;">Product Seller Rank</h6>';
+          if (item.description != "" && item.description != undefined) {
+            list +=
+              '<span style="padding: 8px;">' + item.description + "</span>";
+          } else {
+            list +=
+              ' <span style="padding: 8px;">No Seller Rank for this item.</span>';
+          }
+          list += "</div>";
+          list += " </div>";
+          list += " </div>";
+        });
+        return list;
+      }
+      var stopTime = 0;
+      var timeLimit = 10;
+      var h1 = document.getElementsByTagName("h1")[0],
+        seconds = 0,
+        minutes = 0,
+        hours = 0,
+        t;
+
+      function add() {
+        seconds++;
+        if (seconds >= 60) {
+          seconds = 0;
+          minutes++;
+          if (minutes >= 60) {
+            minutes = 0;
+            hours++;
+          }
+        }
+
+        h1.textContent =
+          (hours ? (hours > 9 ? hours : "0" + hours) : "00") +
+          ":" +
+          (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") +
+          ":" +
+          (seconds > 9 ? seconds : "0" + seconds);
+
+        timer();
+      }
+      function timer() {
+        t = setTimeout(add, 1000);
+      }
+
+      function myfunction() {
+        timer();
+        $("#loader1").css("visibility", "visible");
+        $("#loader2").css("visibility", "visible");
+        $("#loader3").css("visibility", "visible");
+        $("#loader4").css("visibility", "visible");
+        $("#loader5").css("visibility", "visible");
+        $("#loader6").css("visibility", "visible");
+        $("#loader7").css("visibility", "visible");
+        $("#loader8").css("visibility", "visible");
+        $("#loader9").css("visibility", "visible");
+        $("#loader10").css("visibility", "visible");
+
+        newFun();
+        myfunction1();
+        myfunction2();
+        myfunction3();
+        myfunction4();
+        myfunction5();
+        myfunction6();
+        myfunction7();
+        myfunction8();
+        myfunction9();
+      }
+
+      async function newFun() {
+        var start = performance.now();
+        var x = document.getElementById("itemSearch").value;
+
+        $.ajax({
+          url: "/getLinks/" + x,
+          type: "GET",
+          data: "search",
+          success: function(data) {
+            console.log(data);
+            $("#ap1").html(data.itemsAverage.avgPrice);
+            $("#ar1").html(data.itemsAverage.avgStar);
+            stopTime++;
+            if (stopTime == timeLimit) {
+              clearTimeout(t);
+            }
+            arr1 = data.arrItems;
+            $("#loader1").css("visibility", "hidden");
+            $("#btn1").removeClass("hide_class");
+
+            // myfunction1();
+          },
+          error: function(error) {}
+        });
+      }
+
+      async function myfunction1() {
+        var start = performance.now();
+
+        var x = document.getElementById("itemSearch1").value;
+
+        $.ajax({
+          url: "/getLinks/" + x,
+          type: "GET",
+          data: "search",
+          success: function(data) {
+            console.log(data);
+            arr2 = data.arrItems;
+
+
+            $("#ap2").html(data.itemsAverage.avgPrice);
+            $("#ar2").html(data.itemsAverage.avgStar);
+            stopTime++;
+            if (stopTime == timeLimit) {
+              clearTimeout(t);
+            }
+            $("#loader2").css("visibility", "hidden");
+            $("#btn2").removeClass("hide_class");
+            // myfunction2();
+          },
+          error: function(error) {}
+        });
+      }
+
+      function myfunction2() {
+        var start = performance.now();
+
+        var x = document.getElementById("itemSearch2").value;
+
+        $.ajax({
+          url: "/getLinks/" + x,
+          type: "GET",
+          data: "search",
+          success: function(data) {
+            console.log(data);
+            arr3 = data.arrItems;
+
+            $("#ap3").html(data.itemsAverage.avgPrice);
+            $("#ar3").html(data.itemsAverage.avgStar);
+            stopTime++;
+            if (stopTime == timeLimit) {
+              clearTimeout(t);
+            }
+            $("#loader3").css("visibility", "hidden");
+            $("#btn3").removeClass("hide_class");
+            // myfunction3();
+          },
+          error: function(error) {}
+        });
+      }
+
+      function myfunction3() {
+        var start = performance.now();
+
+        var x = document.getElementById("itemSearch3").value;
+
+        $.ajax({
+          url: "/getLinks/" + x,
+          type: "GET",
+          data: "search",
+          success: function(data) {
+            arr4 = data.arrItems;
+
+            console.log(data);
+
+            $("#ap4").html(data.itemsAverage.avgPrice);
+            $("#ar4").html(data.itemsAverage.avgStar);
+            stopTime++;
+            if (stopTime == timeLimit) {
+              clearTimeout(t);
+            }
+            $("#loader4").css("visibility", "hidden");
+            $("#btn4").removeClass("hide_class");
+            // myfunction4();
+          },
+          error: function(error) {}
+        });
+      }
+      function myfunction4() {
+        var start = performance.now();
+
+        var x = document.getElementById("itemSearch4").value;
+
+        $.ajax({
+          url: "/getLinks/" + x,
+          type: "GET",
+          data: "search",
+          success: function(data) {
+            arr5 = data.arrItems;
+
+            console.log(data);
+
+            $("#ap5").html(data.itemsAverage.avgPrice);
+            $("#ar5").html(data.itemsAverage.avgStar);
+            stopTime++;
+            if (stopTime == timeLimit) {
+              clearTimeout(t);
+            }
+            $("#loader5").css("visibility", "hidden");
+            $("#btn5").removeClass("hide_class");
+            // myfunction5();
+          },
+          error: function(error) {}
+        });
+      }
+
+      function myfunction5() {
+        var start = performance.now();
+
+        var x = document.getElementById("itemSearch5").value;
+
+        $.ajax({
+          url: "/getLinks/" + x,
+          type: "GET",
+          data: "search",
+          success: function(data) {
+            arr6 = data.arrItems;
+
+            console.log(data);
+
+            $("#ap6").html(data.itemsAverage.avgPrice);
+            $("#ar6").html(data.itemsAverage.avgStar);
+            stopTime++;
+            if (stopTime == timeLimit) {
+              clearTimeout(t);
+            }
+            $("#loader6").css("visibility", "hidden");
+            $("#btn6").removeClass("hide_class");
+          },
+          error: function(error) {}
+        });
+      }
+
+      function myfunction6() {
+        var start = performance.now();
+
+        var x = document.getElementById("itemSearch6").value;
+
+        $.ajax({
+          url: "/getLinks/" + x,
+          type: "GET",
+          data: "search",
+          success: function(data) {
+            arr7 = data.arrItems;
+
+            console.log(data);
+
+            $("#ap7").html(data.itemsAverage.avgPrice);
+            $("#ar7").html(data.itemsAverage.avgStar);
+            stopTime++;
+            if (stopTime == timeLimit) {
+              clearTimeout(t);
+            }
+            $("#loader7").css("visibility", "hidden");
+            $("#btn7").removeClass("hide_class");
+          },
+          error: function(error) {}
+        });
+      }
+
+      function myfunction7() {
+        var start = performance.now();
+
+        var x = document.getElementById("itemSearch7").value;
+
+        $.ajax({
+          url: "/getLinks/" + x,
+          type: "GET",
+          data: "search",
+          success: function(data) {
+            arr8 = data.arrItems;
+
+            console.log(data);
+
+            $("#ap8").html(data.itemsAverage.avgPrice);
+            $("#ar8").html(data.itemsAverage.avgStar);
+            stopTime++;
+            if (stopTime == timeLimit) {
+              clearTimeout(t);
+            }
+            $("#loader8").css("visibility", "hidden");
+            $("#btn8").removeClass("hide_class");
+          },
+          error: function(error) {}
+        });
+      }
+
+      function myfunction8() {
+        var start = performance.now();
+
+        var x = document.getElementById("itemSearch8").value;
+
+        $.ajax({
+          url: "/getLinks/" + x,
+          type: "GET",
+          data: "search",
+          success: function(data) {
+            arr9 = data.arrItems;
+
+            $("#ap9").html(data.itemsAverage.avgPrice);
+            $("#ar9").html(data.itemsAverage.avgStar);
+            stopTime++;
+            if (stopTime == timeLimit) {
+              clearTimeout(t);
+            }
+            $("#loader9").css("visibility", "hidden");
+            $("#btn9").removeClass("hide_class");
+            console.log(data);
+          },
+          error: function(error) {}
+        });
+      }
+
+      function myfunction9() {
+        var start = performance.now();
+
+        var x = document.getElementById("itemSearch9").value;
+
+        $.ajax({
+          url: "/getLinks/" + x,
+          type: "GET",
+          data: "search",
+          success: function(data) {
+            arr10 = data.arrItems;
+
+            console.log(data);
+
+            $("#ap10").html(data.itemsAverage.avgPrice);
+            $("#ar10").html(data.itemsAverage.avgStar);
+            stopTime++;
+            if (stopTime == timeLimit) {
+              clearTimeout(t);
+            }
+            $("#loader10").css("visibility", "hidden");
+            $("#btn10").removeClass("hide_class");
+          },
+          error: function(error) {}
+        });
+      }
+
+      function getItems1() {
+        $.ajax({
+          url: "/getItems",
+          type: "POST",
+          data: { items: arr1 },
+          success: function(data) {
+            var modalBody = document.getElementById("modalBody1");
+            var modelHtml = updateModal(data);
+            modalBody.innerHTML = modelHtml;
+            $('#btn1').prop("onclick",null).off("click");
+            // $("#ap10").html(data.itemsAverage.avgPrice)
+            // $("#ar10").html(data.itemsAverage.avgStar)
+            // stopTime++;
+            // if (stopTime == timeLimit) {
+            //   clearTimeout(t);
+            // }
+            // $("#loader10").css("visibility", "hidden");
+          },
+          error: function(error) {}
+        });
+      }
+      function getItems2() {
+        $.ajax({
+          url: "/getItems",
+          type: "POST",
+          data: { items: arr2 },
+          success: function(data) {
+            console.log(data);
+            var modalBody = document.getElementById("modalBody2");
+            var modelHtml = updateModal(data);
+            modalBody.innerHTML = modelHtml;
+            $('#btn2').prop("onclick",null).off("click");
+
+            // $("#ap10").html(data.itemsAverage.avgPrice)
+            // $("#ar10").html(data.itemsAverage.avgStar)
+            // stopTime++;
+            // if (stopTime == timeLimit) {
+            //   clearTimeout(t);
+            // }
+            // $("#loader10").css("visibility", "hidden");
+          },
+          error: function(error) {}
+        });
+      }
+      function getItems3() {
+        $.ajax({
+          url: "/getItems",
+          type: "POST",
+          data: { items: arr3 },
+          success: function(data) {
+            console.log(data);
+            var modalBody = document.getElementById("modalBody3");
+            var modelHtml = updateModal(data);
+            modalBody.innerHTML = modelHtml;
+            $('#btn3').prop("onclick",null).off("click");
+
+            // $("#ap10").html(data.itemsAverage.avgPrice)
+            // $("#ar10").html(data.itemsAverage.avgStar)
+            // stopTime++;
+            // if (stopTime == timeLimit) {
+            //   clearTimeout(t);
+            // }
+            // $("#loader10").css("visibility", "hidden");
+          },
+          error: function(error) {}
+        });
+      }
+      function getItems4() {
+        $.ajax({
+          url: "/getItems",
+          type: "POST",
+          data: { items: arr4 },
+          success: function(data) {
+            console.log(data);
+            var modalBody = document.getElementById("modalBody4");
+            var modelHtml = updateModal(data);
+            modalBody.innerHTML = modelHtml;
+            $('#btn4').prop("onclick",null).off("click");
+
+            // $("#ap10").html(data.itemsAverage.avgPrice)
+            // $("#ar10").html(data.itemsAverage.avgStar)
+            // stopTime++;
+            // if (stopTime == timeLimit) {
+            //   clearTimeout(t);
+            // }
+            // $("#loader10").css("visibility", "hidden");
+          },
+          error: function(error) {}
+        });
+      }
+      function getItems5() {
+        $.ajax({
+          url: "/getItems",
+          type: "POST",
+          data: { items: arr5 },
+          success: function(data) {
+            console.log(data);
+            var modalBody = document.getElementById("modalBody5");
+            var modelHtml = updateModal(data);
+            modalBody.innerHTML = modelHtml;
+            $('#btn5').prop("onclick",null).off("click");
+
+            // $("#ap10").html(data.itemsAverage.avgPrice)
+            // $("#ar10").html(data.itemsAverage.avgStar)
+            // stopTime++;
+            // if (stopTime == timeLimit) {
+            //   clearTimeout(t);
+            // }
+            // $("#loader10").css("visibility", "hidden");
+          },
+          error: function(error) {}
+        });
+      }
+      function getItems6() {
+        $.ajax({
+          url: "/getItems",
+          type: "POST",
+          data: { items: arr6 },
+          success: function(data) {
+            console.log(data);
+            var modalBody = document.getElementById("modalBody6");
+            var modelHtml = updateModal(data);
+            modalBody.innerHTML = modelHtml;
+            $('#btn6').prop("onclick",null).off("click");
+
+            // $("#ap10").html(data.itemsAverage.avgPrice)
+            // $("#ar10").html(data.itemsAverage.avgStar)
+            // stopTime++;
+            // if (stopTime == timeLimit) {
+            //   clearTimeout(t);
+            // }
+            // $("#loader10").css("visibility", "hidden");
+          },
+          error: function(error) {}
+        });
+      }
+      function getItems7() {
+        $.ajax({
+          url: "/getItems",
+          type: "POST",
+          data: { items: arr7 },
+          success: function(data) {
+            console.log(data);
+            var modalBody = document.getElementById("modalBody7");
+            var modelHtml = updateModal(data);
+            modalBody.innerHTML = modelHtml;
+            $('#btn7').prop("onclick",null).off("click");
+
+            // $("#ap10").html(data.itemsAverage.avgPrice)
+            // $("#ar10").html(data.itemsAverage.avgStar)
+            // stopTime++;
+            // if (stopTime == timeLimit) {
+            //   clearTimeout(t);
+            // }
+            // $("#loader10").css("visibility", "hidden");
+          },
+          error: function(error) {}
+        });
+      }
+      function getItems8() {
+        $.ajax({
+          url: "/getItems",
+          type: "POST",
+          data: { items: arr8 },
+          success: function(data) {
+            console.log(data);
+            var modalBody = document.getElementById("modalBody8");
+            var modelHtml = updateModal(data);
+            modalBody.innerHTML = modelHtml;
+            $('#btn8').prop("onclick",null).off("click");
+
+            // $("#ap10").html(data.itemsAverage.avgPrice)
+            // $("#ar10").html(data.itemsAverage.avgStar)
+            // stopTime++;
+            // if (stopTime == timeLimit) {
+            //   clearTimeout(t);
+            // }
+            // $("#loader10").css("visibility", "hidden");
+          },
+          error: function(error) {}
+        });
+      }
+      function getItems9() {
+        $.ajax({
+          url: "/getItems",
+          type: "POST",
+          data: { items: arr9 },
+          success: function(data) {
+            console.log(data);
+            var modalBody = document.getElementById("modalBody9");
+            var modelHtml = updateModal(data);
+            modalBody.innerHTML = modelHtml;
+            $('#btn9').prop("onclick",null).off("click");
+
+            // $("#ap10").html(data.itemsAverage.avgPrice)
+            // $("#ar10").html(data.itemsAverage.avgStar)
+            // stopTime++;
+            // if (stopTime == timeLimit) {
+            //   clearTimeout(t);
+            // }
+            // $("#loader10").css("visibility", "hidden");
+          },
+          error: function(error) {}
+        });
+      }
+      function getItems10() {
+        $.ajax({
+          url: "/getItems",
+          type: "POST",
+          data: { items: arr10 },
+          success: function(data) {
+            console.log(data);
+            var modalBody = document.getElementById("modalBody10");
+            var modelHtml = updateModal(data);
+            modalBody.innerHTML = modelHtml;
+            $('#btn10').prop("onclick",null).off("click");
+
+            // $("#ap10").html(data.itemsAverage.avgPrice)
+            // $("#ar10").html(data.itemsAverage.avgStar)
+            // stopTime++;
+            // if (stopTime == timeLimit) {
+            //   clearTimeout(t);
+            // }
+            // $("#loader10").css("visibility", "hidden");
+          },
+          error: function(error) {}
+        });
+      }
+    </script>
+  </body>
+</html>
