@@ -10,8 +10,14 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="/css/animate.css">
 </head>
 <style>
+  .animated {
+    text-align: center;
+    margin-top: 50px;
+  }
+
   .cssload-thecube {
     width: 73px;
     height: 73px;
@@ -442,6 +448,9 @@
                 <div class="cssload-cube cssload-c4"></div>
                 <div class="cssload-cube cssload-c3"></div>
               </div>
+              <h1 id="txt1" class="animated flipInX">We are gettings things ready for you</h1>
+              <h1 id="txt2" class="animated flipInY" style="display: none">Be Patient!</h1>
+              <h1 id="txt3" class="animated flipInY" style="display: none">You are almost there.</h1>
             </div>
           </div>
         </div>
@@ -482,6 +491,9 @@
                 <div class="cssload-cube cssload-c4"></div>
                 <div class="cssload-cube cssload-c3"></div>
               </div>
+              <h1 id="txt1" class="animated flipInX">We are gettings things ready for you</h1>
+              <h1 id="txt2" class="animated flipInY" style="display: none">Be Patient!</h1>
+              <h1 id="txt3" class="animated flipInY" style="display: none">You are almost there.</h1>
             </div>
           </div>
         </div>
@@ -522,6 +534,9 @@
                 <div class="cssload-cube cssload-c4"></div>
                 <div class="cssload-cube cssload-c3"></div>
               </div>
+              <h1 id="txt1" class="animated flipInX">We are gettings things ready for you</h1>
+              <h1 id="txt2" class="animated flipInY" style="display: none">Be Patient!</h1>
+              <h1 id="txt3" class="animated flipInY" style="display: none">You are almost there.</h1>
             </div>
           </div>
         </div>
@@ -562,6 +577,9 @@
                 <div class="cssload-cube cssload-c4"></div>
                 <div class="cssload-cube cssload-c3"></div>
               </div>
+              <h1 id="txt1" class="animated flipInX">We are gettings things ready for you</h1>
+              <h1 id="txt2" class="animated flipInY" style="display: none">Be Patient!</h1>
+              <h1 id="txt3" class="animated flipInY" style="display: none">You are almost there.</h1>
             </div>
           </div>
         </div>
@@ -602,6 +620,9 @@
                 <div class="cssload-cube cssload-c4"></div>
                 <div class="cssload-cube cssload-c3"></div>
               </div>
+              <h1 id="txt1" class="animated flipInX">We are gettings things ready for you</h1>
+              <h1 id="txt2" class="animated flipInY" style="display: none">Be Patient!</h1>
+              <h1 id="txt3" class="animated flipInY" style="display: none">You are almost there.</h1>
             </div>
           </div>
         </div>
@@ -641,6 +662,9 @@
                 <div class="cssload-cube cssload-c4"></div>
                 <div class="cssload-cube cssload-c3"></div>
               </div>
+              <h1 id="txt1" class="animated flipInX">We are gettings things ready for you</h1>
+              <h1 id="txt2" class="animated flipInY" style="display: none">Be Patient!</h1>
+              <h1 id="txt3" class="animated flipInY" style="display: none">You are almost there.</h1>
             </div>
           </div>
         </div>
@@ -681,6 +705,9 @@
                 <div class="cssload-cube cssload-c4"></div>
                 <div class="cssload-cube cssload-c3"></div>
               </div>
+              <h1 id="txt1" class="animated flipInX">We are gettings things ready for you</h1>
+              <h1 id="txt2" class="animated flipInY" style="display: none">Be Patient!</h1>
+              <h1 id="txt3" class="animated flipInY" style="display: none">You are almost there.</h1>
             </div>
           </div>
         </div>
@@ -721,6 +748,9 @@
                 <div class="cssload-cube cssload-c4"></div>
                 <div class="cssload-cube cssload-c3"></div>
               </div>
+              <h1 id="txt1" class="animated flipInX">We are gettings things ready for you</h1>
+              <h1 id="txt2" class="animated flipInY" style="display: none">Be Patient!</h1>
+              <h1 id="txt3" class="animated flipInY" style="display: none">You are almost there.</h1>
             </div>
           </div>
         </div>
@@ -761,6 +791,9 @@
                 <div class="cssload-cube cssload-c4"></div>
                 <div class="cssload-cube cssload-c3"></div>
               </div>
+              <h1 id="txt1" class="animated flipInX">We are gettings things ready for you</h1>
+              <h1 id="txt2" class="animated flipInY" style="display: none">Be Patient!</h1>
+              <h1 id="txt3" class="animated flipInY" style="display: none">You are almost there.</h1>
             </div>
           </div>
         </div>
@@ -801,6 +834,9 @@
                 <div class="cssload-cube cssload-c4"></div>
                 <div class="cssload-cube cssload-c3"></div>
               </div>
+              <h1 id="txt1" class="animated flipInX">We are gettings things ready for you</h1>
+              <h1 id="txt2" class="animated flipInY" style="display: none">Be Patient!</h1>
+              <h1 id="txt3" class="animated flipInY" style="display: none">You are almost there.</h1>
             </div>
           </div>
         </div>
@@ -988,8 +1024,10 @@
           stopTime++;
           if (stopTime == timeLimit) {
             clearTimeout(t);
-            $("#tap").html(tap/10);
-            $("#tar").html(tar/10);
+            tap = (tap / 10).toFixed(2);
+            tar = (tar / 10).toFixed(2);
+            $("#tap").html(tap);
+            $("#tar").html(tar);
           }
           arr1 = data.arrItems;
           $("#loader1").css("visibility", "hidden");
@@ -1021,8 +1059,10 @@
           stopTime++;
           if (stopTime == timeLimit) {
             clearTimeout(t);
-            $("#tap").html(tap/10);
-            $("#tar").html(tar/10);
+            tap = (tap / 10).toFixed(2);
+            tar = (tar / 10).toFixed(2);
+            $("#tap").html(tap);
+            $("#tar").html(tar);
           }
           $("#loader2").css("visibility", "hidden");
           $("#btn2").removeClass("hide_class");
@@ -1052,8 +1092,10 @@
           stopTime++;
           if (stopTime == timeLimit) {
             clearTimeout(t);
-            $("#tap").html(tap/10);
-            $("#tar").html(tar/10);
+            tap = (tap / 10).toFixed(2);
+            tar = (tar / 10).toFixed(2);
+            $("#tap").html(tap);
+            $("#tar").html(tar);
           }
           $("#loader3").css("visibility", "hidden");
           $("#btn3").removeClass("hide_class");
@@ -1084,8 +1126,10 @@
           stopTime++;
           if (stopTime == timeLimit) {
             clearTimeout(t);
-            $("#tap").html(tap/10);
-            $("#tar").html(tar/10);
+            tap = (tap / 10).toFixed(2);
+            tar = (tar / 10).toFixed(2);
+            $("#tap").html(tap);
+            $("#tar").html(tar);
           }
           $("#loader4").css("visibility", "hidden");
           $("#btn4").removeClass("hide_class");
@@ -1115,8 +1159,10 @@
           stopTime++;
           if (stopTime == timeLimit) {
             clearTimeout(t);
-            $("#tap").html(tap/10);
-            $("#tar").html(tar/10);
+            tap = (tap / 10).toFixed(2);
+            tar = (tar / 10).toFixed(2);
+            $("#tap").html(tap);
+            $("#tar").html(tar);
           }
           $("#loader5").css("visibility", "hidden");
           $("#btn5").removeClass("hide_class");
@@ -1147,8 +1193,10 @@
           stopTime++;
           if (stopTime == timeLimit) {
             clearTimeout(t);
-            $("#tap").html(tap/10);
-            $("#tar").html(tar/10);
+            tap = (tap / 10).toFixed(2);
+            tar = (tar / 10).toFixed(2);
+            $("#tap").html(tap);
+            $("#tar").html(tar);
           }
           $("#loader6").css("visibility", "hidden");
           $("#btn6").removeClass("hide_class");
@@ -1178,8 +1226,10 @@
           stopTime++;
           if (stopTime == timeLimit) {
             clearTimeout(t);
-            $("#tap").html(tap/10);
-            $("#tar").html(tar/10);
+            tap = (tap / 10).toFixed(2);
+            tar = (tar / 10).toFixed(2);
+            $("#tap").html(tap);
+            $("#tar").html(tar);
           }
           $("#loader7").css("visibility", "hidden");
           $("#btn7").removeClass("hide_class");
@@ -1209,8 +1259,10 @@
           stopTime++;
           if (stopTime == timeLimit) {
             clearTimeout(t);
-            $("#tap").html(tap/10);
-            $("#tar").html(tar/10);
+            tap = (tap / 10).toFixed(2);
+            tar = (tar / 10).toFixed(2);
+            $("#tap").html(tap);
+            $("#tar").html(tar);
           }
           $("#loader8").css("visibility", "hidden");
           $("#btn8").removeClass("hide_class");
@@ -1238,8 +1290,10 @@
           stopTime++;
           if (stopTime == timeLimit) {
             clearTimeout(t);
-            $("#tap").html(tap/10);
-            $("#tar").html(tar/10);
+            tap = (tap / 10).toFixed(2);
+            tar = (tar / 10).toFixed(2);
+            $("#tap").html(tap);
+            $("#tar").html(tar);
           }
           $("#loader9").css("visibility", "hidden");
           $("#btn9").removeClass("hide_class");
@@ -1270,8 +1324,10 @@
           stopTime++;
           if (stopTime == timeLimit) {
             clearTimeout(t);
-            $("#tap").html(tap/10);
-            $("#tar").html(tar/10);
+            tap = (tap / 10).toFixed(2);
+            tar = (tar / 10).toFixed(2);
+            $("#tap").html(tap);
+            $("#tar").html(tar);
           }
           $("#loader10").css("visibility", "hidden");
           $("#btn10").removeClass("hide_class");
@@ -1298,8 +1354,7 @@
           // stopTime++;
           // if (stopTime == timeLimit) {
           //   clearTimeout(t);
-          $("#tap").html(tap/10);
-          $("#tar").html(tar/10);
+          
           // }
           // $("#loader10").css("visibility", "hidden");
         },
@@ -1326,8 +1381,7 @@
           // stopTime++;
           // if (stopTime == timeLimit) {
           //   clearTimeout(t);
-          $("#tap").html(tap/10);
-          $("#tar").html(tar/10);
+          
           // }
           // $("#loader10").css("visibility", "hidden");
         },
@@ -1353,8 +1407,7 @@
           // stopTime++;
           // if (stopTime == timeLimit) {
           //   clearTimeout(t);
-          $("#tap").html(tap/10);
-          $("#tar").html(tar/10);
+          
           // }
           // $("#loader10").css("visibility", "hidden");
         },
@@ -1381,8 +1434,7 @@
           // stopTime++;
           // if (stopTime == timeLimit) {
           //   clearTimeout(t);
-          $("#tap").html(tap/10);
-          $("#tar").html(tar/10);
+          
           // }
           // $("#loader10").css("visibility", "hidden");
         },
@@ -1409,8 +1461,7 @@
           // stopTime++;
           // if (stopTime == timeLimit) {
           //   clearTimeout(t);
-          $("#tap").html(tap/10);
-          $("#tar").html(tar/10);
+          
           // }
           // $("#loader10").css("visibility", "hidden");
         },
@@ -1437,8 +1488,7 @@
           // stopTime++;
           // if (stopTime == timeLimit) {
           //   clearTimeout(t);
-          $("#tap").html(tap/10);
-          $("#tar").html(tar/10);
+          
           // }
           // $("#loader10").css("visibility", "hidden");
         },
@@ -1465,8 +1515,7 @@
           // stopTime++;
           // if (stopTime == timeLimit) {
           //   clearTimeout(t);
-          $("#tap").html(tap/10);
-          $("#tar").html(tar/10);
+          
           // }
           // $("#loader10").css("visibility", "hidden");
         },
@@ -1493,8 +1542,7 @@
           // stopTime++;
           // if (stopTime == timeLimit) {
           //   clearTimeout(t);
-          $("#tap").html(tap/10);
-          $("#tar").html(tar/10);
+          
           // }
           // $("#loader10").css("visibility", "hidden");
         },
@@ -1521,8 +1569,7 @@
           // stopTime++;
           // if (stopTime == timeLimit) {
           //   clearTimeout(t);
-          $("#tap").html(tap/10);
-          $("#tar").html(tar/10);
+          
           // }
           // $("#loader10").css("visibility", "hidden");
         },
@@ -1549,8 +1596,7 @@
           // stopTime++;
           // if (stopTime == timeLimit) {
           //   clearTimeout(t);
-          $("#tap").html(tap/10);
-          $("#tar").html(tar/10);
+          
           // }
           // $("#loader10").css("visibility", "hidden");
         },
@@ -1558,8 +1604,32 @@
       });
     }
   </script>
-  <script>
 
+  <!-- animation of text is loader -->
+  <script>
+    var counter = 0;
+    window.setInterval(function () {
+      ranodmMsg()
+    }, 3000);
+    function ranodmMsg() {
+      counter++;
+      if (counter == 1) {
+        $("#txt1").show()
+        $("#txt2").hide()
+        $("#txt3").hide()
+      } else
+        if (counter == 2) {
+          $("#txt1").hide()
+          $("#txt2").show()
+          $("#txt3").hide()
+        } else
+          if (counter == 3) {
+            $("#txt1").hide()
+            $("#txt2").hide()
+            $("#txt3").show()
+            counter = 0;
+          }
+    }
   </script>
 </body>
 
