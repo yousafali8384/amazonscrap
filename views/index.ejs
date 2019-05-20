@@ -606,6 +606,34 @@
         });
       }
 
+      async function newFun1(i) {
+        var start = performance.now();
+        var x = document.getElementById("itemSearch"+i).value;
+
+        $.ajax({
+          url: "http://199.201.110.211/get-items/" + x,
+          type: "POST",
+          data: "search",
+          success: function(data) {
+            stopTime++;
+            if (stopTime == timeLimit) {
+              clearTimeout(t);
+            }
+            $("#btn"+(i+1)).removeClass("hide_class");
+            $("#loader"+(i+1)).css("visibility", "hidden");
+            var end = performance.now();
+            var time = end - start;
+            document.getElementById("exec_time").innerHTML = msToTime(time);
+            var modalBody = document.getElementById("modalBody"+(i+1));
+
+            var modelHtml = updateModal(data);
+            modalBody.innerHTML = modelHtml;
+            // myfunction1();
+          },
+          error: function(error) {}
+        });
+      }
+
       // async function myfunction1() {
       //   var start = performance.now();
 
