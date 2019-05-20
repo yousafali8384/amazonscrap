@@ -179,7 +179,7 @@ const getAvgP = async items => {
                 totalPrice += a;             
             }
         }
-
+console.log(element.rattings)
         if (element.rattings != undefined) {
             count++;
             star = +element.rattings.substring(0, 3);

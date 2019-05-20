@@ -56,7 +56,7 @@
         <div class="form-group" style="display: flex; margin-top:16px">
           <input
             class="form-control col-sm-4"
-            id="itemSearch"
+            id="itemSearch0"
             type="text"
             name="itemSearch"
             placeholder="Keyword 1"
@@ -561,22 +561,26 @@
         $("#btn9").addClass("hide_class");
         $("#btn10").addClass("hide_class");
 
+        for(let i=0;i<10;i++){
+          newFun(i);
 
-        newFun();
-        myfunction1();
-        myfunction2();
-        myfunction3();
-        myfunction4();
-        myfunction5();
-        myfunction6();
-        myfunction7();
-        myfunction8();
-        myfunction9();
+        }
+
+        // newFun();
+        // myfunction1();
+        // myfunction2();
+        // myfunction3();
+        // myfunction4();
+        // myfunction5();
+        // myfunction6();
+        // myfunction7();
+        // myfunction8();
+        // myfunction9();
       }
 
-      async function newFun() {
+      async function newFun(i) {
         var start = performance.now();
-        var x = document.getElementById("itemSearch").value;
+        var x = document.getElementById("itemSearch"+i).value;
 
         $.ajax({
           url: "/get-items/" + x,
@@ -587,12 +591,12 @@
             if (stopTime == timeLimit) {
               clearTimeout(t);
             }
-            $("#btn1").removeClass("hide_class");
-            $("#loader1").css("visibility", "hidden");
+            $("#btn"+(i+1)).removeClass("hide_class");
+            $("#loader"+(i+1)).css("visibility", "hidden");
             var end = performance.now();
             var time = end - start;
             document.getElementById("exec_time").innerHTML = msToTime(time);
-            var modalBody = document.getElementById("modalBody1");
+            var modalBody = document.getElementById("modalBody"+(i+1));
 
             var modelHtml = updateModal(data);
             modalBody.innerHTML = modelHtml;
@@ -602,265 +606,265 @@
         });
       }
 
-      async function myfunction1() {
-        var start = performance.now();
+      // async function myfunction1() {
+      //   var start = performance.now();
 
-        var x = document.getElementById("itemSearch1").value;
+      //   var x = document.getElementById("itemSearch1").value;
 
-        $.ajax({
-          url: "/get-items/" + x,
-          type: "POST",
-          data: "search",
-          success: function(data) {
-            stopTime++;
-            if (stopTime == timeLimit) {
-              clearTimeout(t);
-            }
-            $("#btn2").removeClass("hide_class");
-            $("#loader2").css("visibility", "hidden");
-            var end = performance.now();
-            var time = end - start;
-            document.getElementById("exec_time1").innerHTML = msToTime(time);
-            var modalBody = document.getElementById("modalBody2");
+      //   $.ajax({
+      //     url: "/get-items/" + x,
+      //     type: "POST",
+      //     data: "search",
+      //     success: function(data) {
+      //       stopTime++;
+      //       if (stopTime == timeLimit) {
+      //         clearTimeout(t);
+      //       }
+      //       $("#btn2").removeClass("hide_class");
+      //       $("#loader2").css("visibility", "hidden");
+      //       var end = performance.now();
+      //       var time = end - start;
+      //       document.getElementById("exec_time1").innerHTML = msToTime(time);
+      //       var modalBody = document.getElementById("modalBody2");
 
-            var modelHtml = updateModal(data);
-            modalBody.innerHTML = modelHtml;
+      //       var modelHtml = updateModal(data);
+      //       modalBody.innerHTML = modelHtml;
 
-            // myfunction2();
-          },
-          error: function(error) {}
-        });
-      }
+      //       // myfunction2();
+      //     },
+      //     error: function(error) {}
+      //   });
+      // }
 
-      function myfunction2() {
-        var start = performance.now();
+      // function myfunction2() {
+      //   var start = performance.now();
 
-        var x = document.getElementById("itemSearch2").value;
+      //   var x = document.getElementById("itemSearch2").value;
 
-        $.ajax({
-          url: "/get-items/" + x,
-          type: "POST",
-          data: "search",
-          success: function(data) {
-            stopTime++;
-            if (stopTime == timeLimit) {
-              clearTimeout(t);
-            }
-            $("#btn3").removeClass("hide_class");
-            $("#loader3").css("visibility", "hidden");
-            var end = performance.now();
-            var time = end - start;
-            document.getElementById("exec_time2").innerHTML = msToTime(time);
-            var modalBody = document.getElementById("modalBody3");
+      //   $.ajax({
+      //     url: "/get-items/" + x,
+      //     type: "POST",
+      //     data: "search",
+      //     success: function(data) {
+      //       stopTime++;
+      //       if (stopTime == timeLimit) {
+      //         clearTimeout(t);
+      //       }
+      //       $("#btn3").removeClass("hide_class");
+      //       $("#loader3").css("visibility", "hidden");
+      //       var end = performance.now();
+      //       var time = end - start;
+      //       document.getElementById("exec_time2").innerHTML = msToTime(time);
+      //       var modalBody = document.getElementById("modalBody3");
 
-            var modelHtml = updateModal(data);
-            modalBody.innerHTML = modelHtml;
+      //       var modelHtml = updateModal(data);
+      //       modalBody.innerHTML = modelHtml;
 
-            // myfunction3();
-          },
-          error: function(error) {}
-        });
-      }
+      //       // myfunction3();
+      //     },
+      //     error: function(error) {}
+      //   });
+      // }
 
-      function myfunction3() {
-        var start = performance.now();
+      // function myfunction3() {
+      //   var start = performance.now();
 
-        var x = document.getElementById("itemSearch3").value;
+      //   var x = document.getElementById("itemSearch3").value;
 
-        $.ajax({
-          url: "/get-items/" + x,
-          type: "POST",
-          data: "search",
-          success: function(data) {
-            stopTime++;
-            if (stopTime == timeLimit) {
-              clearTimeout(t);
-            }
-            $("#btn4").removeClass("hide_class");
-            $("#loader4").css("visibility", "hidden");
-            var end = performance.now();
-            var time = end - start;
-            document.getElementById("exec_time3").innerHTML = msToTime(time);
-            var modalBody = document.getElementById("modalBody4");
+      //   $.ajax({
+      //     url: "/get-items/" + x,
+      //     type: "POST",
+      //     data: "search",
+      //     success: function(data) {
+      //       stopTime++;
+      //       if (stopTime == timeLimit) {
+      //         clearTimeout(t);
+      //       }
+      //       $("#btn4").removeClass("hide_class");
+      //       $("#loader4").css("visibility", "hidden");
+      //       var end = performance.now();
+      //       var time = end - start;
+      //       document.getElementById("exec_time3").innerHTML = msToTime(time);
+      //       var modalBody = document.getElementById("modalBody4");
 
-            var modelHtml = updateModal(data);
-            modalBody.innerHTML = modelHtml;
+      //       var modelHtml = updateModal(data);
+      //       modalBody.innerHTML = modelHtml;
 
-            // myfunction4();
-          },
-          error: function(error) {}
-        });
-      }
-      function myfunction4() {
-        var start = performance.now();
+      //       // myfunction4();
+      //     },
+      //     error: function(error) {}
+      //   });
+      // }
+      // function myfunction4() {
+      //   var start = performance.now();
 
-        var x = document.getElementById("itemSearch4").value;
+      //   var x = document.getElementById("itemSearch4").value;
 
-        $.ajax({
-          url: "/get-items/" + x,
-          type: "POST",
-          data: "search",
-          success: function(data) {
-            stopTime++;
-            if (stopTime == timeLimit) {
-              clearTimeout(t);
-            }
-            $("#btn5").removeClass("hide_class");
-            $("#loader5").css("visibility", "hidden");
-            var end = performance.now();
-            var time = end - start;
-            document.getElementById("exec_time4").innerHTML = msToTime(time);
-            var modalBody = document.getElementById("modalBody5");
+      //   $.ajax({
+      //     url: "/get-items/" + x,
+      //     type: "POST",
+      //     data: "search",
+      //     success: function(data) {
+      //       stopTime++;
+      //       if (stopTime == timeLimit) {
+      //         clearTimeout(t);
+      //       }
+      //       $("#btn5").removeClass("hide_class");
+      //       $("#loader5").css("visibility", "hidden");
+      //       var end = performance.now();
+      //       var time = end - start;
+      //       document.getElementById("exec_time4").innerHTML = msToTime(time);
+      //       var modalBody = document.getElementById("modalBody5");
 
-            var modelHtml = updateModal(data);
-            modalBody.innerHTML = modelHtml;
+      //       var modelHtml = updateModal(data);
+      //       modalBody.innerHTML = modelHtml;
 
-            // myfunction5();
-          },
-          error: function(error) {}
-        });
-      }
+      //       // myfunction5();
+      //     },
+      //     error: function(error) {}
+      //   });
+      // }
 
-      function myfunction5() {
-        var start = performance.now();
+      // function myfunction5() {
+      //   var start = performance.now();
 
-        var x = document.getElementById("itemSearch5").value;
+      //   var x = document.getElementById("itemSearch5").value;
 
-        $.ajax({
-          url: "/get-items/" + x,
-          type: "POST",
-          data: "search",
-          success: function(data) {
-            stopTime++;
-            if (stopTime == timeLimit) {
-              clearTimeout(t);
-            }
-            $("#btn6").removeClass("hide_class");
-            $("#loader6").css("visibility", "hidden");
-            var end = performance.now();
-            var time = end - start;
-            document.getElementById("exec_time5").innerHTML = msToTime(time);
-            var modalBody = document.getElementById("modalBody6");
+      //   $.ajax({
+      //     url: "/get-items/" + x,
+      //     type: "POST",
+      //     data: "search",
+      //     success: function(data) {
+      //       stopTime++;
+      //       if (stopTime == timeLimit) {
+      //         clearTimeout(t);
+      //       }
+      //       $("#btn6").removeClass("hide_class");
+      //       $("#loader6").css("visibility", "hidden");
+      //       var end = performance.now();
+      //       var time = end - start;
+      //       document.getElementById("exec_time5").innerHTML = msToTime(time);
+      //       var modalBody = document.getElementById("modalBody6");
 
-            var modelHtml = updateModal(data);
-            modalBody.innerHTML = modelHtml;
-          },
-          error: function(error) {}
-        });
-      }
+      //       var modelHtml = updateModal(data);
+      //       modalBody.innerHTML = modelHtml;
+      //     },
+      //     error: function(error) {}
+      //   });
+      // }
 
-      function myfunction6() {
-        var start = performance.now();
+      // function myfunction6() {
+      //   var start = performance.now();
 
-        var x = document.getElementById("itemSearch6").value;
+      //   var x = document.getElementById("itemSearch6").value;
 
-        $.ajax({
-          url: "/get-items/" + x,
-          type: "POST",
-          data: "search",
-          success: function(data) {
-            stopTime++;
-            if (stopTime == timeLimit) {
-              clearTimeout(t);
-            }
-            $("#btn7").removeClass("hide_class");
-            $("#loader7").css("visibility", "hidden");
-            var end = performance.now();
-            var time = end - start;
-            document.getElementById("exec_time6").innerHTML = msToTime(time);
-            var modalBody = document.getElementById("modalBody7");
+      //   $.ajax({
+      //     url: "/get-items/" + x,
+      //     type: "POST",
+      //     data: "search",
+      //     success: function(data) {
+      //       stopTime++;
+      //       if (stopTime == timeLimit) {
+      //         clearTimeout(t);
+      //       }
+      //       $("#btn7").removeClass("hide_class");
+      //       $("#loader7").css("visibility", "hidden");
+      //       var end = performance.now();
+      //       var time = end - start;
+      //       document.getElementById("exec_time6").innerHTML = msToTime(time);
+      //       var modalBody = document.getElementById("modalBody7");
 
-            var modelHtml = updateModal(data);
-            modalBody.innerHTML = modelHtml;
-          },
-          error: function(error) {}
-        });
-      }
+      //       var modelHtml = updateModal(data);
+      //       modalBody.innerHTML = modelHtml;
+      //     },
+      //     error: function(error) {}
+      //   });
+      // }
 
-      function myfunction7() {
-        var start = performance.now();
+      // function myfunction7() {
+      //   var start = performance.now();
 
-        var x = document.getElementById("itemSearch7").value;
+      //   var x = document.getElementById("itemSearch7").value;
 
-        $.ajax({
-          url: "/get-items/" + x,
-          type: "POST",
-          data: "search",
-          success: function(data) {
-            stopTime++;
-            if (stopTime == timeLimit) {
-              clearTimeout(t);
-            }
-            $("#btn8").removeClass("hide_class");
-            $("#loader8").css("visibility", "hidden");
-            var end = performance.now();
-            var time = end - start;
-            document.getElementById("exec_time7").innerHTML = msToTime(time);
-            var modalBody = document.getElementById("modalBody8");
+      //   $.ajax({
+      //     url: "/get-items/" + x,
+      //     type: "POST",
+      //     data: "search",
+      //     success: function(data) {
+      //       stopTime++;
+      //       if (stopTime == timeLimit) {
+      //         clearTimeout(t);
+      //       }
+      //       $("#btn8").removeClass("hide_class");
+      //       $("#loader8").css("visibility", "hidden");
+      //       var end = performance.now();
+      //       var time = end - start;
+      //       document.getElementById("exec_time7").innerHTML = msToTime(time);
+      //       var modalBody = document.getElementById("modalBody8");
 
-            var modelHtml = updateModal(data);
-            modalBody.innerHTML = modelHtml;
-          },
-          error: function(error) {}
-        });
-      }
+      //       var modelHtml = updateModal(data);
+      //       modalBody.innerHTML = modelHtml;
+      //     },
+      //     error: function(error) {}
+      //   });
+      // }
 
-      function myfunction8() {
-        var start = performance.now();
+      // function myfunction8() {
+      //   var start = performance.now();
 
-        var x = document.getElementById("itemSearch8").value;
+      //   var x = document.getElementById("itemSearch8").value;
 
-        $.ajax({
-          url: "/get-items/" + x,
-          type: "POST",
-          data: "search",
-          success: function(data) {
-            stopTime++;
-            if (stopTime == timeLimit) {
-              clearTimeout(t);
-            }
-            $("#btn9").removeClass("hide_class");
-            $("#loader9").css("visibility", "hidden");
-            var end = performance.now();
-            var time = end - start;
-            document.getElementById("exec_time8").innerHTML = msToTime(time);
-            var modalBody = document.getElementById("modalBody9");
+      //   $.ajax({
+      //     url: "/get-items/" + x,
+      //     type: "POST",
+      //     data: "search",
+      //     success: function(data) {
+      //       stopTime++;
+      //       if (stopTime == timeLimit) {
+      //         clearTimeout(t);
+      //       }
+      //       $("#btn9").removeClass("hide_class");
+      //       $("#loader9").css("visibility", "hidden");
+      //       var end = performance.now();
+      //       var time = end - start;
+      //       document.getElementById("exec_time8").innerHTML = msToTime(time);
+      //       var modalBody = document.getElementById("modalBody9");
 
-            var modelHtml = updateModal(data);
-            modalBody.innerHTML = modelHtml;
-          },
-          error: function(error) {}
-        });
-      }
+      //       var modelHtml = updateModal(data);
+      //       modalBody.innerHTML = modelHtml;
+      //     },
+      //     error: function(error) {}
+      //   });
+      // }
 
 
-      function myfunction9() {
-        var start = performance.now();
+      // function myfunction9() {
+      //   var start = performance.now();
 
-        var x = document.getElementById("itemSearch9").value;
+      //   var x = document.getElementById("itemSearch9").value;
 
-        $.ajax({
-          url: "/get-items/" + x,
-          type: "POST",
-          data: "search",
-          success: function(data) {
-            stopTime++;
-            if (stopTime == timeLimit) {
-              clearTimeout(t);
-            }
-            $("#btn10").removeClass("hide_class");
-            $("#loader10").css("visibility", "hidden");
-            var end = performance.now();
-            var time = end - start;
-            document.getElementById("exec_time9").innerHTML = msToTime(time);
-            var modalBody = document.getElementById("modalBody10");
+      //   $.ajax({
+      //     url: "/get-items/" + x,
+      //     type: "POST",
+      //     data: "search",
+      //     success: function(data) {
+      //       stopTime++;
+      //       if (stopTime == timeLimit) {
+      //         clearTimeout(t);
+      //       }
+      //       $("#btn10").removeClass("hide_class");
+      //       $("#loader10").css("visibility", "hidden");
+      //       var end = performance.now();
+      //       var time = end - start;
+      //       document.getElementById("exec_time9").innerHTML = msToTime(time);
+      //       var modalBody = document.getElementById("modalBody10");
 
-            var modelHtml = updateModal(data);
-            modalBody.innerHTML = modelHtml;
-          },
-          error: function(error) {}
-        });
-      }
+      //       var modelHtml = updateModal(data);
+      //       modalBody.innerHTML = modelHtml;
+      //     },
+      //     error: function(error) {}
+      //   });
+      // }
       
     </script>
   </body>
