@@ -908,33 +908,18 @@
 
       function myfunction() {
         timer();
-        $("#loader1").css("visibility", "visible");
-        $("#loader2").css("visibility", "visible");
-        $("#loader3").css("visibility", "visible");
-        $("#loader4").css("visibility", "visible");
-        $("#loader5").css("visibility", "visible");
-        $("#loader6").css("visibility", "visible");
-        $("#loader7").css("visibility", "visible");
-        $("#loader8").css("visibility", "visible");
-        $("#loader9").css("visibility", "visible");
-        $("#loader10").css("visibility", "visible");
-
-        $("#btn1").addClass("hide_class");
-        $("#btn2").addClass("hide_class");
-        $("#btn3").addClass("hide_class");
-        $("#btn4").addClass("hide_class");
-        $("#btn5").addClass("hide_class");
-        $("#btn6").addClass("hide_class");
-        $("#btn7").addClass("hide_class");
-        $("#btn8").addClass("hide_class");
-        $("#btn9").addClass("hide_class");
-        $("#btn10").addClass("hide_class");
-
+        for(let i=1;i<=20;i++){
+          $("#loader"+i).css("visibility", "visible");
+          $("#btn"+i).addClass("hide_class");
+        }
+        
         for(let i=0;i<10;i++){
           newFun(i);
 
         }
-
+        for(let i=10;i<20;i++){
+          newFun1(i)
+        }
         // newFun();
         // myfunction1();
         // myfunction2();
