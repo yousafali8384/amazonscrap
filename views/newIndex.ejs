@@ -1,1324 +1,1636 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  </head>
-  <style>
-    .modal-body {
-      min-height: 300px;
-    }
-    #loader-wrapper {
-      margin-top: 100px;
-    }
-    #loader {
-      display: block;
-      position: relative;
-      left: 50%;
-      top: 50%;
-      width: 150px;
-      height: 150px;
-      margin: -75px 0 0 -75px;
-      border-radius: 50%;
-      border: 3px solid transparent;
-      border-top-color: #ee0c82;
-      -webkit-animation: spin 2s linear infinite;
-      animation: spin 2s linear infinite;
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="/css/animate.css">
+</head>
+<style>
+  .animated {
+    text-align: center;
+    margin-top: 50px;
+  }
+
+  .cssload-thecube {
+    width: 73px;
+    height: 73px;
+    margin: 0 auto;
+    margin-top: 49px;
+    position: relative;
+    transform: rotateZ(45deg);
+    -o-transform: rotateZ(45deg);
+    -ms-transform: rotateZ(45deg);
+    -webkit-transform: rotateZ(45deg);
+    -moz-transform: rotateZ(45deg);
+  }
+
+  .cssload-thecube .cssload-cube {
+    position: relative;
+    transform: rotateZ(45deg);
+    -o-transform: rotateZ(45deg);
+    -ms-transform: rotateZ(45deg);
+    -webkit-transform: rotateZ(45deg);
+    -moz-transform: rotateZ(45deg);
+  }
+
+  .cssload-thecube .cssload-cube {
+    float: left;
+    width: 50%;
+    height: 50%;
+    position: relative;
+    transform: scale(1.1);
+    -o-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+  }
+
+  .cssload-thecube .cssload-cube:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(43, 160, 199);
+    animation: cssload-fold-thecube 2.76s infinite linear both;
+    -o-animation: cssload-fold-thecube 2.76s infinite linear both;
+    -ms-animation: cssload-fold-thecube 2.76s infinite linear both;
+    -webkit-animation: cssload-fold-thecube 2.76s infinite linear both;
+    -moz-animation: cssload-fold-thecube 2.76s infinite linear both;
+    transform-origin: 100% 100%;
+    -o-transform-origin: 100% 100%;
+    -ms-transform-origin: 100% 100%;
+    -webkit-transform-origin: 100% 100%;
+    -moz-transform-origin: 100% 100%;
+  }
+
+  .cssload-thecube .cssload-c2 {
+    transform: scale(1.1) rotateZ(90deg);
+    -o-transform: scale(1.1) rotateZ(90deg);
+    -ms-transform: scale(1.1) rotateZ(90deg);
+    -webkit-transform: scale(1.1) rotateZ(90deg);
+    -moz-transform: scale(1.1) rotateZ(90deg);
+  }
+
+  .cssload-thecube .cssload-c3 {
+    transform: scale(1.1) rotateZ(180deg);
+    -o-transform: scale(1.1) rotateZ(180deg);
+    -ms-transform: scale(1.1) rotateZ(180deg);
+    -webkit-transform: scale(1.1) rotateZ(180deg);
+    -moz-transform: scale(1.1) rotateZ(180deg);
+  }
+
+  .cssload-thecube .cssload-c4 {
+    transform: scale(1.1) rotateZ(270deg);
+    -o-transform: scale(1.1) rotateZ(270deg);
+    -ms-transform: scale(1.1) rotateZ(270deg);
+    -webkit-transform: scale(1.1) rotateZ(270deg);
+    -moz-transform: scale(1.1) rotateZ(270deg);
+  }
+
+  .cssload-thecube .cssload-c2:before {
+    animation-delay: 0.35s;
+    -o-animation-delay: 0.35s;
+    -ms-animation-delay: 0.35s;
+    -webkit-animation-delay: 0.35s;
+    -moz-animation-delay: 0.35s;
+  }
+
+  .cssload-thecube .cssload-c3:before {
+    animation-delay: 0.69s;
+    -o-animation-delay: 0.69s;
+    -ms-animation-delay: 0.69s;
+    -webkit-animation-delay: 0.69s;
+    -moz-animation-delay: 0.69s;
+  }
+
+  .cssload-thecube .cssload-c4:before {
+    animation-delay: 1.04s;
+    -o-animation-delay: 1.04s;
+    -ms-animation-delay: 1.04s;
+    -webkit-animation-delay: 1.04s;
+    -moz-animation-delay: 1.04s;
+  }
+
+
+
+  @keyframes cssload-fold-thecube {
+
+    0%,
+    10% {
+      transform: perspective(136px) rotateX(-180deg);
+      opacity: 0;
     }
 
-    #loader:before {
-      content: "";
-      position: absolute;
-      top: 5px;
-      left: 5px;
-      right: 5px;
-      bottom: 5px;
-      border-radius: 50%;
-      border: 3px solid transparent;
-      border-top-color: #e556a4;
-      -webkit-animation: spin 3s linear infinite;
-      animation: spin 3s linear infinite;
+    25%,
+    75% {
+      transform: perspective(136px) rotateX(0deg);
+      opacity: 1;
     }
 
-    #loader:after {
-      content: "";
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      right: 15px;
-      bottom: 15px;
-      border-radius: 50%;
-      border: 3px solid transparent;
-      border-top-color: #d4d5d9;
-      -webkit-animation: spin 1.5s linear infinite;
-      animation: spin 1.5s linear infinite;
+    90%,
+    100% {
+      transform: perspective(136px) rotateY(180deg);
+      opacity: 0;
+    }
+  }
+
+  @-o-keyframes cssload-fold-thecube {
+
+    0%,
+    10% {
+      -o-transform: perspective(136px) rotateX(-180deg);
+      opacity: 0;
     }
 
-    @-webkit-keyframes spin {
-      0% {
-        -webkit-transform: rotate(0);
-        transform: rotate(0);
-      }
-      100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
-      }
+    25%,
+    75% {
+      -o-transform: perspective(136px) rotateX(0deg);
+      opacity: 1;
     }
 
-    @-moz-keyframes spin {
-      0% {
-        -webkit-transform: rotate(0);
-        transform: rotate(0);
-      }
-      100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
-      }
+    90%,
+    100% {
+      -o-transform: perspective(136px) rotateY(180deg);
+      opacity: 0;
+    }
+  }
+
+  @-ms-keyframes cssload-fold-thecube {
+
+    0%,
+    10% {
+      -ms-transform: perspective(136px) rotateX(-180deg);
+      opacity: 0;
     }
 
-    @-o-keyframes spin {
-      0% {
-        -webkit-transform: rotate(0);
-        transform: rotate(0);
-      }
-      100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
-      }
+    25%,
+    75% {
+      -ms-transform: perspective(136px) rotateX(0deg);
+      opacity: 1;
     }
 
-    @keyframes spin {
-      0% {
-        -webkit-transform: rotate(0);
-        transform: rotate(0);
-      }
-      100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
-      }
+    90%,
+    100% {
+      -ms-transform: perspective(136px) rotateY(180deg);
+      opacity: 0;
+    }
+  }
+
+  @-webkit-keyframes cssload-fold-thecube {
+
+    0%,
+    10% {
+      -webkit-transform: perspective(136px) rotateX(-180deg);
+      opacity: 0;
     }
 
-    .hide_class {
-      visibility: hidden;
-    }
-    .loader {
-      visibility: hidden;
-      border: 16px solid #f3f3f3;
-      border-radius: 50%;
-      border-top: 16px solid #3498db;
-      width: 30px;
-      height: 30px;
-      margin-right: 6px;
-      -webkit-animation: spin 2s linear infinite; /* Safari */
-      animation: spin 2s linear infinite;
+    25%,
+    75% {
+      -webkit-transform: perspective(136px) rotateX(0deg);
+      opacity: 1;
     }
 
+    90%,
+    100% {
+      -webkit-transform: perspective(136px) rotateY(180deg);
+      opacity: 0;
+    }
+  }
+
+  @-moz-keyframes cssload-fold-thecube {
+
+    0%,
+    10% {
+      -moz-transform: perspective(136px) rotateX(-180deg);
+      opacity: 0;
+    }
+
+    25%,
+    75% {
+      -moz-transform: perspective(136px) rotateX(0deg);
+      opacity: 1;
+    }
+
+    90%,
+    100% {
+      -moz-transform: perspective(136px) rotateY(180deg);
+      opacity: 0;
+    }
+  }
+
+  div {
+    posititon: relative;
+  }
+
+  .js-nametag {
+    position: absolute;
+  }
+
+  .js-nametag:nth-child(1) {
+    animation-name: fade;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-duration: 5s;
+    animation-direction: alternate-reverse;
+  }
+
+
+  .js-nametag:nth-child(2) {
+    animation-name: fade;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-duration: 5s;
+    animation-direction: alternate;
+  }
+
+  @keyframes fade {
+
+    0%,
+    50% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .modal-body {
+    min-height: 300px;
+  }
+
+  #loader-wrapper {
+    margin-top: 100px;
+  }
+
+  #loader {
+    display: block;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #ee0c82;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+  }
+
+  #loader:before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #e556a4;
+    -webkit-animation: spin 3s linear infinite;
+    animation: spin 3s linear infinite;
+  }
+
+  #loader:after {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    bottom: 15px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #d4d5d9;
+    -webkit-animation: spin 1.5s linear infinite;
+    animation: spin 1.5s linear infinite;
+  }
+
+  @-webkit-keyframes spin {
+    0% {
+      -webkit-transform: rotate(0);
+      transform: rotate(0);
+    }
+
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+
+  @-moz-keyframes spin {
+    0% {
+      -webkit-transform: rotate(0);
+      transform: rotate(0);
+    }
+
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+
+  @-o-keyframes spin {
+    0% {
+      -webkit-transform: rotate(0);
+      transform: rotate(0);
+    }
+
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes spin {
+    0% {
+      -webkit-transform: rotate(0);
+      transform: rotate(0);
+    }
+
+    100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
+  }
+
+  .hide_class {
+    visibility: hidden;
+  }
+
+  .loader {
+    visibility: hidden;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 30px;
+    height: 30px;
+    margin-right: 6px;
+    -webkit-animation: spin 2s linear infinite;
     /* Safari */
-    @-webkit-keyframes spin {
-      0% {
-        -webkit-transform: rotate(0deg);
-      }
-      100% {
-        -webkit-transform: rotate(360deg);
-      }
+    animation: spin 2s linear infinite;
+  }
+
+  /* Safari */
+  @-webkit-keyframes spin {
+    0% {
+      -webkit-transform: rotate(0deg);
     }
 
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
+    100% {
+      -webkit-transform: rotate(360deg);
     }
-  </style>
-  <body>
-    <div class="container">
-      <div class="col">
-        <h1 style="margin-top:16px; text-align: center">
-          <time>00:00:00</time>
-        </h1>
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-3"
-            id="itemSearch"
-            type="text"
-            name="itemSearch"
-            placeholder="Keyword 1"
-            style="margin-right: 2px"
-          />
+  }
 
-          <div class="form-group col-sm-3" style="display: flex">
-            <label>Avg Price: &nbsp;</label>
-            <p id="ap1"></p>
-          </div>
-          <div class="form-group col-sm-3" style="display: flex">
-            <label>Avg Ratings: &nbsp;</label>
-            <p id="ar1"></p>
-          </div>
-          <div class="loader" id="loader1" style="margin-left: 8px;"></div>
-          <button
-            id="btn1"
-            class="btn btn-primary col-sm-3 hide_class"
-            style="width: 120px"
-            onclick="getItems1()"
-            data-toggle="modal"
-            data-target="#dataModal"
-          >
-            Show Data
-          </button>
-        </div>
-        <div class="modal" id="dataModal">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close">
-                  &times;
-                </button>
-              </div>
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
 
-              <div class="modal-body" id="modalBody1">
-                <div id="loader-wrapper">
-                  <div id="loader"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+</style>
 
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-3"
-            id="itemSearch1"
-            type="text"
-            name="itemSearch1"
-            placeholder="Keyword 2"
-            style="margin-right: 2px"
-          />
-          <div class="form-group col-sm-3" style="display: flex">
-            <label>Avg Price: &nbsp;</label>
-            <p id="ap2"></p>
-          </div>
-          <div class="form-group col-sm-3" style="display: flex">
-            <label>Avg Ratings: &nbsp;</label>
-            <p id="ar2"></p>
-          </div>
-          <div class="loader" id="loader2" style="margin-left: 8px"></div>
-          <button
-            id="btn2"
-            onclick="getItems2()"
-            class="btn btn-primary col-sm-3 hide_class"
-            style="width: 120px"
-            data-toggle="modal"
-            data-target="#dataModal1"
-          >
-            Show Data
-          </button>
-        </div>
-        <div class="modal" id="dataModal1">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close">
-                  &times;
-                </button>
-              </div>
+<body>
+  <div class="container">
+    <div class="col">
+      <h1 style="margin-top:16px; text-align: center">
+        <time>00:00:00</time>
+      </h1>
+      <div class="form-group">
+        <h3>Total Average price: <span id="tap"></span></h1>
+          <h3>Total Average ratings: <span id="tar"></span></h1>
+      </div>
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-3" id="itemSearch" type="text" name="itemSearch" placeholder="Keyword 1"
+          style="margin-right: 2px" />
 
-              <div class="modal-body" id="modalBody2">
-                <div id="loader-wrapper">
-                  <div id="loader"></div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="form-group col-sm-3" style="display: flex">
+          <label>Avg Price: &nbsp;</label>
+          <p id="ap1"></p>
         </div>
-
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-3"
-            id="itemSearch2"
-            type="text"
-            name="itemSearch2"
-            placeholder="Keyword 3"
-            style="margin-right: 2px"
-          />
-          <div class="form-group col-sm-3" style="display: flex">
-            <label>Avg Price: &nbsp;</label>
-            <p id="ap3"></p>
-          </div>
-          <div class="form-group col-sm-3" style="display: flex">
-            <label>Avg Ratings: &nbsp;</label>
-            <p id="ar3"></p>
-          </div>
-          <div class="loader" id="loader3" style="margin-left: 8px"></div>
-          <button
-            id="btn3"
-            onclick="getItems3()"
-            class="btn btn-primary col-sm-3 hide_class"
-            style="width: 120px"
-            data-toggle="modal"
-            data-target="#dataModal2"
-          >
-            Show Data
-          </button>
+        <div class="form-group col-sm-3" style="display: flex">
+          <label>Avg Ratings: &nbsp;</label>
+          <p id="ar1"></p>
         </div>
-        <div class="modal" id="dataModal2">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close">
-                  &times;
-                </button>
-              </div>
-
-              <div class="modal-body" id="modalBody3">
-                <div id="loader-wrapper">
-                  <div id="loader"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-3"
-            id="itemSearch3"
-            type="text"
-            name="itemSearch3"
-            placeholder="Keyword 4"
-            style="margin-right: 2px"
-          />
-          <div class="form-group col-sm-3" style="display: flex">
-            <label>Avg Price: &nbsp;</label>
-            <p id="ap4"></p>
-          </div>
-          <div class="form-group col-sm-3" style="display: flex">
-            <label>Avg Ratings: &nbsp;</label>
-            <p id="ar4"></p>
-          </div>
-          <div class="loader" id="loader4" style="margin-left: 8px"></div>
-          <button
-            id="btn4"
-            onclick="getItems4()"
-            class="btn btn-primary col-sm-3 hide_class"
-            style="width: 120px"
-            data-toggle="modal"
-            data-target="#dataModal3"
-          >
-            Show Data
-          </button>
-        </div>
-        <div class="modal" id="dataModal3">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close">
-                  &times;
-                </button>
-              </div>
-
-              <div class="modal-body" id="modalBody4">
-                <div id="loader-wrapper">
-                  <div id="loader"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-3"
-            id="itemSearch4"
-            type="text"
-            name="itemSearch4"
-            placeholder="Keyword 5"
-            style="margin-right: 2px"
-          />
-          <div class="form-group col-sm-3" style="display: flex">
-            <label>Avg Price: &nbsp;</label>
-            <p id="ap5"></p>
-          </div>
-          <div class="form-group col-sm-3" style="display: flex">
-            <label>Avg Ratings: &nbsp;</label>
-            <p id="ar5"></p>
-          </div>
-          <div class="loader" id="loader5" style="margin-left: 8px"></div>
-          <button
-            id="btn5"
-            onclick="getItems5()"
-            class="btn btn-primary col-sm-3 hide_class"
-            style="width: 120px"
-            data-toggle="modal"
-            data-target="#dataModal4"
-          >
-            Show Data
-          </button>
-        </div>
-        <div class="modal" id="dataModal4">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close">
-                  &times;
-                </button>
-              </div>
-
-              <div class="modal-body" id="modalBody5">
-                <div id="loader-wrapper">
-                  <div id="loader"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-3"
-            id="itemSearch5"
-            type="text"
-            name="itemSearch5"
-            placeholder="Keyword 6"
-            style="margin-right: 2px"
-          />
-          <div class="form-group col-sm-3" style="display: flex">
-            <label>Avg Price: &nbsp;</label>
-            <p id="ap6"></p>
-          </div>
-          <div class="form-group col-sm-3" style="display: flex">
-            <label>Avg Ratings: &nbsp;</label>
-            <p id="ar6"></p>
-          </div>
-          <div class="loader" id="loader6" style="margin-left: 8px"></div>
-          <button
-            id="btn6"
-            onclick="getItems6()"
-            class="btn btn-primary col-sm-3 hide_class"
-            style="width: 120px"
-            data-toggle="modal"
-            data-target="#dataModal5"
-          >
-            Show Data
-          </button>
-        </div>
-        <div class="modal" id="dataModal5">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close">
-                  &times;
-                </button>
-              </div>
-
-              <div class="modal-body" id="modalBody6">
-                <div id="loader-wrapper">
-                  <div id="loader"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-3"
-            id="itemSearch6"
-            type="text"
-            name="itemSearch6"
-            placeholder="Keyword 7"
-            style="margin-right: 2px"
-          />
-          <div class="form-group col-sm-3" style="display: flex">
-            <label>Avg Price: &nbsp;</label>
-            <p id="ap7"></p>
-          </div>
-          <div class="form-group col-sm-3" style="display: flex">
-            <label>Avg Ratings: &nbsp;</label>
-            <p id="ar7"></p>
-          </div>
-          <div class="loader" id="loader7" style="margin-left: 8px;"></div>
-          <button
-            id="btn7"
-            onclick="getItems7()"
-            class="btn btn-primary col-sm-3 hide_class"
-            style="width: 120px"
-            data-toggle="modal"
-            data-target="#dataModal6"
-          >
-            Show Data
-          </button>
-        </div>
-        <div class="modal" id="dataModal6">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close">
-                  &times;
-                </button>
-              </div>
-
-              <div class="modal-body" id="modalBody7">
-                <div id="loader-wrapper">
-                  <div id="loader"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-3"
-            id="itemSearch7"
-            type="text"
-            name="itemSearch7"
-            placeholder="Keyword 8"
-            style="margin-right: 2px"
-          />
-          <div class="form-group col-sm-3" style="display: flex">
-            <label>Avg Price: &nbsp;</label>
-            <p id="ap8"></p>
-          </div>
-          <div class="form-group col-sm-3" style="display: flex">
-            <label>Avg Ratings: &nbsp;</label>
-            <p id="ar8"></p>
-          </div>
-          <div class="loader" id="loader8" style="margin-left: 8px;"></div>
-          <button
-            id="btn8"
-            onclick="getItems8()"
-            class="btn btn-primary col-sm-3 hide_class"
-            style="width: 120px"
-            data-toggle="modal"
-            data-target="#dataModal7"
-          >
-            Show Data
-          </button>
-        </div>
-        <div class="modal" id="dataModal7">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close">
-                  &times;
-                </button>
-              </div>
-
-              <div class="modal-body" id="modalBody8">
-                <div id="loader-wrapper">
-                  <div id="loader"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-3"
-            id="itemSearch8"
-            type="text"
-            name="itemSearch8"
-            placeholder="Keyword 9"
-            style="margin-right: 2px"
-          />
-          <div class="form-group col-sm-3" style="display: flex">
-            <label>Avg Price: &nbsp;</label>
-            <p id="ap9"></p>
-          </div>
-          <div class="form-group col-sm-3" style="display: flex">
-            <label>Avg Ratings: &nbsp;</label>
-            <p id="ar9"></p>
-          </div>
-          <div class="loader" id="loader9" style="margin-left: 8px;"></div>
-          <button
-            id="btn9"
-            onclick="getItems9()"
-            class="btn btn-primary col-sm-3 hide_class"
-            style="width: 120px"
-            data-toggle="modal"
-            data-target="#dataModal8"
-          >
-            Show Data
-          </button>
-        </div>
-        <div class="modal" id="dataModal8">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close">
-                  &times;
-                </button>
-              </div>
-
-              <div class="modal-body" id="modalBody9">
-                <div id="loader-wrapper">
-                  <div id="loader"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-3"
-            id="itemSearch9"
-            type="text"
-            name="itemSearch9"
-            placeholder="Keyword 10"
-            style="margin-right: 2px"
-          />
-          <div class="form-group col-sm-3" style="display: flex">
-            <label>Avg Price: &nbsp;</label>
-            <p id="ap10"></p>
-          </div>
-          <div class="form-group col-sm-3" style="display: flex">
-            <label>Avg Ratings: &nbsp;</label>
-            <p id="ar10"></p>
-          </div>
-          <div class="loader" id="loader10" style="margin-left: 8px;"></div>
-          <button
-            id="btn10"
-            onclick="getItems10()"
-            class="btn btn-primary col-sm-3 hide_class"
-            style="width: 120px"
-            data-toggle="modal"
-            data-target="#dataModal9"
-          >
-            Show Data
-          </button>
-        </div>
-        <div class="modal" id="dataModal9">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close">
-                  &times;
-                </button>
-              </div>
-
-              <div class="modal-body" id="modalBody10">
-                <div id="loader-wrapper">
-                  <div id="loader"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <button
-          class="btn btn-danger"
-          onclick="myfunction()"
-          style="margin-bottom: 16px"
-        >
-          Submit
+        <div class="loader" id="loader1" style="margin-left: 8px;"></div>
+        <button id="btn1" class="btn btn-primary col-sm-3 hide_class" style="width: 120px" onclick="getItems1()"
+          data-toggle="modal" data-target="#dataModal">
+          Show Data
         </button>
       </div>
+      <div class="modal" id="dataModal">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody1">
+              <div class="cssload-thecube">
+                <div class="cssload-cube cssload-c1"></div>
+                <div class="cssload-cube cssload-c2"></div>
+                <div class="cssload-cube cssload-c4"></div>
+                <div class="cssload-cube cssload-c3"></div>
+              </div>
+              <h1 id="txt1" class="animated flipInX">We are gettings things ready for you</h1>
+              <h1 id="txt2" class="animated flipInY" style="display: none">Be Patient!</h1>
+              <h1 id="txt3" class="animated flipInY" style="display: none">You are almost there.</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-3" id="itemSearch1" type="text" name="itemSearch1" placeholder="Keyword 2"
+          style="margin-right: 2px" />
+        <div class="form-group col-sm-3" style="display: flex">
+          <label>Avg Price: &nbsp;</label>
+          <p id="ap2"></p>
+        </div>
+        <div class="form-group col-sm-3" style="display: flex">
+          <label>Avg Ratings: &nbsp;</label>
+          <p id="ar2"></p>
+        </div>
+        <div class="loader" id="loader2" style="margin-left: 8px"></div>
+        <button id="btn2" onclick="getItems2()" class="btn btn-primary col-sm-3 hide_class" style="width: 120px"
+          data-toggle="modal" data-target="#dataModal1">
+          Show Data
+        </button>
+      </div>
+      <div class="modal" id="dataModal1">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody2">
+              <div class="cssload-thecube">
+                <div class="cssload-cube cssload-c1"></div>
+                <div class="cssload-cube cssload-c2"></div>
+                <div class="cssload-cube cssload-c4"></div>
+                <div class="cssload-cube cssload-c3"></div>
+              </div>
+              <h1 id="txt1" class="animated flipInX">We are gettings things ready for you</h1>
+              <h1 id="txt2" class="animated flipInY" style="display: none">Be Patient!</h1>
+              <h1 id="txt3" class="animated flipInY" style="display: none">You are almost there.</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-3" id="itemSearch2" type="text" name="itemSearch2" placeholder="Keyword 3"
+          style="margin-right: 2px" />
+        <div class="form-group col-sm-3" style="display: flex">
+          <label>Avg Price: &nbsp;</label>
+          <p id="ap3"></p>
+        </div>
+        <div class="form-group col-sm-3" style="display: flex">
+          <label>Avg Ratings: &nbsp;</label>
+          <p id="ar3"></p>
+        </div>
+        <div class="loader" id="loader3" style="margin-left: 8px"></div>
+        <button id="btn3" onclick="getItems3()" class="btn btn-primary col-sm-3 hide_class" style="width: 120px"
+          data-toggle="modal" data-target="#dataModal2">
+          Show Data
+        </button>
+      </div>
+      <div class="modal" id="dataModal2">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody3">
+              <div class="cssload-thecube">
+                <div class="cssload-cube cssload-c1"></div>
+                <div class="cssload-cube cssload-c2"></div>
+                <div class="cssload-cube cssload-c4"></div>
+                <div class="cssload-cube cssload-c3"></div>
+              </div>
+              <h1 id="txt1" class="animated flipInX">We are gettings things ready for you</h1>
+              <h1 id="txt2" class="animated flipInY" style="display: none">Be Patient!</h1>
+              <h1 id="txt3" class="animated flipInY" style="display: none">You are almost there.</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-3" id="itemSearch3" type="text" name="itemSearch3" placeholder="Keyword 4"
+          style="margin-right: 2px" />
+        <div class="form-group col-sm-3" style="display: flex">
+          <label>Avg Price: &nbsp;</label>
+          <p id="ap4"></p>
+        </div>
+        <div class="form-group col-sm-3" style="display: flex">
+          <label>Avg Ratings: &nbsp;</label>
+          <p id="ar4"></p>
+        </div>
+        <div class="loader" id="loader4" style="margin-left: 8px"></div>
+        <button id="btn4" onclick="getItems4()" class="btn btn-primary col-sm-3 hide_class" style="width: 120px"
+          data-toggle="modal" data-target="#dataModal3">
+          Show Data
+        </button>
+      </div>
+      <div class="modal" id="dataModal3">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody4">
+              <div class="cssload-thecube">
+                <div class="cssload-cube cssload-c1"></div>
+                <div class="cssload-cube cssload-c2"></div>
+                <div class="cssload-cube cssload-c4"></div>
+                <div class="cssload-cube cssload-c3"></div>
+              </div>
+              <h1 id="txt1" class="animated flipInX">We are gettings things ready for you</h1>
+              <h1 id="txt2" class="animated flipInY" style="display: none">Be Patient!</h1>
+              <h1 id="txt3" class="animated flipInY" style="display: none">You are almost there.</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-3" id="itemSearch4" type="text" name="itemSearch4" placeholder="Keyword 5"
+          style="margin-right: 2px" />
+        <div class="form-group col-sm-3" style="display: flex">
+          <label>Avg Price: &nbsp;</label>
+          <p id="ap5"></p>
+        </div>
+        <div class="form-group col-sm-3" style="display: flex">
+          <label>Avg Ratings: &nbsp;</label>
+          <p id="ar5"></p>
+        </div>
+        <div class="loader" id="loader5" style="margin-left: 8px"></div>
+        <button id="btn5" onclick="getItems5()" class="btn btn-primary col-sm-3 hide_class" style="width: 120px"
+          data-toggle="modal" data-target="#dataModal4">
+          Show Data
+        </button>
+      </div>
+      <div class="modal" id="dataModal4">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody5">
+              <div class="cssload-thecube">
+                <div class="cssload-cube cssload-c1"></div>
+                <div class="cssload-cube cssload-c2"></div>
+                <div class="cssload-cube cssload-c4"></div>
+                <div class="cssload-cube cssload-c3"></div>
+              </div>
+              <h1 id="txt1" class="animated flipInX">We are gettings things ready for you</h1>
+              <h1 id="txt2" class="animated flipInY" style="display: none">Be Patient!</h1>
+              <h1 id="txt3" class="animated flipInY" style="display: none">You are almost there.</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-3" id="itemSearch5" type="text" name="itemSearch5" placeholder="Keyword 6"
+          style="margin-right: 2px" />
+        <div class="form-group col-sm-3" style="display: flex">
+          <label>Avg Price: &nbsp;</label>
+          <p id="ap6"></p>
+        </div>
+        <div class="form-group col-sm-3" style="display: flex">
+          <label>Avg Ratings: &nbsp;</label>
+          <p id="ar6"></p>
+        </div>
+        <div class="loader" id="loader6" style="margin-left: 8px"></div>
+        <button id="btn6" onclick="getItems6()" class="btn btn-primary col-sm-3 hide_class" style="width: 120px"
+          data-toggle="modal" data-target="#dataModal5">
+          Show Data
+        </button>
+      </div>
+      <div class="modal" id="dataModal5">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody6">
+              <div class="cssload-thecube">
+                <div class="cssload-cube cssload-c1"></div>
+                <div class="cssload-cube cssload-c2"></div>
+                <div class="cssload-cube cssload-c4"></div>
+                <div class="cssload-cube cssload-c3"></div>
+              </div>
+              <h1 id="txt1" class="animated flipInX">We are gettings things ready for you</h1>
+              <h1 id="txt2" class="animated flipInY" style="display: none">Be Patient!</h1>
+              <h1 id="txt3" class="animated flipInY" style="display: none">You are almost there.</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-3" id="itemSearch6" type="text" name="itemSearch6" placeholder="Keyword 7"
+          style="margin-right: 2px" />
+        <div class="form-group col-sm-3" style="display: flex">
+          <label>Avg Price: &nbsp;</label>
+          <p id="ap7"></p>
+        </div>
+        <div class="form-group col-sm-3" style="display: flex">
+          <label>Avg Ratings: &nbsp;</label>
+          <p id="ar7"></p>
+        </div>
+        <div class="loader" id="loader7" style="margin-left: 8px;"></div>
+        <button id="btn7" onclick="getItems7()" class="btn btn-primary col-sm-3 hide_class" style="width: 120px"
+          data-toggle="modal" data-target="#dataModal6">
+          Show Data
+        </button>
+      </div>
+      <div class="modal" id="dataModal6">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody7">
+              <div class="cssload-thecube">
+                <div class="cssload-cube cssload-c1"></div>
+                <div class="cssload-cube cssload-c2"></div>
+                <div class="cssload-cube cssload-c4"></div>
+                <div class="cssload-cube cssload-c3"></div>
+              </div>
+              <h1 id="txt1" class="animated flipInX">We are gettings things ready for you</h1>
+              <h1 id="txt2" class="animated flipInY" style="display: none">Be Patient!</h1>
+              <h1 id="txt3" class="animated flipInY" style="display: none">You are almost there.</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-3" id="itemSearch7" type="text" name="itemSearch7" placeholder="Keyword 8"
+          style="margin-right: 2px" />
+        <div class="form-group col-sm-3" style="display: flex">
+          <label>Avg Price: &nbsp;</label>
+          <p id="ap8"></p>
+        </div>
+        <div class="form-group col-sm-3" style="display: flex">
+          <label>Avg Ratings: &nbsp;</label>
+          <p id="ar8"></p>
+        </div>
+        <div class="loader" id="loader8" style="margin-left: 8px;"></div>
+        <button id="btn8" onclick="getItems8()" class="btn btn-primary col-sm-3 hide_class" style="width: 120px"
+          data-toggle="modal" data-target="#dataModal7">
+          Show Data
+        </button>
+      </div>
+      <div class="modal" id="dataModal7">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody8">
+              <div class="cssload-thecube">
+                <div class="cssload-cube cssload-c1"></div>
+                <div class="cssload-cube cssload-c2"></div>
+                <div class="cssload-cube cssload-c4"></div>
+                <div class="cssload-cube cssload-c3"></div>
+              </div>
+              <h1 id="txt1" class="animated flipInX">We are gettings things ready for you</h1>
+              <h1 id="txt2" class="animated flipInY" style="display: none">Be Patient!</h1>
+              <h1 id="txt3" class="animated flipInY" style="display: none">You are almost there.</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-3" id="itemSearch8" type="text" name="itemSearch8" placeholder="Keyword 9"
+          style="margin-right: 2px" />
+        <div class="form-group col-sm-3" style="display: flex">
+          <label>Avg Price: &nbsp;</label>
+          <p id="ap9"></p>
+        </div>
+        <div class="form-group col-sm-3" style="display: flex">
+          <label>Avg Ratings: &nbsp;</label>
+          <p id="ar9"></p>
+        </div>
+        <div class="loader" id="loader9" style="margin-left: 8px;"></div>
+        <button id="btn9" onclick="getItems9()" class="btn btn-primary col-sm-3 hide_class" style="width: 120px"
+          data-toggle="modal" data-target="#dataModal8">
+          Show Data
+        </button>
+      </div>
+      <div class="modal" id="dataModal8">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody9">
+              <div class="cssload-thecube">
+                <div class="cssload-cube cssload-c1"></div>
+                <div class="cssload-cube cssload-c2"></div>
+                <div class="cssload-cube cssload-c4"></div>
+                <div class="cssload-cube cssload-c3"></div>
+              </div>
+              <h1 id="txt1" class="animated flipInX">We are gettings things ready for you</h1>
+              <h1 id="txt2" class="animated flipInY" style="display: none">Be Patient!</h1>
+              <h1 id="txt3" class="animated flipInY" style="display: none">You are almost there.</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-3" id="itemSearch9" type="text" name="itemSearch9" placeholder="Keyword 10"
+          style="margin-right: 2px" />
+        <div class="form-group col-sm-3" style="display: flex">
+          <label>Avg Price: &nbsp;</label>
+          <p id="ap10"></p>
+        </div>
+        <div class="form-group col-sm-3" style="display: flex">
+          <label>Avg Ratings: &nbsp;</label>
+          <p id="ar10"></p>
+        </div>
+        <div class="loader" id="loader10" style="margin-left: 8px;"></div>
+        <button id="btn10" onclick="getItems10()" class="btn btn-primary col-sm-3 hide_class" style="width: 120px"
+          data-toggle="modal" data-target="#dataModal9">
+          Show Data
+        </button>
+      </div>
+      <div class="modal" id="dataModal9">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody10">
+              <div class="cssload-thecube">
+                <div class="cssload-cube cssload-c1"></div>
+                <div class="cssload-cube cssload-c2"></div>
+                <div class="cssload-cube cssload-c4"></div>
+                <div class="cssload-cube cssload-c3"></div>
+              </div>
+              <h1 id="txt1" class="animated flipInX">We are gettings things ready for you</h1>
+              <h1 id="txt2" class="animated flipInY" style="display: none">Be Patient!</h1>
+              <h1 id="txt3" class="animated flipInY" style="display: none">You are almost there.</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-danger" onclick="myfunction()" style="margin-bottom: 16px">
+        Submit
+      </button>
     </div>
-    <script>
-      let arr1 = [];
-      let arr2 = [];
-      let arr3 = [];
-      let arr4 = [];
-      let arr5 = [];
-      let arr6 = [];
-      let arr7 = [];
-      let arr8 = [];
-      let arr9 = [];
-      let arr10 = [];
+  </div>
+  <script>
+    let arr1 = [];
+    let arr2 = [];
+    let arr3 = [];
+    let arr4 = [];
+    let arr5 = [];
+    let arr6 = [];
+    let arr7 = [];
+    let arr8 = [];
+    let arr9 = [];
+    let arr10 = [];
 
-      function msToTime(duration) {
-        var milliseconds = parseInt((duration % 1000) / 100),
-          seconds = Math.floor((duration / 1000) % 60),
-          minutes = Math.floor((duration / (1000 * 60)) % 60),
-          hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+    function msToTime(duration) {
+      var milliseconds = parseInt((duration % 1000) / 100),
+        seconds = Math.floor((duration / 1000) % 60),
+        minutes = Math.floor((duration / (1000 * 60)) % 60),
+        hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
 
-        hours = hours < 10 ? "0" + hours : hours;
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
+      hours = hours < 10 ? "0" + hours : hours;
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
 
-        return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
-      }
+      return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
+    }
 
-      function updateModal(data) {
-        var list = "";
-        list += '<div class="card" style="width: 100%;margin: 10px 0px;">';
+    function updateModal(data) {
+      var list = "";
+      list += '<div class="card" style="width: 100%;margin: 10px 0px;">';
 
+      list += '<div class="card-body p-0">';
+      list +=
+        "<Strong>Average Price</Strong> &nbsp; $" +
+        data.avgPrice.avgPrice +
+        "&nbsp;&nbsp;&nbsp;";
+      list +=
+        "<Strong>Average Ratings</Strong> &nbsp; " +
+        data.avgPrice.avgStar +
+        " out of 5 stars&nbsp;&nbsp;&nbsp;";
+      list += "<Strong>Average Seller Rank</Strong> &nbsp;";
+      var b = new Number(data.avgPrice.avgBestSell);
+      list += "" + b.toLocaleString() + "";
+      list += "</div>";
+      list += "</div>";
+      data.arrItems.forEach(function (item) {
+        list += '<div class="row">';
+        list += '<div class="col-md-8">';
+        list +=
+          '<div class="card" style="width: 100%; margin: 10px 0px; min-height: 227px">';
         list += '<div class="card-body p-0">';
         list +=
-          "<Strong>Average Price</Strong> &nbsp; $" +
-          data.avgPrice.avgPrice +
-          "&nbsp;&nbsp;&nbsp;";
+          '<h6 style="padding: 8px; background: #ededed;">Product Details</h6>';
+        list += '<li class="media">';
         list +=
-          "<Strong>Average Ratings</Strong> &nbsp; " +
-          data.avgPrice.avgStar +
-          " out of 5 stars&nbsp;&nbsp;&nbsp;";
-        list += "<Strong>Average Seller Rank</Strong> &nbsp;";
-        var b = new Number(data.avgPrice.avgBestSell);
-        list += "" + b.toLocaleString() + "";
+          '<a href="' +
+          item.link +
+          '" target="_blank" style="text-decoration: none; color:inherit;">';
+        list +=
+          '<img class="mr-3" src="' +
+          item.image +
+          '" style="padding: 5px;" width="165px" height="165px" alt="Generic placeholder image"></a>';
+        list += '<div class="media-body p-2">';
+        list += '<a class="img-size" href="' + item.link + '">';
+        list += '<h5 class="mt-0 mb-1">' + item.title;
+        list += "</h5>";
+        list += "</a>";
+        list += "<h5>" + item.price + "</h5>";
+        list += "<h6>" + item.rattings + "</h6>" + item.description;
+        list += "</div>";
+        list += " </li>";
         list += "</div>";
         list += "</div>";
-        data.arrItems.forEach(function(item) {
-          list += '<div class="row">';
-          list += '<div class="col-md-8">';
+        list += "</div>";
+        list += '<div class="col-md-4">';
+        list +=
+          '<div class="card" style="width: 100%; margin: 10px 0px; min-height: 227px">';
+        list +=
+          '<h6 style="padding: 8px;background: #ededed;">Product Seller Rank</h6>';
+        if (item.description != "" && item.description != undefined) {
           list +=
-            '<div class="card" style="width: 100%; margin: 10px 0px; min-height: 227px">';
-          list += '<div class="card-body p-0">';
+            '<span style="padding: 8px;">' + item.description + "</span>";
+        } else {
           list +=
-            '<h6 style="padding: 8px; background: #ededed;">Product Details</h6>';
-          list += '<li class="media">';
-          list +=
-            '<a href="' +
-            item.link +
-            '" target="_blank" style="text-decoration: none; color:inherit;">';
-          list +=
-            '<img class="mr-3" src="' +
-            item.image +
-            '" style="padding: 5px;" width="165px" height="165px" alt="Generic placeholder image"></a>';
-          list += '<div class="media-body p-2">';
-          list += '<a class="img-size" href="' + item.link + '">';
-          list += '<h5 class="mt-0 mb-1">' + item.title;
-          list += "</h5>";
-          list += "</a>";
-          list += "<h5>" + item.price + "</h5>";
-          list += "<h6>" + item.rattings + "</h6>" + item.description;
-          list += "</div>";
-          list += " </li>";
-          list += "</div>";
-          list += "</div>";
-          list += "</div>";
-          list += '<div class="col-md-4">';
-          list +=
-            '<div class="card" style="width: 100%; margin: 10px 0px; min-height: 227px">';
-          list +=
-            '<h6 style="padding: 8px;background: #ededed;">Product Seller Rank</h6>';
-          if (item.description != "" && item.description != undefined) {
-            list +=
-              '<span style="padding: 8px;">' + item.description + "</span>";
-          } else {
-            list +=
-              ' <span style="padding: 8px;">No Seller Rank for this item.</span>';
-          }
-          list += "</div>";
-          list += " </div>";
-          list += " </div>";
-        });
-        return list;
-      }
-      var stopTime = 0;
-      var timeLimit = 10;
-      var h1 = document.getElementsByTagName("h1")[0],
-        seconds = 0,
-        minutes = 0,
-        hours = 0,
-        t;
-
-      function add() {
-        seconds++;
-        if (seconds >= 60) {
-          seconds = 0;
-          minutes++;
-          if (minutes >= 60) {
-            minutes = 0;
-            hours++;
-          }
+            ' <span style="padding: 8px;">No Seller Rank for this item.</span>';
         }
+        list += "</div>";
+        list += " </div>";
+        list += " </div>";
+      });
+      return list;
+    }
+    var tap = 0;
+    var tar = 0;
+    var stopTime = 0;
+    var timeLimit = 10;
+    var h1 = document.getElementsByTagName("h1")[0],
+      seconds = 0,
+      minutes = 0,
+      hours = 0,
+      t;
 
-        h1.textContent =
-          (hours ? (hours > 9 ? hours : "0" + hours) : "00") +
-          ":" +
-          (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") +
-          ":" +
-          (seconds > 9 ? seconds : "0" + seconds);
-
-        timer();
-      }
-      function timer() {
-        t = setTimeout(add, 1000);
-      }
-
-      function myfunction() {
-        timer();
-        $("#loader1").css("visibility", "visible");
-        $("#loader2").css("visibility", "visible");
-        $("#loader3").css("visibility", "visible");
-        $("#loader4").css("visibility", "visible");
-        $("#loader5").css("visibility", "visible");
-        $("#loader6").css("visibility", "visible");
-        $("#loader7").css("visibility", "visible");
-        $("#loader8").css("visibility", "visible");
-        $("#loader9").css("visibility", "visible");
-        $("#loader10").css("visibility", "visible");
-
-        newFun();
-        myfunction1();
-        myfunction2();
-        myfunction3();
-        myfunction4();
-        myfunction5();
-        myfunction6();
-        myfunction7();
-        myfunction8();
-        myfunction9();
+    function add() {
+      seconds++;
+      if (seconds >= 60) {
+        seconds = 0;
+        minutes++;
+        if (minutes >= 60) {
+          minutes = 0;
+          hours++;
+        }
       }
 
-      async function newFun() {
-        var start = performance.now();
-        var x = document.getElementById("itemSearch").value;
+      h1.textContent =
+        (hours ? (hours > 9 ? hours : "0" + hours) : "00") +
+        ":" +
+        (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") +
+        ":" +
+        (seconds > 9 ? seconds : "0" + seconds);
 
-        $.ajax({
-          url: "/getLinks/" + x,
-          type: "GET",
-          data: "search",
-          success: function(data) {
-            console.log(data);
-            $("#ap1").html(data.itemsAverage.avgPrice);
-            $("#ar1").html(data.itemsAverage.avgStar);
-            stopTime++;
-            if (stopTime == timeLimit) {
-              clearTimeout(t);
-            }
-            arr1 = data.arrItems;
-            $("#loader1").css("visibility", "hidden");
-            $("#btn1").removeClass("hide_class");
+      timer();
+    }
+    function timer() {
+      t = setTimeout(add, 1000);
+    }
 
-            // myfunction1();
-          },
-          error: function(error) {}
-        });
-      }
+    function myfunction() {
+      timer();
+      $("#loader1").css("visibility", "visible");
+      $("#loader2").css("visibility", "visible");
+      $("#loader3").css("visibility", "visible");
+      $("#loader4").css("visibility", "visible");
+      $("#loader5").css("visibility", "visible");
+      $("#loader6").css("visibility", "visible");
+      $("#loader7").css("visibility", "visible");
+      $("#loader8").css("visibility", "visible");
+      $("#loader9").css("visibility", "visible");
+      $("#loader10").css("visibility", "visible");
 
-      async function myfunction1() {
-        var start = performance.now();
+      $("#btn1").addClass("hide_class");
+      $("#btn2").addClass("hide_class");
+      $("#btn3").addClass("hide_class");
+      $("#btn4").addClass("hide_class");
+      $("#btn5").addClass("hide_class");
+      $("#btn6").addClass("hide_class");
+      $("#btn7").addClass("hide_class");
+      $("#btn8").addClass("hide_class");
+      $("#btn9").addClass("hide_class");
+      $("#btn10").addClass("hide_class");
 
-        var x = document.getElementById("itemSearch1").value;
+      newFun();
+      myfunction1();
+      myfunction2();
+      myfunction3();
+      myfunction4();
+      myfunction5();
+      myfunction6();
+      myfunction7();
+      myfunction8();
+      myfunction9();
+    }
 
-        $.ajax({
-          url: "/getLinks/" + x,
-          type: "GET",
-          data: "search",
-          success: function(data) {
-            console.log(data);
-            arr2 = data.arrItems;
+    async function newFun() {
+      var start = performance.now();
+      var x = document.getElementById("itemSearch").value;
 
-            $("#ap2").html(data.itemsAverage.avgPrice);
-            $("#ar2").html(data.itemsAverage.avgStar);
-            stopTime++;
-            if (stopTime == timeLimit) {
-              clearTimeout(t);
-            }
-            $("#loader2").css("visibility", "hidden");
-            $("#btn2").removeClass("hide_class");
-            // myfunction2();
-          },
-          error: function(error) {}
-        });
-      }
+      $.ajax({
+        url: "/getLinks/" + x,
+        type: "GET",
+        data: "search",
+        success: function (data) {
+          console.log(data);
+          tap += +data.itemsAverage.avgPrice;
+          tar += +data.itemsAverage.avgStar;
+          $("#ap1").html(data.itemsAverage.avgPrice);
+          $("#ar1").html(data.itemsAverage.avgStar);
+          stopTime++;
+          if (stopTime == timeLimit) {
+            clearTimeout(t);
+            tap = (tap / 10).toFixed(2);
+            tar = (tar / 10).toFixed(2);
+            $("#tap").html(tap);
+            $("#tar").html(tar);
+          }
+          arr1 = data.arrItems;
+          $("#loader1").css("visibility", "hidden");
+          $("#btn1").removeClass("hide_class");
 
-      function myfunction2() {
-        var start = performance.now();
+          // myfunction1();
+        },
+        error: function (error) { }
+      });
+    }
 
-        var x = document.getElementById("itemSearch2").value;
+    async function myfunction1() {
+      var start = performance.now();
 
-        $.ajax({
-          url: "/getLinks/" + x,
-          type: "GET",
-          data: "search",
-          success: function(data) {
-            console.log(data);
-            arr3 = data.arrItems;
+      var x = document.getElementById("itemSearch1").value;
 
-            $("#ap3").html(data.itemsAverage.avgPrice);
-            $("#ar3").html(data.itemsAverage.avgStar);
-            stopTime++;
-            if (stopTime == timeLimit) {
-              clearTimeout(t);
-            }
-            $("#loader3").css("visibility", "hidden");
-            $("#btn3").removeClass("hide_class");
-            // myfunction3();
-          },
-          error: function(error) {}
-        });
-      }
+      $.ajax({
+        url: "/getLinks/" + x,
+        type: "GET",
+        data: "search",
+        success: function (data) {
+          console.log(data);
+          tap += +data.itemsAverage.avgPrice;
+          tar += +data.itemsAverage.avgStar;
+          arr2 = data.arrItems;
 
-      function myfunction3() {
-        var start = performance.now();
+          $("#ap2").html(data.itemsAverage.avgPrice);
+          $("#ar2").html(data.itemsAverage.avgStar);
+          stopTime++;
+          if (stopTime == timeLimit) {
+            clearTimeout(t);
+            tap = (tap / 10).toFixed(2);
+            tar = (tar / 10).toFixed(2);
+            $("#tap").html(tap);
+            $("#tar").html(tar);
+          }
+          $("#loader2").css("visibility", "hidden");
+          $("#btn2").removeClass("hide_class");
+          // myfunction2();
+        },
+        error: function (error) { }
+      });
+    }
 
-        var x = document.getElementById("itemSearch3").value;
+    function myfunction2() {
+      var start = performance.now();
 
-        $.ajax({
-          url: "/getLinks/" + x,
-          type: "GET",
-          data: "search",
-          success: function(data) {
-            arr4 = data.arrItems;
+      var x = document.getElementById("itemSearch2").value;
 
-            console.log(data);
+      $.ajax({
+        url: "/getLinks/" + x,
+        type: "GET",
+        data: "search",
+        success: function (data) {
+          console.log(data);
+          tap += +data.itemsAverage.avgPrice;
+          tar += +data.itemsAverage.avgStar;
+          arr3 = data.arrItems;
 
-            $("#ap4").html(data.itemsAverage.avgPrice);
-            $("#ar4").html(data.itemsAverage.avgStar);
-            stopTime++;
-            if (stopTime == timeLimit) {
-              clearTimeout(t);
-            }
-            $("#loader4").css("visibility", "hidden");
-            $("#btn4").removeClass("hide_class");
-            // myfunction4();
-          },
-          error: function(error) {}
-        });
-      }
-      function myfunction4() {
-        var start = performance.now();
+          $("#ap3").html(data.itemsAverage.avgPrice);
+          $("#ar3").html(data.itemsAverage.avgStar);
+          stopTime++;
+          if (stopTime == timeLimit) {
+            clearTimeout(t);
+            tap = (tap / 10).toFixed(2);
+            tar = (tar / 10).toFixed(2);
+            $("#tap").html(tap);
+            $("#tar").html(tar);
+          }
+          $("#loader3").css("visibility", "hidden");
+          $("#btn3").removeClass("hide_class");
+          // myfunction3();
+        },
+        error: function (error) { }
+      });
+    }
 
-        var x = document.getElementById("itemSearch4").value;
+    function myfunction3() {
+      var start = performance.now();
 
-        $.ajax({
-          url: "/getLinks/" + x,
-          type: "GET",
-          data: "search",
-          success: function(data) {
-            arr5 = data.arrItems;
+      var x = document.getElementById("itemSearch3").value;
 
-            console.log(data);
+      $.ajax({
+        url: "/getLinks/" + x,
+        type: "GET",
+        data: "search",
+        success: function (data) {
+          tap += +data.itemsAverage.avgPrice;
+          tar += +data.itemsAverage.avgStar;
+          arr4 = data.arrItems;
 
-            $("#ap5").html(data.itemsAverage.avgPrice);
-            $("#ar5").html(data.itemsAverage.avgStar);
-            stopTime++;
-            if (stopTime == timeLimit) {
-              clearTimeout(t);
-            }
-            $("#loader5").css("visibility", "hidden");
-            $("#btn5").removeClass("hide_class");
-            // myfunction5();
-          },
-          error: function(error) {}
-        });
-      }
+          console.log(data);
 
-      function myfunction5() {
-        var start = performance.now();
+          $("#ap4").html(data.itemsAverage.avgPrice);
+          $("#ar4").html(data.itemsAverage.avgStar);
+          stopTime++;
+          if (stopTime == timeLimit) {
+            clearTimeout(t);
+            tap = (tap / 10).toFixed(2);
+            tar = (tar / 10).toFixed(2);
+            $("#tap").html(tap);
+            $("#tar").html(tar);
+          }
+          $("#loader4").css("visibility", "hidden");
+          $("#btn4").removeClass("hide_class");
+          // myfunction4();
+        },
+        error: function (error) { }
+      });
+    }
+    function myfunction4() {
+      var start = performance.now();
 
-        var x = document.getElementById("itemSearch5").value;
+      var x = document.getElementById("itemSearch4").value;
 
-        $.ajax({
-          url: "/getLinks/" + x,
-          type: "GET",
-          data: "search",
-          success: function(data) {
-            arr6 = data.arrItems;
+      $.ajax({
+        url: "/getLinks/" + x,
+        type: "GET",
+        data: "search",
+        success: function (data) {
+          tap += +data.itemsAverage.avgPrice;
+          tar += +data.itemsAverage.avgStar;
+          arr5 = data.arrItems;
 
-            console.log(data);
+          console.log(data);
 
-            $("#ap6").html(data.itemsAverage.avgPrice);
-            $("#ar6").html(data.itemsAverage.avgStar);
-            stopTime++;
-            if (stopTime == timeLimit) {
-              clearTimeout(t);
-            }
-            $("#loader6").css("visibility", "hidden");
-            $("#btn6").removeClass("hide_class");
-          },
-          error: function(error) {}
-        });
-      }
+          $("#ap5").html(data.itemsAverage.avgPrice);
+          $("#ar5").html(data.itemsAverage.avgStar);
+          stopTime++;
+          if (stopTime == timeLimit) {
+            clearTimeout(t);
+            tap = (tap / 10).toFixed(2);
+            tar = (tar / 10).toFixed(2);
+            $("#tap").html(tap);
+            $("#tar").html(tar);
+          }
+          $("#loader5").css("visibility", "hidden");
+          $("#btn5").removeClass("hide_class");
+          // myfunction5();
+        },
+        error: function (error) { }
+      });
+    }
 
-      function myfunction6() {
-        var start = performance.now();
+    function myfunction5() {
+      var start = performance.now();
 
-        var x = document.getElementById("itemSearch6").value;
+      var x = document.getElementById("itemSearch5").value;
 
-        $.ajax({
-          url: "/getLinks/" + x,
-          type: "GET",
-          data: "search",
-          success: function(data) {
-            arr7 = data.arrItems;
+      $.ajax({
+        url: "/getLinks/" + x,
+        type: "GET",
+        data: "search",
+        success: function (data) {
+          tap += +data.itemsAverage.avgPrice;
+          tar += +data.itemsAverage.avgStar;
+          arr6 = data.arrItems;
 
-            console.log(data);
+          console.log(data);
 
-            $("#ap7").html(data.itemsAverage.avgPrice);
-            $("#ar7").html(data.itemsAverage.avgStar);
-            stopTime++;
-            if (stopTime == timeLimit) {
-              clearTimeout(t);
-            }
-            $("#loader7").css("visibility", "hidden");
-            $("#btn7").removeClass("hide_class");
-          },
-          error: function(error) {}
-        });
-      }
+          $("#ap6").html(data.itemsAverage.avgPrice);
+          $("#ar6").html(data.itemsAverage.avgStar);
+          stopTime++;
+          if (stopTime == timeLimit) {
+            clearTimeout(t);
+            tap = (tap / 10).toFixed(2);
+            tar = (tar / 10).toFixed(2);
+            $("#tap").html(tap);
+            $("#tar").html(tar);
+          }
+          $("#loader6").css("visibility", "hidden");
+          $("#btn6").removeClass("hide_class");
+        },
+        error: function (error) { }
+      });
+    }
 
-      function myfunction7() {
-        var start = performance.now();
+    function myfunction6() {
+      var start = performance.now();
 
-        var x = document.getElementById("itemSearch7").value;
+      var x = document.getElementById("itemSearch6").value;
 
-        $.ajax({
-          url: "/getLinks/" + x,
-          type: "GET",
-          data: "search",
-          success: function(data) {
-            arr8 = data.arrItems;
+      $.ajax({
+        url: "/getLinks/" + x,
+        type: "GET",
+        data: "search",
+        success: function (data) {
+          tap += +data.itemsAverage.avgPrice;
+          tar += +data.itemsAverage.avgStar;
+          arr7 = data.arrItems;
 
-            console.log(data);
+          console.log(data);
 
-            $("#ap8").html(data.itemsAverage.avgPrice);
-            $("#ar8").html(data.itemsAverage.avgStar);
-            stopTime++;
-            if (stopTime == timeLimit) {
-              clearTimeout(t);
-            }
-            $("#loader8").css("visibility", "hidden");
-            $("#btn8").removeClass("hide_class");
-          },
-          error: function(error) {}
-        });
-      }
+          $("#ap7").html(data.itemsAverage.avgPrice);
+          $("#ar7").html(data.itemsAverage.avgStar);
+          stopTime++;
+          if (stopTime == timeLimit) {
+            clearTimeout(t);
+            tap = (tap / 10).toFixed(2);
+            tar = (tar / 10).toFixed(2);
+            $("#tap").html(tap);
+            $("#tar").html(tar);
+          }
+          $("#loader7").css("visibility", "hidden");
+          $("#btn7").removeClass("hide_class");
+        },
+        error: function (error) { }
+      });
+    }
 
-      function myfunction8() {
-        var start = performance.now();
+    function myfunction7() {
+      var start = performance.now();
 
-        var x = document.getElementById("itemSearch8").value;
+      var x = document.getElementById("itemSearch7").value;
 
-        $.ajax({
-          url: "/getLinks/" + x,
-          type: "GET",
-          data: "search",
-          success: function(data) {
-            arr9 = data.arrItems;
+      $.ajax({
+        url: "/getLinks/" + x,
+        type: "GET",
+        data: "search",
+        success: function (data) {
+          tap += +data.itemsAverage.avgPrice;
+          tar += +data.itemsAverage.avgStar;
+          arr8 = data.arrItems;
 
-            $("#ap9").html(data.itemsAverage.avgPrice);
-            $("#ar9").html(data.itemsAverage.avgStar);
-            stopTime++;
-            if (stopTime == timeLimit) {
-              clearTimeout(t);
-            }
-            $("#loader9").css("visibility", "hidden");
-            $("#btn9").removeClass("hide_class");
-            console.log(data);
-          },
-          error: function(error) {}
-        });
-      }
+          console.log(data);
 
-      function myfunction9() {
-        var start = performance.now();
+          $("#ap8").html(data.itemsAverage.avgPrice);
+          $("#ar8").html(data.itemsAverage.avgStar);
+          stopTime++;
+          if (stopTime == timeLimit) {
+            clearTimeout(t);
+            tap = (tap / 10).toFixed(2);
+            tar = (tar / 10).toFixed(2);
+            $("#tap").html(tap);
+            $("#tar").html(tar);
+          }
+          $("#loader8").css("visibility", "hidden");
+          $("#btn8").removeClass("hide_class");
+        },
+        error: function (error) { }
+      });
+    }
 
-        var x = document.getElementById("itemSearch9").value;
+    function myfunction8() {
+      var start = performance.now();
 
-        $.ajax({
-          url: "/getLinks/" + x,
-          type: "GET",
-          data: "search",
-          success: function(data) {
-            arr10 = data.arrItems;
+      var x = document.getElementById("itemSearch8").value;
 
-            console.log(data);
+      $.ajax({
+        url: "/getLinks/" + x,
+        type: "GET",
+        data: "search",
+        success: function (data) {
+          tap += +data.itemsAverage.avgPrice;
+          tar += +data.itemsAverage.avgStar;
+          arr9 = data.arrItems;
 
-            $("#ap10").html(data.itemsAverage.avgPrice);
-            $("#ar10").html(data.itemsAverage.avgStar);
-            stopTime++;
-            if (stopTime == timeLimit) {
-              clearTimeout(t);
-            }
-            $("#loader10").css("visibility", "hidden");
-            $("#btn10").removeClass("hide_class");
-          },
-          error: function(error) {}
-        });
-      }
+          $("#ap9").html(data.itemsAverage.avgPrice);
+          $("#ar9").html(data.itemsAverage.avgStar);
+          stopTime++;
+          if (stopTime == timeLimit) {
+            clearTimeout(t);
+            tap = (tap / 10).toFixed(2);
+            tar = (tar / 10).toFixed(2);
+            $("#tap").html(tap);
+            $("#tar").html(tar);
+          }
+          $("#loader9").css("visibility", "hidden");
+          $("#btn9").removeClass("hide_class");
+          console.log(data);
+        },
+        error: function (error) { }
+      });
+    }
 
-      function getItems1() {
-        $("#btn1")
-              .prop("onclick", null)
-              .off("click");
-        $.ajax({
-          url: "/getItems",
-          type: "POST",
-          data: { items: arr1 },
-          success: function(data) {
-            var modalBody = document.getElementById("modalBody1");
-            var modelHtml = updateModal(data);
-            modalBody.innerHTML = modelHtml;
-           
-            // $("#ap10").html(data.itemsAverage.avgPrice)
-            // $("#ar10").html(data.itemsAverage.avgStar)
-            // stopTime++;
-            // if (stopTime == timeLimit) {
-            //   clearTimeout(t);
-            // }
-            // $("#loader10").css("visibility", "hidden");
-          },
-          error: function(error) {}
-        });
-      }
-      function getItems2() {
-        $("#btn2")
-              .prop("onclick", null)
-              .off("click");
-        $.ajax({
-          url: "/getItems",
-          type: "POST",
-          data: { items: arr2 },
-          success: function(data) {
-            console.log(data);
-            var modalBody = document.getElementById("modalBody2");
-            var modelHtml = updateModal(data);
-            modalBody.innerHTML = modelHtml;
-           
+    function myfunction9() {
+      var start = performance.now();
 
-            // $("#ap10").html(data.itemsAverage.avgPrice)
-            // $("#ar10").html(data.itemsAverage.avgStar)
-            // stopTime++;
-            // if (stopTime == timeLimit) {
-            //   clearTimeout(t);
-            // }
-            // $("#loader10").css("visibility", "hidden");
-          },
-          error: function(error) {}
-        });
-      }
-      function getItems3() {
-        $.ajax({
-          url: "/getItems",
-          type: "POST",
-          data: { items: arr3 },
-          success: function(data) {
-            console.log(data);
-            var modalBody = document.getElementById("modalBody3");
-            var modelHtml = updateModal(data);
-            modalBody.innerHTML = modelHtml;
-            $("#btn3")
-              .prop("onclick", null)
-              .off("click");
+      var x = document.getElementById("itemSearch9").value;
 
-            // $("#ap10").html(data.itemsAverage.avgPrice)
-            // $("#ar10").html(data.itemsAverage.avgStar)
-            // stopTime++;
-            // if (stopTime == timeLimit) {
-            //   clearTimeout(t);
-            // }
-            // $("#loader10").css("visibility", "hidden");
-          },
-          error: function(error) {}
-        });
-      }
-      function getItems4() {
-        $("#btn4")
-              .prop("onclick", null)
-              .off("click");
-        $.ajax({
-          url: "/getItems",
-          type: "POST",
-          data: { items: arr4 },
-          success: function(data) {
-            console.log(data);
-            var modalBody = document.getElementById("modalBody4");
-            var modelHtml = updateModal(data);
-            modalBody.innerHTML = modelHtml;
-           
+      $.ajax({
+        url: "/getLinks/" + x,
+        type: "GET",
+        data: "search",
+        success: function (data) {
+          tap += +data.itemsAverage.avgPrice;
+          tar += +data.itemsAverage.avgStar;
+          arr10 = data.arrItems;
 
-            // $("#ap10").html(data.itemsAverage.avgPrice)
-            // $("#ar10").html(data.itemsAverage.avgStar)
-            // stopTime++;
-            // if (stopTime == timeLimit) {
-            //   clearTimeout(t);
-            // }
-            // $("#loader10").css("visibility", "hidden");
-          },
-          error: function(error) {}
-        });
-      }
-      function getItems5() {
-        $("#btn5")
-              .prop("onclick", null)
-              .off("click");
-        $.ajax({
-          url: "/getItems",
-          type: "POST",
-          data: { items: arr5 },
-          success: function(data) {
-            console.log(data);
-            var modalBody = document.getElementById("modalBody5");
-            var modelHtml = updateModal(data);
-            modalBody.innerHTML = modelHtml;
-           
+          console.log(data);
 
-            // $("#ap10").html(data.itemsAverage.avgPrice)
-            // $("#ar10").html(data.itemsAverage.avgStar)
-            // stopTime++;
-            // if (stopTime == timeLimit) {
-            //   clearTimeout(t);
-            // }
-            // $("#loader10").css("visibility", "hidden");
-          },
-          error: function(error) {}
-        });
-      }
-      function getItems6() {
-        $("#btn6")
-              .prop("onclick", null)
-              .off("click");
-        $.ajax({
-          url: "/getItems",
-          type: "POST",
-          data: { items: arr6 },
-          success: function(data) {
-            console.log(data);
-            var modalBody = document.getElementById("modalBody6");
-            var modelHtml = updateModal(data);
-            modalBody.innerHTML = modelHtml;
-            
+          $("#ap10").html(data.itemsAverage.avgPrice);
+          $("#ar10").html(data.itemsAverage.avgStar);
+          stopTime++;
+          if (stopTime == timeLimit) {
+            clearTimeout(t);
+            tap = (tap / 10).toFixed(2);
+            tar = (tar / 10).toFixed(2);
+            $("#tap").html(tap);
+            $("#tar").html(tar);
+          }
+          $("#loader10").css("visibility", "hidden");
+          $("#btn10").removeClass("hide_class");
+        },
+        error: function (error) { }
+      });
+    }
 
-            // $("#ap10").html(data.itemsAverage.avgPrice)
-            // $("#ar10").html(data.itemsAverage.avgStar)
-            // stopTime++;
-            // if (stopTime == timeLimit) {
-            //   clearTimeout(t);
-            // }
-            // $("#loader10").css("visibility", "hidden");
-          },
-          error: function(error) {}
-        });
-      }
-      function getItems7() {
-        $("#btn7")
-              .prop("onclick", null)
-              .off("click");
-        $.ajax({
-          url: "/getItems",
-          type: "POST",
-          data: { items: arr7 },
-          success: function(data) {
-            console.log(data);
-            var modalBody = document.getElementById("modalBody7");
-            var modelHtml = updateModal(data);
-            modalBody.innerHTML = modelHtml;
-           
+    function getItems1() {
+      $("#btn1")
+        .prop("onclick", null)
+        .off("click");
+      $.ajax({
+        url: "/getItems",
+        type: "POST",
+        data: { items: arr1 },
+        success: function (data) {
+          var modalBody = document.getElementById("modalBody1");
+          var modelHtml = updateModal(data);
+          modalBody.innerHTML = modelHtml;
 
-            // $("#ap10").html(data.itemsAverage.avgPrice)
-            // $("#ar10").html(data.itemsAverage.avgStar)
-            // stopTime++;
-            // if (stopTime == timeLimit) {
-            //   clearTimeout(t);
-            // }
-            // $("#loader10").css("visibility", "hidden");
-          },
-          error: function(error) {}
-        });
-      }
-      function getItems8() {
-        $("#btn8")
-              .prop("onclick", null)
-              .off("click");
-        $.ajax({
-          url: "/getItems",
-          type: "POST",
-          data: { items: arr8 },
-          success: function(data) {
-            console.log(data);
-            var modalBody = document.getElementById("modalBody8");
-            var modelHtml = updateModal(data);
-            modalBody.innerHTML = modelHtml;
-           
+          // $("#ap10").html(data.itemsAverage.avgPrice)
+          // $("#ar10").html(data.itemsAverage.avgStar)
+          // stopTime++;
+          // if (stopTime == timeLimit) {
+          //   clearTimeout(t);
+          
+          // }
+          // $("#loader10").css("visibility", "hidden");
+        },
+        error: function (error) { }
+      });
+    }
+    function getItems2() {
+      $("#btn2")
+        .prop("onclick", null)
+        .off("click");
+      $.ajax({
+        url: "/getItems",
+        type: "POST",
+        data: { items: arr2 },
+        success: function (data) {
+          console.log(data);
+          var modalBody = document.getElementById("modalBody2");
+          var modelHtml = updateModal(data);
+          modalBody.innerHTML = modelHtml;
 
-            // $("#ap10").html(data.itemsAverage.avgPrice)
-            // $("#ar10").html(data.itemsAverage.avgStar)
-            // stopTime++;
-            // if (stopTime == timeLimit) {
-            //   clearTimeout(t);
-            // }
-            // $("#loader10").css("visibility", "hidden");
-          },
-          error: function(error) {}
-        });
-      }
-      function getItems9() {
-        $("#btn9")
-              .prop("onclick", null)
-              .off("click");
-        $.ajax({
-          url: "/getItems",
-          type: "POST",
-          data: { items: arr9 },
-          success: function(data) {
-            console.log(data);
-            var modalBody = document.getElementById("modalBody9");
-            var modelHtml = updateModal(data);
-            modalBody.innerHTML = modelHtml;
-            
 
-            // $("#ap10").html(data.itemsAverage.avgPrice)
-            // $("#ar10").html(data.itemsAverage.avgStar)
-            // stopTime++;
-            // if (stopTime == timeLimit) {
-            //   clearTimeout(t);
-            // }
-            // $("#loader10").css("visibility", "hidden");
-          },
-          error: function(error) {}
-        });
-      }
-      function getItems10() {
-        $("#btn10")
-              .prop("onclick", null)
-              .off("click");
-        $.ajax({
-          url: "/getItems",
-          type: "POST",
-          data: { items: arr10 },
-          success: function(data) {
-            console.log(data);
-            var modalBody = document.getElementById("modalBody10");
-            var modelHtml = updateModal(data);
-            modalBody.innerHTML = modelHtml;
-            
+          // $("#ap10").html(data.itemsAverage.avgPrice)
+          // $("#ar10").html(data.itemsAverage.avgStar)
+          // stopTime++;
+          // if (stopTime == timeLimit) {
+          //   clearTimeout(t);
+          
+          // }
+          // $("#loader10").css("visibility", "hidden");
+        },
+        error: function (error) { }
+      });
+    }
+    function getItems3() {
+      $.ajax({
+        url: "/getItems",
+        type: "POST",
+        data: { items: arr3 },
+        success: function (data) {
+          console.log(data);
+          var modalBody = document.getElementById("modalBody3");
+          var modelHtml = updateModal(data);
+          modalBody.innerHTML = modelHtml;
+          $("#btn3")
+            .prop("onclick", null)
+            .off("click");
 
-            // $("#ap10").html(data.itemsAverage.avgPrice)
-            // $("#ar10").html(data.itemsAverage.avgStar)
-            // stopTime++;
-            // if (stopTime == timeLimit) {
-            //   clearTimeout(t);
-            // }
-            // $("#loader10").css("visibility", "hidden");
-          },
-          error: function(error) {}
-        });
-      }
-    </script>
-  </body>
+          // $("#ap10").html(data.itemsAverage.avgPrice)
+          // $("#ar10").html(data.itemsAverage.avgStar)
+          // stopTime++;
+          // if (stopTime == timeLimit) {
+          //   clearTimeout(t);
+          
+          // }
+          // $("#loader10").css("visibility", "hidden");
+        },
+        error: function (error) { }
+      });
+    }
+    function getItems4() {
+      $("#btn4")
+        .prop("onclick", null)
+        .off("click");
+      $.ajax({
+        url: "/getItems",
+        type: "POST",
+        data: { items: arr4 },
+        success: function (data) {
+          console.log(data);
+          var modalBody = document.getElementById("modalBody4");
+          var modelHtml = updateModal(data);
+          modalBody.innerHTML = modelHtml;
+
+
+          // $("#ap10").html(data.itemsAverage.avgPrice)
+          // $("#ar10").html(data.itemsAverage.avgStar)
+          // stopTime++;
+          // if (stopTime == timeLimit) {
+          //   clearTimeout(t);
+          
+          // }
+          // $("#loader10").css("visibility", "hidden");
+        },
+        error: function (error) { }
+      });
+    }
+    function getItems5() {
+      $("#btn5")
+        .prop("onclick", null)
+        .off("click");
+      $.ajax({
+        url: "/getItems",
+        type: "POST",
+        data: { items: arr5 },
+        success: function (data) {
+          console.log(data);
+          var modalBody = document.getElementById("modalBody5");
+          var modelHtml = updateModal(data);
+          modalBody.innerHTML = modelHtml;
+
+
+          // $("#ap10").html(data.itemsAverage.avgPrice)
+          // $("#ar10").html(data.itemsAverage.avgStar)
+          // stopTime++;
+          // if (stopTime == timeLimit) {
+          //   clearTimeout(t);
+          
+          // }
+          // $("#loader10").css("visibility", "hidden");
+        },
+        error: function (error) { }
+      });
+    }
+    function getItems6() {
+      $("#btn6")
+        .prop("onclick", null)
+        .off("click");
+      $.ajax({
+        url: "/getItems",
+        type: "POST",
+        data: { items: arr6 },
+        success: function (data) {
+          console.log(data);
+          var modalBody = document.getElementById("modalBody6");
+          var modelHtml = updateModal(data);
+          modalBody.innerHTML = modelHtml;
+
+
+          // $("#ap10").html(data.itemsAverage.avgPrice)
+          // $("#ar10").html(data.itemsAverage.avgStar)
+          // stopTime++;
+          // if (stopTime == timeLimit) {
+          //   clearTimeout(t);
+          
+          // }
+          // $("#loader10").css("visibility", "hidden");
+        },
+        error: function (error) { }
+      });
+    }
+    function getItems7() {
+      $("#btn7")
+        .prop("onclick", null)
+        .off("click");
+      $.ajax({
+        url: "/getItems",
+        type: "POST",
+        data: { items: arr7 },
+        success: function (data) {
+          console.log(data);
+          var modalBody = document.getElementById("modalBody7");
+          var modelHtml = updateModal(data);
+          modalBody.innerHTML = modelHtml;
+
+
+          // $("#ap10").html(data.itemsAverage.avgPrice)
+          // $("#ar10").html(data.itemsAverage.avgStar)
+          // stopTime++;
+          // if (stopTime == timeLimit) {
+          //   clearTimeout(t);
+          
+          // }
+          // $("#loader10").css("visibility", "hidden");
+        },
+        error: function (error) { }
+      });
+    }
+    function getItems8() {
+      $("#btn8")
+        .prop("onclick", null)
+        .off("click");
+      $.ajax({
+        url: "/getItems",
+        type: "POST",
+        data: { items: arr8 },
+        success: function (data) {
+          console.log(data);
+          var modalBody = document.getElementById("modalBody8");
+          var modelHtml = updateModal(data);
+          modalBody.innerHTML = modelHtml;
+
+
+          // $("#ap10").html(data.itemsAverage.avgPrice)
+          // $("#ar10").html(data.itemsAverage.avgStar)
+          // stopTime++;
+          // if (stopTime == timeLimit) {
+          //   clearTimeout(t);
+          
+          // }
+          // $("#loader10").css("visibility", "hidden");
+        },
+        error: function (error) { }
+      });
+    }
+    function getItems9() {
+      $("#btn9")
+        .prop("onclick", null)
+        .off("click");
+      $.ajax({
+        url: "/getItems",
+        type: "POST",
+        data: { items: arr9 },
+        success: function (data) {
+          console.log(data);
+          var modalBody = document.getElementById("modalBody9");
+          var modelHtml = updateModal(data);
+          modalBody.innerHTML = modelHtml;
+
+
+          // $("#ap10").html(data.itemsAverage.avgPrice)
+          // $("#ar10").html(data.itemsAverage.avgStar)
+          // stopTime++;
+          // if (stopTime == timeLimit) {
+          //   clearTimeout(t);
+          
+          // }
+          // $("#loader10").css("visibility", "hidden");
+        },
+        error: function (error) { }
+      });
+    }
+    function getItems10() {
+      $("#btn10")
+        .prop("onclick", null)
+        .off("click");
+      $.ajax({
+        url: "/getItems",
+        type: "POST",
+        data: { items: arr10 },
+        success: function (data) {
+          console.log(data);
+          var modalBody = document.getElementById("modalBody10");
+          var modelHtml = updateModal(data);
+          modalBody.innerHTML = modelHtml;
+
+
+          // $("#ap10").html(data.itemsAverage.avgPrice)
+          // $("#ar10").html(data.itemsAverage.avgStar)
+          // stopTime++;
+          // if (stopTime == timeLimit) {
+          //   clearTimeout(t);
+          
+          // }
+          // $("#loader10").css("visibility", "hidden");
+        },
+        error: function (error) { }
+      });
+    }
+  </script>
+
+  <!-- animation of text is loader -->
+  <script>
+    var counter = 0;
+    window.setInterval(function () {
+      ranodmMsg()
+    }, 3000);
+    function ranodmMsg() {
+      counter++;
+      if (counter == 1) {
+        $("#txt1").show()
+        $("#txt2").hide()
+        $("#txt3").hide()
+      } else
+        if (counter == 2) {
+          $("#txt1").hide()
+          $("#txt2").show()
+          $("#txt3").hide()
+        } else
+          if (counter == 3) {
+            $("#txt1").hide()
+            $("#txt2").hide()
+            $("#txt3").show()
+            counter = 0;
+          }
+    }
+  </script>
+</body>
+
 </html>
