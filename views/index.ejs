@@ -62,7 +62,7 @@
             placeholder="Keyword 1"
             style="margin-right: 2px"
           />
-          <p class="col-sm-5">Execution Time: <span id="exec_time"></span></p>
+          <p class="col-sm-5">Execution Time: <span id="exec_time0"></span></p>
           <button
             id="btn1"
             class="btn btn-primary col-sm-3"
@@ -875,7 +875,7 @@
         return list;
       }
       var stopTime = 0;
-      var timeLimit = 10;
+      var timeLimit = 20;
       var h1 = document.getElementsByTagName("h1")[0],
         seconds = 0,
         minutes = 0,
@@ -949,7 +949,7 @@
             $("#loader"+(i+1)).css("visibility", "hidden");
             var end = performance.now();
             var time = end - start;
-            document.getElementById("exec_time").innerHTML = msToTime(time);
+            document.getElementById("exec_time"+i).innerHTML = msToTime(time);
             var modalBody = document.getElementById("modalBody"+(i+1));
 
             var modelHtml = updateModal(data);
@@ -977,7 +977,7 @@
             $("#loader"+(i+1)).css("visibility", "hidden");
             var end = performance.now();
             var time = end - start;
-            document.getElementById("exec_time").innerHTML = msToTime(time);
+            document.getElementById("exec_time"+i).innerHTML = msToTime(time);
             var modalBody = document.getElementById("modalBody"+(i+1));
 
             var modelHtml = updateModal(data);
