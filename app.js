@@ -63,7 +63,7 @@ app.post("/get-items/:itemSearch", async (req, res) => {
 const getItems = async url => {
     let arrItems = [];
 
-    let browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
+    let browser = await puppeteer.launch({ headless: false, args: ['--no-sandbox'] });
     let page = await browser.newPage();
     await page.setViewport({ width: 1920, height: 926 });
     await page.goto(url);
@@ -525,7 +525,7 @@ const getItems = async url => {
          bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
 
 
-         $ = cheerio.load(bodyHTMLNew);
+         $ = await cheerio.load(bodyHTMLNew);
 
          htmlKing = await $("tr").each((index, element) => {
             console.log(15)
@@ -547,6 +547,7 @@ const getItems = async url => {
                 }
             }
         });
+     
     
     browser.close();
     return arrItems;
@@ -681,8 +682,9 @@ app.get('/getLinks/:url', async (req, res) => {
             arrItems.push(obj);
         }
     });
-    browser.close();
     let itemsAverage = await getNewAvgP(arrItems);
+    browser.close();
+
     res.send({ arrItems, itemsAverage });
 });
 
@@ -757,8 +759,9 @@ app.post('/getItems', async (req, res) => {
             }
         });
     }
-    browser.close();
     let avgPrice = await getAvgP(arrItems);
+    browser.close();
+
     res.send({ arrItems, avgPrice });
 
 });
