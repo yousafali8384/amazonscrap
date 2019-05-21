@@ -970,7 +970,9 @@
           data: "search",
           success: function(data) {
             stopTime++;
+            console.log(stopTime)
             if (stopTime == timeLimit) {
+
               clearTimeout(t);
             }
             $("#btn"+(i+1)).removeClass("hide_class");
