@@ -1,6 +1,5 @@
 const puppeteer = require('puppeteer');
 let fetchCheerioObject = require("fetch-cheerio-object");
-var random_useragent = require('random-useragent');
 let bodyParser = require("body-parser"),
     express = require("express"),
     cheerio = require("cheerio"),
@@ -12,6 +11,7 @@ let bodyParser = require("body-parser"),
 env.config();
 cheerio = cheerioAdv.wrap(cheerio);
 
+var random_useragent = require('random-useragent');
 
 app.use(express.static('/public'));
 app.use(express.static(__dirname + '/public'));
@@ -66,7 +66,7 @@ const getItems = async url => {
     let browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
     let page = await browser.newPage();
     await page.setViewport({ width: 1920, height: 926 });
-    await page.setUserAgent(randomUseragent.getRandom())
+    await page.setUserAgent(random_useragent.getRandom())
     await page.goto(url);
 
     // get hotel details
@@ -733,7 +733,7 @@ app.post('/getItems', async (req, res) => {
     const newpage = await browser.newPage();
     await newpage.setViewport({ width: 1920, height: 926 });
     for (let i = 0; i < arrItems.length; i++) {
-        await newpage.setUserAgent(randomUseragent.getRandom())
+        await newpage.setUserAgent(random_useragent.getRandom())
         await newpage.goto(arrItems[i].link);
         let bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
 
