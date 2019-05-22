@@ -736,7 +736,7 @@ app.post('/getItems', async (req, res) => {
         await newpage.goto(arrItems[i].link);
         let bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
 
-
+        console.log(bodyHTMLNew)
         let $ = cheerio.load(bodyHTMLNew);
 
         let htmlKing = await $("tr").each((index, element) => {
