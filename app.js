@@ -63,7 +63,7 @@ app.post("/get-items/:itemSearch", async (req, res) => {
 const getItems = async url => {
     let arrItems = [];
 
-    let browser = await puppeteer.launch({ headless: true, args: ['--proxy-server=180.179.98.22:3128','--no-sandbox'] });
+    let browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
     let page = await browser.newPage();
     await page.setViewport({ width: 1920, height: 926 });
     await page.goto(url);
@@ -613,7 +613,7 @@ app.get('/getLinks/:url', async (req, res) => {
         }&ref=nb_sb_noss_2`;
     let arrItems = [];
 
-    let browser = await puppeteer.launch({ headless: true, args: ['--proxy-server=180.179.98.22:3128','--no-sandbox'] });
+    let browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
     let page = await browser.newPage();
     await page.setViewport({ width: 1920, height: 926 });
     await page.goto(url);
@@ -727,7 +727,7 @@ const getNewAvgP = async items => {
 app.post('/getItems', async (req, res) => {
     let arrItems = req.body.items;
 
-    let browser = await puppeteer.launch({ headless: true, args: ['--proxy-server=180.179.98.22:3128','--no-sandbox'] });
+    let browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
 
     const newpage = await browser.newPage();
     await newpage.setViewport({ width: 1920, height: 926 });
