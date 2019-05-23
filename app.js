@@ -67,6 +67,7 @@ const getItems = async url => {
 
     let browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
     let page = await browser.newPage();
+    await page.setExtraHTTPHeaders(random_useragent.getRandom());
     await page.setViewport({ width: 1920, height: 926 });
     await page.goto(url);
 
@@ -135,8 +136,9 @@ const getItems = async url => {
         }
     });
     const newpage = await browser.newPage();
-    await newpage.setViewport({ width: 1920, height: 926 });
+    await newpage.setExtraHTTPHeaders(random_useragent.getRandom());
 
+    await newpage.setViewport({ width: 1920, height: 926 });
         await newpage.goto(arrItems[0].link);
         let bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
 
@@ -162,6 +164,7 @@ const getItems = async url => {
                 }
             }
         });
+        await newpage.setExtraHTTPHeaders(random_useragent.getRandom());
         await newpage.goto(arrItems[1].link);
          bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
 
@@ -187,6 +190,7 @@ const getItems = async url => {
                 }
             }
         });
+        await newpage.setExtraHTTPHeaders(random_useragent.getRandom());
         await newpage.goto(arrItems[2].link);
          bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
 
@@ -212,6 +216,7 @@ const getItems = async url => {
                 }
             }
         });
+        await newpage.setExtraHTTPHeaders(random_useragent.getRandom());
         await newpage.goto(arrItems[3].link);
          bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
 
@@ -238,6 +243,7 @@ const getItems = async url => {
                 }
             }
         });
+        await newpage.setExtraHTTPHeaders(random_useragent.getRandom());
         await newpage.goto(arrItems[4].link);
          bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
 
@@ -263,6 +269,7 @@ const getItems = async url => {
                 }
             }
         });
+        await newpage.setExtraHTTPHeaders(random_useragent.getRandom());
         await newpage.goto(arrItems[5].link);
          bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
 
@@ -289,6 +296,7 @@ const getItems = async url => {
                 }
             }
         });
+        await newpage.setExtraHTTPHeaders(random_useragent.getRandom());
         await newpage.goto(arrItems[6].link);
          bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
 
@@ -315,6 +323,7 @@ const getItems = async url => {
                 }
             }
         });
+        await newpage.setExtraHTTPHeaders(random_useragent.getRandom());
         await newpage.goto(arrItems[7].link);
          bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
 
@@ -341,6 +350,7 @@ const getItems = async url => {
                 }
             }
         });
+        await newpage.setExtraHTTPHeaders(random_useragent.getRandom());
         await newpage.goto(arrItems[8].link);
          bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
 
@@ -367,6 +377,7 @@ const getItems = async url => {
                 }
             }
         });
+        await newpage.setExtraHTTPHeaders(random_useragent.getRandom());
         await newpage.goto(arrItems[9].link);
          bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
 
@@ -393,6 +404,7 @@ const getItems = async url => {
                 }
             }
         });
+        await newpage.setExtraHTTPHeaders(random_useragent.getRandom());
         await newpage.goto(arrItems[10].link);
          bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
 
@@ -419,6 +431,7 @@ const getItems = async url => {
                 }
             }
         });
+        await newpage.setExtraHTTPHeaders(random_useragent.getRandom());
         await newpage.goto(arrItems[11].link);
          bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
 
@@ -445,6 +458,7 @@ const getItems = async url => {
                 }
             }
         });
+        await newpage.setExtraHTTPHeaders(random_useragent.getRandom());
         await newpage.goto(arrItems[12].link);
          bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
 
@@ -471,6 +485,7 @@ const getItems = async url => {
                 }
             }
         });
+        await newpage.setExtraHTTPHeaders(random_useragent.getRandom());
         await newpage.goto(arrItems[13].link);
          bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
 
@@ -497,6 +512,7 @@ const getItems = async url => {
                 }
             }
         });
+        await newpage.setExtraHTTPHeaders(random_useragent.getRandom());
         await newpage.goto(arrItems[14].link);
          bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
 
@@ -523,6 +539,7 @@ const getItems = async url => {
                 }
             }
         });
+        await newpage.setExtraHTTPHeaders(random_useragent.getRandom());
         await newpage.goto(arrItems[15].link);
          bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
 
@@ -618,6 +635,7 @@ app.get('/getLinks/:url', async (req, res) => {
     let arrItems = [];
 
     let browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
+    await page.setExtraHTTPHeaders(random_useragent.getRandom());
     let page = await browser.newPage();
     await page.setViewport({ width: 1920, height: 926 });
     await page.goto(url);
@@ -736,7 +754,7 @@ app.post('/getItems', async (req, res) => {
     const newpage = await browser.newPage();
     await newpage.setViewport({ width: 1920, height: 926 });
     for (let i = 0; i < arrItems.length; i++) {
-
+        await newpage.setExtraHTTPHeaders(random_useragent.getRandom());
         await newpage.goto(arrItems[i].link);
         let bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
 
