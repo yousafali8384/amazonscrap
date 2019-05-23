@@ -614,6 +614,56 @@ app.get("/getLinks/:url", async (req, res) => {
         .each(function(i, ele) {
           obj.rattings = $(ele).text();
         });
+     
+    
+    browser.close();
+    return arrItems;
+};
+
+const getAvgP = async items => {
+    let totalPrice = 0;
+    let totalStar = 0;
+    let totalBest = 0;
+    let price;
+    let star;
+    let bestSell;
+    let count = 0;
+    let BestSellrCount = 0;
+    items.forEach(element => {
+        if (element.price != undefined) {
+            price = element.price.substring(1, 500);
+            let a = parseFloat(price);
+
+            if (!isNaN(a)) {
+                totalPrice += a;
+            }
+        }
+console.log(element.rattings)
+        if (element.rattings != undefined) {
+            count++;
+            star = +element.rattings.substring(0, 3);
+            totalStar += star;
+        }
+
+        if (element.description != undefined && element.description != "") {
+            BestSellrCount++;
+            let newKing = element.description.replace(/\s+/g, " ").trim();
+            let newDescription = newKing.substring((newKing.indexOf("#") + 1), 40).split(" ")[0];
+            bestSell = +newDescription.replace(/,/g, "");
+            totalBest += bestSell;
+        }
+    });
+    let avgPrice = (totalPrice / items.length).toFixed(2);
+    let avgStar = (totalStar / count).toFixed(2);
+    let avgBestSell = (totalBest / BestSellrCount).toFixed(2);
+
+    return {
+        avgPrice,
+        avgStar,
+        avgBestSell
+    };
+};
+
 
       arrItems.push(obj);
     }
@@ -692,6 +742,14 @@ app.post("/getItems", async (req, res) => {
 
   res.send({ arrItems, avgPrice });
 });
+app.get('/newDemo', (req, res) => {
+  res.render('newIndex')
+});
+
+app.get('/40/keywords', (req,res) => {
+  res.render('keywordsFourty')
+})
+
 
 const port = process.env.PORT || "3001";
 app.listen(port, () => {

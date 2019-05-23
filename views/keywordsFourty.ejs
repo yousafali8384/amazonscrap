@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/css/animate.css">
+</head>
+<style>
+    .animated {
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .cssload-thecube {
+        width: 73px;
+        height: 73px;
+        margin: 0 auto;
+        margin-top: 49px;
+        position: relative;
+        transform: rotateZ(45deg);
+        -o-transform: rotateZ(45deg);
+        -ms-transform: rotateZ(45deg);
+        -webkit-transform: rotateZ(45deg);
+        -moz-transform: rotateZ(45deg);
+    }
+
+    .cssload-thecube .cssload-cube {
+        position: relative;
+        transform: rotateZ(45deg);
+        -o-transform: rotateZ(45deg);
+        -ms-transform: rotateZ(45deg);
+        -webkit-transform: rotateZ(45deg);
+        -moz-transform: rotateZ(45deg);
+    }
+
+    .cssload-thecube .cssload-cube {
+        float: left;
+        width: 50%;
+        height: 50%;
+        position: relative;
+        transform: scale(1.1);
+        -o-transform: scale(1.1);
+        -ms-transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+        -moz-transform: scale(1.1);
+    }
+
+    .cssload-thecube .cssload-cube:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgb(43, 160, 199);
+        animation: cssload-fold-thecube 2.76s infinite linear both;
+        -o-animation: cssload-fold-thecube 2.76s infinite linear both;
+        -ms-animation: cssload-fold-thecube 2.76s infinite linear both;
+        -webkit-animation: cssload-fold-thecube 2.76s infinite linear both;
+        -moz-animation: cssload-fold-thecube 2.76s infinite linear both;
+        transform-origin: 100% 100%;
+        -o-transform-origin: 100% 100%;
+        -ms-transform-origin: 100% 100%;
+        -webkit-transform-origin: 100% 100%;
+        -moz-transform-origin: 100% 100%;
+    }
+
+    .cssload-thecube .cssload-c2 {
+        transform: scale(1.1) rotateZ(90deg);
+        -o-transform: scale(1.1) rotateZ(90deg);
+        -ms-transform: scale(1.1) rotateZ(90deg);
+        -webkit-transform: scale(1.1) rotateZ(90deg);
+        -moz-transform: scale(1.1) rotateZ(90deg);
+    }
+
+    .cssload-thecube .cssload-c3 {
+        transform: scale(1.1) rotateZ(180deg);
+        -o-transform: scale(1.1) rotateZ(180deg);
+        -ms-transform: scale(1.1) rotateZ(180deg);
+        -webkit-transform: scale(1.1) rotateZ(180deg);
+        -moz-transform: scale(1.1) rotateZ(180deg);
+    }
+
+    .cssload-thecube .cssload-c4 {
+        transform: scale(1.1) rotateZ(270deg);
+        -o-transform: scale(1.1) rotateZ(270deg);
+        -ms-transform: scale(1.1) rotateZ(270deg);
+        -webkit-transform: scale(1.1) rotateZ(270deg);
+        -moz-transform: scale(1.1) rotateZ(270deg);
+    }
+
+    .cssload-thecube .cssload-c2:before {
+        animation-delay: 0.35s;
+        -o-animation-delay: 0.35s;
+        -ms-animation-delay: 0.35s;
+        -webkit-animation-delay: 0.35s;
+        -moz-animation-delay: 0.35s;
+    }
+
+    .cssload-thecube .cssload-c3:before {
+        animation-delay: 0.69s;
+        -o-animation-delay: 0.69s;
+        -ms-animation-delay: 0.69s;
+        -webkit-animation-delay: 0.69s;
+        -moz-animation-delay: 0.69s;
+    }
+
+    .cssload-thecube .cssload-c4:before {
+        animation-delay: 1.04s;
+        -o-animation-delay: 1.04s;
+        -ms-animation-delay: 1.04s;
+        -webkit-animation-delay: 1.04s;
+        -moz-animation-delay: 1.04s;
+    }
+
+
+
+    @keyframes cssload-fold-thecube {
+
+        0%,
+        10% {
+            transform: perspective(136px) rotateX(-180deg);
+            opacity: 0;
+        }
+
+        25%,
+        75% {
+            transform: perspective(136px) rotateX(0deg);
+            opacity: 1;
+        }
+
+        90%,
+        100% {
+            transform: perspective(136px) rotateY(180deg);
+            opacity: 0;
+        }
+    }
+
+    @-o-keyframes cssload-fold-thecube {
+
+        0%,
+        10% {
+            -o-transform: perspective(136px) rotateX(-180deg);
+            opacity: 0;
+        }
+
+        25%,
+        75% {
+            -o-transform: perspective(136px) rotateX(0deg);
+            opacity: 1;
+        }
+
+        90%,
+        100% {
+            -o-transform: perspective(136px) rotateY(180deg);
+            opacity: 0;
+        }
+    }
+
+    @-ms-keyframes cssload-fold-thecube {
+
+        0%,
+        10% {
+            -ms-transform: perspective(136px) rotateX(-180deg);
+            opacity: 0;
+        }
+
+        25%,
+        75% {
+            -ms-transform: perspective(136px) rotateX(0deg);
+            opacity: 1;
+        }
+
+        90%,
+        100% {
+            -ms-transform: perspective(136px) rotateY(180deg);
+            opacity: 0;
+        }
+    }
+
+    @-webkit-keyframes cssload-fold-thecube {
+
+        0%,
+        10% {
+            -webkit-transform: perspective(136px) rotateX(-180deg);
+            opacity: 0;
+        }
+
+        25%,
+        75% {
+            -webkit-transform: perspective(136px) rotateX(0deg);
+            opacity: 1;
+        }
+
+        90%,
+        100% {
+            -webkit-transform: perspective(136px) rotateY(180deg);
+            opacity: 0;
+        }
+    }
+
+    @-moz-keyframes cssload-fold-thecube {
+
+        0%,
+        10% {
+            -moz-transform: perspective(136px) rotateX(-180deg);
+            opacity: 0;
+        }
+
+        25%,
+        75% {
+            -moz-transform: perspective(136px) rotateX(0deg);
+            opacity: 1;
+        }
+
+        90%,
+        100% {
+            -moz-transform: perspective(136px) rotateY(180deg);
+            opacity: 0;
+        }
+    }
+
+    div {
+        posititon: relative;
+    }
+
+    .js-nametag {
+        position: absolute;
+    }
+
+    .js-nametag:nth-child(1) {
+        animation-name: fade;
+        animation-fill-mode: both;
+        animation-iteration-count: infinite;
+        animation-duration: 5s;
+        animation-direction: alternate-reverse;
+    }
+
+
+    .js-nametag:nth-child(2) {
+        animation-name: fade;
+        animation-fill-mode: both;
+        animation-iteration-count: infinite;
+        animation-duration: 5s;
+        animation-direction: alternate;
+    }
+
+    @keyframes fade {
+
+        0%,
+        50% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .modal-body {
+        min-height: 300px;
+    }
+
+    #loader-wrapper {
+        margin-top: 100px;
+    }
+
+    #loader {
+        display: block;
+        position: relative;
+        left: 50%;
+        top: 50%;
+        width: 150px;
+        height: 150px;
+        margin: -75px 0 0 -75px;
+        border-radius: 50%;
+        border: 3px solid transparent;
+        border-top-color: #ee0c82;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+    }
+
+    #loader:before {
+        content: "";
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        right: 5px;
+        bottom: 5px;
+        border-radius: 50%;
+        border: 3px solid transparent;
+        border-top-color: #e556a4;
+        -webkit-animation: spin 3s linear infinite;
+        animation: spin 3s linear infinite;
+    }
+
+    #loader:after {
+        content: "";
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        right: 15px;
+        bottom: 15px;
+        border-radius: 50%;
+        border: 3px solid transparent;
+        border-top-color: #d4d5d9;
+        -webkit-animation: spin 1.5s linear infinite;
+        animation: spin 1.5s linear infinite;
+    }
+
+    @-webkit-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0);
+            transform: rotate(0);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+
+    @-moz-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0);
+            transform: rotate(0);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+
+    @-o-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0);
+            transform: rotate(0);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spin {
+        0% {
+            -webkit-transform: rotate(0);
+            transform: rotate(0);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+
+    .hide_class {
+        visibility: hidden;
+    }
+
+    .loader {
+        visibility: hidden;
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 30px;
+        height: 30px;
+        margin-right: 6px;
+        -webkit-animation: spin 2s linear infinite;
+        /* Safari */
+        animation: spin 2s linear infinite;
+    }
+
+    /* Safari */
+    @-webkit-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="col">
+            <h1 style="margin-top:16px; text-align: center">
+                <time>00:00:00</time>
+            </h1>
+            <div class="form-group">
+                <h3>Total Average price: <span id="tap"></span></h1>
+                    <h3>Total Average ratings: <span id="tar"></span></h1>
+            </div>
+            <% for(var i=20; i < 50; i++) { %>
+            <div class="form-group" style="display: flex; margin-top:16px">
+                <input class="form-control col-sm-4" id="itemSearch<%=i%>" type="text" name="itemSearch9"
+                    placeholder="Keyword <%=i+1%>" style="margin-right: 2px" />
+                <p class="col-sm-5">Execution Time: <span id="exec_time<%=i%>"></span></p>
+                <button id="btn<%=i+1%>" class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+                    data-target="#dataModal<%=i%>">
+                    Show Data
+                </button>
+                <div class="loader" id="loader<%=i+1%>" style="margin-left: 8px;"></div>
+            </div>
+            <div class="modal" id="dataModal<%=i%>">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Product Details</h4>
+                            <button type="button" class="close" data-dismiss="modal">
+                                &times;
+                            </button>
+                        </div>
+
+                        <div class="modal-body" id="modalBody<%=i+1%>"></div>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+
+            <button onclick="myfunction()">Submit</button>
+        </div>
+    </div>
+</body>
