@@ -44,6 +44,10 @@ app.get("/", (req, res) => {
     res.render("index");
 });
 
+app.get("/redirect", (req,res) => {
+    res.render("redirect");
+})
+
 app.post("/get-items/:itemSearch", async (req, res) => {
     let url = `https://www.amazon.com/s?k=${
         req.params.itemSearch
