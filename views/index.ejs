@@ -53,6 +53,9 @@
         <h1 style="margin-top:16px; text-align: center">
           <time>00:00:00</time>
         </h1>
+        <div class="form-group">
+          <button class="btn btn-warning" onclick="generateKeyword()">Generate Keywords into Inputs</button>
+        </div>
         <div class="form-group" style="display: flex; margin-top:16px">
           <input
             class="form-control col-sm-4"
@@ -1250,6 +1253,16 @@
       //   });
       // }
       
+    </script>
+    <script>
+      function generateKeyword() {
+        var keywords = ["iphone charger", "iphone xr cases", "iphone 8 plus case	", "iphone x case", "iphone microphone", "bed frame queen", "bed frame", "bed risers", "bed sheets queen", "swim hat toddler", "swim hat baby girl	", "swim hat baby boy", "swim hat toddler boy	", "swim hat baby", "bike pump with gauge", "bike pump portable", "bike pump presta	", "disposable face mask for dust", "disposable face mask black", "disposable face mask pink", "drool bibs boys", "drool bibs girl", "drool bibs with teether", "drool bibs unisex", "trainer cup 360", "trainer cup munchkin", "trainer cup for toddlers	", "trainer cup nuk", "doorbell chime kit with transformer", "doorbell chime kit wired", "door bell chime kit", "baby toys", "baby alive doll", "baby wipes", "baby monitor", "baby doll", "nokia 3.1 plus case", "nokia 2v phone case", "nokia 6.1 case", "nokia 7.1", "nokia 3310", "nokia 3.1 case	", "tee shirt men graphic", "tee shirt men long sleeve", "tee shirt men funny", "tee shirt men nike", "tee shirt men 3x", "trousers for women", "trousers for men", "trousers for men jeans", "trousers hanger", "trousers for boys", "wide leg trousers women", "trousers ledger", "trousers jeans", "trousers leather", "trousers latex", "trousers ariat"];
+        var index = 0;
+        for (let i = 0; i < 20; i++) {
+          index = Math.floor((Math.random() * 58) + 0);
+          document.getElementById("itemSearch" + i).value = keywords[index];
+        }
+      }
     </script>
   </body>
 </html>
