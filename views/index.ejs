@@ -1,1236 +1,1035 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  </head>
-  <style>
-    .hide_class {
-      visibility: hidden;
-    }
-    .loader {
-      visibility: hidden;
-      border: 16px solid #f3f3f3;
-      border-radius: 50%;
-      border-top: 16px solid #3498db;
-      width: 30px;
-      height: 30px;
-      -webkit-animation: spin 2s linear infinite; /* Safari */
-      animation: spin 2s linear infinite;
-    }
 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Document</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<style>
+  .hide_class {
+    visibility: hidden;
+  }
+
+  .loader {
+    visibility: hidden;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    width: 30px;
+    height: 30px;
+    -webkit-animation: spin 2s linear infinite;
     /* Safari */
-    @-webkit-keyframes spin {
-      0% {
-        -webkit-transform: rotate(0deg);
-      }
-      100% {
-        -webkit-transform: rotate(360deg);
-      }
+    animation: spin 2s linear infinite;
+  }
+
+  /* Safari */
+  @-webkit-keyframes spin {
+    0% {
+      -webkit-transform: rotate(0deg);
     }
 
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
+    100% {
+      -webkit-transform: rotate(360deg);
     }
-  </style>
-  <body>
-    <div class="container">
-      <div class="col">
-        <h1 style="margin-top:16px; text-align: center">
-          <time>00:00:00</time>
-        </h1>
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-4"
-            id="itemSearch"
-            type="text"
-            name="itemSearch"
-            placeholder="Keyword 1"
-            style="margin-right: 2px"
-          />
-          <p class="col-sm-5">Execution Time: <span id="exec_time"></span></p>
-          <button
-            id="btn1"
-            class="btn btn-primary col-sm-3"
-            style="width: 120px"
-            data-toggle="modal"
-            data-target="#dataModal"
-          >
-            Show Data
-          </button>
-          <div class="loader" id="loader1" style="margin-left: 8px;"></div>
-        </div>
-        <div class="modal" id="dataModal">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close" data-dismiss="modal">
-                  &times;
-                </button>
-              </div>
+  }
 
-              <div class="modal-body" id="modalBody1"></div>
-            </div>
-          </div>
-        </div>
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
 
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-4"
-            id="itemSearch1"
-            type="text"
-            name="itemSearch1"
-            placeholder="Keyword 2"
-            style="margin-right: 2px"
-          />
-          <p class="col-sm-5">Execution Time: <span id="exec_time1"></span></p>
-          <button
-            id="btn2"
-            class="btn btn-primary col-sm-3"
-            style="width: 120px"
-            data-toggle="modal"
-            data-target="#dataModal1"
-          >
-            Show Data
-          </button>
-          <div class="loader" id="loader2" style="margin-left: 8px"></div>
-        </div>
-        <div class="modal" id="dataModal1">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close" data-dismiss="modal">
-                  &times;
-                </button>
-              </div>
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+</style>
 
-              <div class="modal-body" id="modalBody2"></div>
-            </div>
-          </div>
-        </div>
+<body>
+  <div class="container">
+    <div class="col">
+      <h1 style="margin-top:16px; text-align: center">
+        <time>00:00:00</time>
+      </h1>
 
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-4"
-            id="itemSearch2"
-            type="text"
-            name="itemSearch2"
-            placeholder="Keyword 3"
-            style="margin-right: 2px"
-          />
-          <p class="col-sm-5">Execution Time: <span id="exec_time2"></span></p>
-          <button
-            id="btn3"
-            class="btn btn-primary col-sm-3"
-            style="width: 120px"
-            data-toggle="modal"
-            data-target="#dataModal2"
-          >
-            Show Data
-          </button>
-          <div class="loader" id="loader3" style="margin-left: 8px"></div>
-        </div>
-        <div class="modal" id="dataModal2">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close" data-dismiss="modal">
-                  &times;
-                </button>
-              </div>
-
-              <div class="modal-body" id="modalBody3"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-4"
-            id="itemSearch3"
-            type="text"
-            name="itemSearch3"
-            placeholder="Keyword 4"
-            style="margin-right: 2px"
-          />
-          <p class="col-sm-5">Execution Time: <span id="exec_time3"></span></p>
-          <button
-            id="btn4"
-            class="btn btn-primary col-sm-3"
-            style="width: 120px"
-            data-toggle="modal"
-            data-target="#dataModal3"
-          >
-            Show Data
-          </button>
-          <div class="loader" id="loader4" style="margin-left: 8px"></div>
-        </div>
-        <div class="modal" id="dataModal3">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close" data-dismiss="modal">
-                  &times;
-                </button>
-              </div>
-
-              <div class="modal-body" id="modalBody4"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-4"
-            id="itemSearch4"
-            type="text"
-            name="itemSearch4"
-            placeholder="Keyword 5"
-            style="margin-right: 2px"
-          />
-          <p class="col-sm-5">Execution Time: <span id="exec_time4"></span></p>
-          <button
-            id="btn5"
-            class="btn btn-primary col-sm-3"
-            style="width: 120px"
-            data-toggle="modal"
-            data-target="#dataModal4"
-          >
-            Show Data
-          </button>
-          <div class="loader" id="loader5" style="margin-left: 8px"></div>
-        </div>
-        <div class="modal" id="dataModal4">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close" data-dismiss="modal">
-                  &times;
-                </button>
-              </div>
-
-              <div class="modal-body" id="modalBody5"></div>
-            </div>
-          </div>
-        </div>
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-4"
-            id="itemSearch5"
-            type="text"
-            name="itemSearch5"
-            placeholder="Keyword 6"
-            style="margin-right: 2px"
-          />
-          <p class="col-sm-5">Execution Time: <span id="exec_time5"></span></p>
-          <button
-            id="btn6"
-            class="btn btn-primary col-sm-3"
-            style="width: 120px"
-            data-toggle="modal"
-            data-target="#dataModal5"
-          >
-            Show Data
-          </button>
-          <div class="loader" id="loader6" style="margin-left: 8px"></div>
-        </div>
-        <div class="modal" id="dataModal5">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close" data-dismiss="modal">
-                  &times;
-                </button>
-              </div>
-
-              <div class="modal-body" id="modalBody6"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-4"
-            id="itemSearch6"
-            type="text"
-            name="itemSearch6"
-            placeholder="Keyword 7"
-            style="margin-right: 2px"
-          />
-          <p class="col-sm-5">Execution Time: <span id="exec_time6"></span></p>
-          <button
-            id="btn7"
-            class="btn btn-primary col-sm-3"
-            style="width: 120px"
-            data-toggle="modal"
-            data-target="#dataModal6"
-          >
-            Show Data
-          </button>
-          <div class="loader" id="loader7" style="margin-left: 8px;"></div>
-        </div>
-        <div class="modal" id="dataModal6">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close" data-dismiss="modal">
-                  &times;
-                </button>
-              </div>
-
-              <div class="modal-body" id="modalBody7"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-4"
-            id="itemSearch7"
-            type="text"
-            name="itemSearch7"
-            placeholder="Keyword 8"
-            style="margin-right: 2px"
-          />
-          <p class="col-sm-5">Execution Time: <span id="exec_time7"></span></p>
-          <button
-            id="btn8"
-            class="btn btn-primary col-sm-3"
-            style="width: 120px"
-            data-toggle="modal"
-            data-target="#dataModal7"
-          >
-            Show Data
-          </button>
-          <div class="loader" id="loader8" style="margin-left: 8px;"></div>
-        </div>
-        <div class="modal" id="dataModal7">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close" data-dismiss="modal">
-                  &times;
-                </button>
-              </div>
-
-              <div class="modal-body" id="modalBody8"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-4"
-            id="itemSearch8"
-            type="text"
-            name="itemSearch8"
-            placeholder="Keyword 9"
-            style="margin-right: 2px"
-          />
-          <p class="col-sm-5">Execution Time: <span id="exec_time8"></span></p>
-          <button
-            id="btn9"
-            class="btn btn-primary col-sm-3"
-            style="width: 120px"
-            data-toggle="modal"
-            data-target="#dataModal8"
-          >
-            Show Data
-          </button>
-          <div class="loader" id="loader9" style="margin-left: 8px;"></div>
-        </div>
-        <div class="modal" id="dataModal8">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close" data-dismiss="modal">
-                  &times;
-                </button>
-              </div>
-
-              <div class="modal-body" id="modalBody9"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-4"
-            id="itemSearch9"
-            type="text"
-            name="itemSearch9"
-            placeholder="Keyword 10"
-            style="margin-right: 2px"
-          />
-          <p class="col-sm-5">Execution Time: <span id="exec_time9"></span></p>
-          <button
-            id="btn10"
-            class="btn btn-primary col-sm-3"
-            style="width: 120px"
-            data-toggle="modal"
-            data-target="#dataModal9"
-          >
-            Show Data
-          </button>
-          <div class="loader" id="loader10" style="margin-left: 8px;"></div>
-        </div>
-        <div class="modal" id="dataModal9">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close" data-dismiss="modal">
-                  &times;
-                </button>
-              </div>
-
-              <div class="modal-body" id="modalBody10"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-4"
-            id="itemSearch10"
-            type="text"
-            name="itemSearch9"
-            placeholder="Keyword 11"
-            style="margin-right: 2px"
-          />
-          <p class="col-sm-5">Execution Time: <span id="exec_time10"></span></p>
-          <button
-            id="btn11"
-            class="btn btn-primary col-sm-3"
-            style="width: 120px"
-            data-toggle="modal"
-            data-target="#dataModal10"
-          >
-            Show Data
-          </button>
-          <div class="loader" id="loader11" style="margin-left: 8px;"></div>
-        </div>
-        <div class="modal" id="dataModal10">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close" data-dismiss="modal">
-                  &times;
-                </button>
-              </div>
-
-              <div class="modal-body" id="modalBody11"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-4"
-            id="itemSearch11"
-            type="text"
-            name="itemSearch9"
-            placeholder="Keyword 12"
-            style="margin-right: 2px"
-          />
-          <p class="col-sm-5">Execution Time: <span id="exec_time11"></span></p>
-          <button
-            id="btn12"
-            class="btn btn-primary col-sm-3"
-            style="width: 120px"
-            data-toggle="modal"
-            data-target="#dataModal11"
-          >
-            Show Data
-          </button>
-          <div class="loader" id="loader12" style="margin-left: 8px;"></div>
-        </div>
-        <div class="modal" id="dataModal11">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close" data-dismiss="modal">
-                  &times;
-                </button>
-              </div>
-
-              <div class="modal-body" id="modalBody12"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-4"
-            id="itemSearch12"
-            type="text"
-            name="itemSearch9"
-            placeholder="Keyword 13"
-            style="margin-right: 2px"
-          />
-          <p class="col-sm-5">Execution Time: <span id="exec_time12"></span></p>
-          <button
-            id="btn13"
-            class="btn btn-primary col-sm-3"
-            style="width: 120px"
-            data-toggle="modal"
-            data-target="#dataModal12"
-          >
-            Show Data
-          </button>
-          <div class="loader" id="loader13" style="margin-left: 8px;"></div>
-        </div>
-        <div class="modal" id="dataModal12">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close" data-dismiss="modal">
-                  &times;
-                </button>
-              </div>
-
-              <div class="modal-body" id="modalBody13"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-4"
-            id="itemSearch13"
-            type="text"
-            name="itemSearch9"
-            placeholder="Keyword 14"
-            style="margin-right: 2px"
-          />
-          <p class="col-sm-5">Execution Time: <span id="exec_time13"></span></p>
-          <button
-            id="btn14"
-            class="btn btn-primary col-sm-3"
-            style="width: 120px"
-            data-toggle="modal"
-            data-target="#dataModal13"
-          >
-            Show Data
-          </button>
-          <div class="loader" id="loader14" style="margin-left: 8px;"></div>
-        </div>
-        <div class="modal" id="dataModal13">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close" data-dismiss="modal">
-                  &times;
-                </button>
-              </div>
-
-              <div class="modal-body" id="modalBody14"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-4"
-            id="itemSearch14"
-            type="text"
-            name="itemSearch9"
-            placeholder="Keyword 15"
-            style="margin-right: 2px"
-          />
-          <p class="col-sm-5">Execution Time: <span id="exec_time14"></span></p>
-          <button
-            id="btn15"
-            class="btn btn-primary col-sm-3"
-            style="width: 120px"
-            data-toggle="modal"
-            data-target="#dataModal14"
-          >
-            Show Data
-          </button>
-          <div class="loader" id="loader15" style="margin-left: 8px;"></div>
-        </div>
-        <div class="modal" id="dataModal14">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close" data-dismiss="modal">
-                  &times;
-                </button>
-              </div>
-
-              <div class="modal-body" id="modalBody15"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-4"
-            id="itemSearch15"
-            type="text"
-            name="itemSearch9"
-            placeholder="Keyword 16"
-            style="margin-right: 2px"
-          />
-          <p class="col-sm-5">Execution Time: <span id="exec_time15"></span></p>
-          <button
-            id="btn16"
-            class="btn btn-primary col-sm-3"
-            style="width: 120px"
-            data-toggle="modal"
-            data-target="#dataModal15"
-          >
-            Show Data
-          </button>
-          <div class="loader" id="loader16" style="margin-left: 8px;"></div>
-        </div>
-        <div class="modal" id="dataModal15">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close" data-dismiss="modal">
-                  &times;
-                </button>
-              </div>
-
-              <div class="modal-body" id="modalBody16"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-4"
-            id="itemSearch16"
-            type="text"
-            name="itemSearch9"
-            placeholder="Keyword 17"
-            style="margin-right: 2px"
-          />
-          <p class="col-sm-5">Execution Time: <span id="exec_time16"></span></p>
-          <button
-            id="btn17"
-            class="btn btn-primary col-sm-3"
-            style="width: 120px"
-            data-toggle="modal"
-            data-target="#dataModal16"
-          >
-            Show Data
-          </button>
-          <div class="loader" id="loader17" style="margin-left: 8px;"></div>
-        </div>
-        <div class="modal" id="dataModal16">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close" data-dismiss="modal">
-                  &times;
-                </button>
-              </div>
-
-              <div class="modal-body" id="modalBody17"></div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-4"
-            id="itemSearch17"
-            type="text"
-            name="itemSearch9"
-            placeholder="Keyword 18"
-            style="margin-right: 2px"
-          />
-          <p class="col-sm-5">Execution Time: <span id="exec_time17"></span></p>
-          <button
-            id="btn18"
-            class="btn btn-primary col-sm-3"
-            style="width: 120px"
-            data-toggle="modal"
-            data-target="#dataModal17"
-          >
-            Show Data
-          </button>
-          <div class="loader" id="loader18" style="margin-left: 8px;"></div>
-        </div>
-        <div class="modal" id="dataModal17">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close" data-dismiss="modal">
-                  &times;
-                </button>
-              </div>
-
-              <div class="modal-body" id="modalBody18"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-4"
-            id="itemSearch18"
-            type="text"
-            name="itemSearch9"
-            placeholder="Keyword 19"
-            style="margin-right: 2px"
-          />
-          <p class="col-sm-5">Execution Time: <span id="exec_time18"></span></p>
-          <button
-            id="btn19"
-            class="btn btn-primary col-sm-3"
-            style="width: 120px"
-            data-toggle="modal"
-            data-target="#dataModal18"
-          >
-            Show Data
-          </button>
-          <div class="loader" id="loader19" style="margin-left: 8px;"></div>
-        </div>
-        <div class="modal" id="dataModal18">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close" data-dismiss="modal">
-                  &times;
-                </button>
-              </div>
-
-              <div class="modal-body" id="modalBody19"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group" style="display: flex; margin-top:16px">
-          <input
-            class="form-control col-sm-4"
-            id="itemSearch19"
-            type="text"
-            name="itemSearch9"
-            placeholder="Keyword 20"
-            style="margin-right: 2px"
-          />
-          <p class="col-sm-5">Execution Time: <span id="exec_time19"></span></p>
-          <button
-            id="btn20"
-            class="btn btn-primary col-sm-3"
-            style="width: 120px"
-            data-toggle="modal"
-            data-target="#dataModal19"
-          >
-            Show Data
-          </button>
-          <div class="loader" id="loader20" style="margin-left: 8px;"></div>
-        </div>
-        <div class="modal" id="dataModal19">
-          <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-              <!-- Modal Header -->
-              <div class="modal-header">
-                <h4 class="modal-title">Product Details</h4>
-                <button type="button" class="close" data-dismiss="modal">
-                  &times;
-                </button>
-              </div>
-
-              <div class="modal-body" id="modalBody20"></div>
-            </div>
-          </div>
-        </div>
-
-        <button onclick="myfunction()">Submit</button>
+      <div class="form-group">
+        <button class="btn btn-warning" onclick="generateKeyword()">Generate Keywords into Inputs</button>
       </div>
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-4" id="itemSearch0" type="text" name="itemSearch" placeholder="Keyword 1"
+          style="margin-right: 2px" />
+        <p class="col-sm-5">Execution Time: <span id="exec_time"></span></p>
+        <button id="btn1" class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+          data-target="#dataModal">
+          Show Data
+        </button>
+        <div class="loader" id="loader1" style="margin-left: 8px;"></div>
+      </div>
+      <div class="modal" id="dataModal">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody1"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-4" id="itemSearch1" type="text" name="itemSearch1" placeholder="Keyword 2"
+          style="margin-right: 2px" />
+        <p class="col-sm-5">Execution Time: <span id="exec_time1"></span></p>
+        <button id="btn2" class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+          data-target="#dataModal1">
+          Show Data
+        </button>
+        <div class="loader" id="loader2" style="margin-left: 8px"></div>
+      </div>
+      <div class="modal" id="dataModal1">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody2"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-4" id="itemSearch2" type="text" name="itemSearch2" placeholder="Keyword 3"
+          style="margin-right: 2px" />
+        <p class="col-sm-5">Execution Time: <span id="exec_time2"></span></p>
+        <button id="btn3" class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+          data-target="#dataModal2">
+          Show Data
+        </button>
+        <div class="loader" id="loader3" style="margin-left: 8px"></div>
+      </div>
+      <div class="modal" id="dataModal2">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody3"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-4" id="itemSearch3" type="text" name="itemSearch3" placeholder="Keyword 4"
+          style="margin-right: 2px" />
+        <p class="col-sm-5">Execution Time: <span id="exec_time3"></span></p>
+        <button id="btn4" class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+          data-target="#dataModal3">
+          Show Data
+        </button>
+        <div class="loader" id="loader4" style="margin-left: 8px"></div>
+      </div>
+      <div class="modal" id="dataModal3">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody4"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-4" id="itemSearch4" type="text" name="itemSearch4" placeholder="Keyword 5"
+          style="margin-right: 2px" />
+        <p class="col-sm-5">Execution Time: <span id="exec_time4"></span></p>
+        <button id="btn5" class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+          data-target="#dataModal4">
+          Show Data
+        </button>
+        <div class="loader" id="loader5" style="margin-left: 8px"></div>
+      </div>
+      <div class="modal" id="dataModal4">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody5"></div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-4" id="itemSearch5" type="text" name="itemSearch5" placeholder="Keyword 6"
+          style="margin-right: 2px" />
+        <p class="col-sm-5">Execution Time: <span id="exec_time5"></span></p>
+        <button id="btn6" class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+          data-target="#dataModal5">
+          Show Data
+        </button>
+        <div class="loader" id="loader6" style="margin-left: 8px"></div>
+      </div>
+      <div class="modal" id="dataModal5">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody6"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-4" id="itemSearch6" type="text" name="itemSearch6" placeholder="Keyword 7"
+          style="margin-right: 2px" />
+        <p class="col-sm-5">Execution Time: <span id="exec_time6"></span></p>
+        <button id="btn7" class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+          data-target="#dataModal6">
+          Show Data
+        </button>
+        <div class="loader" id="loader7" style="margin-left: 8px;"></div>
+      </div>
+      <div class="modal" id="dataModal6">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody7"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-4" id="itemSearch7" type="text" name="itemSearch7" placeholder="Keyword 8"
+          style="margin-right: 2px" />
+        <p class="col-sm-5">Execution Time: <span id="exec_time7"></span></p>
+        <button id="btn8" class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+          data-target="#dataModal7">
+          Show Data
+        </button>
+        <div class="loader" id="loader8" style="margin-left: 8px;"></div>
+      </div>
+      <div class="modal" id="dataModal7">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody8"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-4" id="itemSearch8" type="text" name="itemSearch8" placeholder="Keyword 9"
+          style="margin-right: 2px" />
+        <p class="col-sm-5">Execution Time: <span id="exec_time8"></span></p>
+        <button id="btn9" class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+          data-target="#dataModal8">
+          Show Data
+        </button>
+        <div class="loader" id="loader9" style="margin-left: 8px;"></div>
+      </div>
+      <div class="modal" id="dataModal8">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody9"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-4" id="itemSearch9" type="text" name="itemSearch9" placeholder="Keyword 10"
+          style="margin-right: 2px" />
+        <p class="col-sm-5">Execution Time: <span id="exec_time9"></span></p>
+        <button id="btn10" class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+          data-target="#dataModal9">
+          Show Data
+        </button>
+        <div class="loader" id="loader10" style="margin-left: 8px;"></div>
+      </div>
+      <div class="modal" id="dataModal9">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody10"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-4" id="itemSearch10" type="text" name="itemSearch9" placeholder="Keyword 11"
+          style="margin-right: 2px" />
+        <p class="col-sm-5">Execution Time: <span id="exec_time10"></span></p>
+        <button id="btn11" class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+          data-target="#dataModal10">
+          Show Data
+        </button>
+        <div class="loader" id="loader11" style="margin-left: 8px;"></div>
+      </div>
+      <div class="modal" id="dataModal10">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody11"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-4" id="itemSearch11" type="text" name="itemSearch9" placeholder="Keyword 12"
+          style="margin-right: 2px" />
+        <p class="col-sm-5">Execution Time: <span id="exec_time11"></span></p>
+        <button id="btn12" class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+          data-target="#dataModal11">
+          Show Data
+        </button>
+        <div class="loader" id="loader12" style="margin-left: 8px;"></div>
+      </div>
+      <div class="modal" id="dataModal11">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody12"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-4" id="itemSearch12" type="text" name="itemSearch9" placeholder="Keyword 13"
+          style="margin-right: 2px" />
+        <p class="col-sm-5">Execution Time: <span id="exec_time12"></span></p>
+        <button id="btn13" class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+          data-target="#dataModal12">
+          Show Data
+        </button>
+        <div class="loader" id="loader13" style="margin-left: 8px;"></div>
+      </div>
+      <div class="modal" id="dataModal12">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody13"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-4" id="itemSearch13" type="text" name="itemSearch9" placeholder="Keyword 14"
+          style="margin-right: 2px" />
+        <p class="col-sm-5">Execution Time: <span id="exec_time13"></span></p>
+        <button id="btn14" class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+          data-target="#dataModal13">
+          Show Data
+        </button>
+        <div class="loader" id="loader14" style="margin-left: 8px;"></div>
+      </div>
+      <div class="modal" id="dataModal13">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody14"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-4" id="itemSearch14" type="text" name="itemSearch9" placeholder="Keyword 15"
+          style="margin-right: 2px" />
+        <p class="col-sm-5">Execution Time: <span id="exec_time14"></span></p>
+        <button id="btn15" class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+          data-target="#dataModal14">
+          Show Data
+        </button>
+        <div class="loader" id="loader15" style="margin-left: 8px;"></div>
+      </div>
+      <div class="modal" id="dataModal14">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody15"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-4" id="itemSearch15" type="text" name="itemSearch9" placeholder="Keyword 16"
+          style="margin-right: 2px" />
+        <p class="col-sm-5">Execution Time: <span id="exec_time15"></span></p>
+        <button id="btn16" class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+          data-target="#dataModal15">
+          Show Data
+        </button>
+        <div class="loader" id="loader16" style="margin-left: 8px;"></div>
+      </div>
+      <div class="modal" id="dataModal15">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody16"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-4" id="itemSearch16" type="text" name="itemSearch9" placeholder="Keyword 17"
+          style="margin-right: 2px" />
+        <p class="col-sm-5">Execution Time: <span id="exec_time16"></span></p>
+        <button id="btn17" class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+          data-target="#dataModal16">
+          Show Data
+        </button>
+        <div class="loader" id="loader17" style="margin-left: 8px;"></div>
+      </div>
+      <div class="modal" id="dataModal16">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody17"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-4" id="itemSearch17" type="text" name="itemSearch9" placeholder="Keyword 18"
+          style="margin-right: 2px" />
+        <p class="col-sm-5">Execution Time: <span id="exec_time17"></span></p>
+        <button id="btn18" class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+          data-target="#dataModal17">
+          Show Data
+        </button>
+        <div class="loader" id="loader18" style="margin-left: 8px;"></div>
+      </div>
+      <div class="modal" id="dataModal17">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody18"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-4" id="itemSearch18" type="text" name="itemSearch9" placeholder="Keyword 19"
+          style="margin-right: 2px" />
+        <p class="col-sm-5">Execution Time: <span id="exec_time18"></span></p>
+        <button id="btn19" class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+          data-target="#dataModal18">
+          Show Data
+        </button>
+        <div class="loader" id="loader19" style="margin-left: 8px;"></div>
+      </div>
+      <div class="modal" id="dataModal18">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody19"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="display: flex; margin-top:16px">
+        <input class="form-control col-sm-4" id="itemSearch19" type="text" name="itemSearch9" placeholder="Keyword 20"
+          style="margin-right: 2px" />
+        <p class="col-sm-5">Execution Time: <span id="exec_time19"></span></p>
+        <button id="btn20" class="btn btn-primary col-sm-3" style="width: 120px" data-toggle="modal"
+          data-target="#dataModal19">
+          Show Data
+        </button>
+        <div class="loader" id="loader20" style="margin-left: 8px;"></div>
+      </div>
+      <div class="modal" id="dataModal19">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Product Details</h4>
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+            </div>
+
+            <div class="modal-body" id="modalBody20"></div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn btn-danger" onclick="myfunction()" style="margin-bottom: 16px">Submit</button>
     </div>
-    <script>
-      function msToTime(duration) {
-        var milliseconds = parseInt((duration % 1000) / 100),
-          seconds = Math.floor((duration / 1000) % 60),
-          minutes = Math.floor((duration / (1000 * 60)) % 60),
-          hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+  </div>
+  <script>
+    function msToTime(duration) {
+      var milliseconds = parseInt((duration % 1000) / 100),
+        seconds = Math.floor((duration / 1000) % 60),
+        minutes = Math.floor((duration / (1000 * 60)) % 60),
+        hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
 
-        hours = hours < 10 ? "0" + hours : hours;
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
+      hours = hours < 10 ? "0" + hours : hours;
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
 
-        return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
-      }
+      return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
+    }
 
-      function updateModal(data) {
-        var list = "";
-        list += '<div class="card" style="width: 100%;margin: 10px 0px;">';
+    function updateModal(data) {
+      var list = "";
+      list += '<div class="card" style="width: 100%;margin: 10px 0px;">';
 
+      list += '<div class="card-body p-0">';
+      list +=
+        "<Strong>Average Price</Strong> &nbsp; $" +
+        data.avgPrice.avgPrice +
+        "&nbsp;&nbsp;&nbsp;";
+      list +=
+        "<Strong>Average Ratings</Strong> &nbsp; " +
+        data.avgPrice.avgStar +
+        " out of 5 stars&nbsp;&nbsp;&nbsp;";
+      list += "<Strong>Average Seller Rank</Strong> &nbsp;";
+      var b = new Number(data.avgPrice.avgBestSell);
+      list += "" + b.toLocaleString() + "";
+      list += "</div>";
+      list += "</div>";
+      data.items.forEach(function (item) {
+        list += '<div class="row">';
+        list += '<div class="col-md-8">';
+        list +=
+          '<div class="card" style="width: 100%; margin: 10px 0px; min-height: 227px">';
         list += '<div class="card-body p-0">';
         list +=
-          "<Strong>Average Price</Strong> &nbsp; $" +
-          data.avgPrice.avgPrice +
-          "&nbsp;&nbsp;&nbsp;";
+          '<h6 style="padding: 8px; background: #ededed;">Product Details</h6>';
+        list += '<li class="media">';
         list +=
-          "<Strong>Average Ratings</Strong> &nbsp; " +
-          data.avgPrice.avgStar +
-          " out of 5 stars&nbsp;&nbsp;&nbsp;";
-        list += "<Strong>Average Seller Rank</Strong> &nbsp;";
-        var b = new Number(data.avgPrice.avgBestSell);
-        list += "" + b.toLocaleString() + "";
+          '<a href="' +
+          item.link +
+          '" target="_blank" style="text-decoration: none; color:inherit;">';
+        list +=
+          '<img class="mr-3" src="' +
+          item.image +
+          '" style="padding: 5px;" width="165px" height="165px" alt="Generic placeholder image"></a>';
+        list += '<div class="media-body p-2">';
+        list += '<a class="img-size" href="' + item.link + '">';
+        list += '<h5 class="mt-0 mb-1">' + item.title;
+        list += "</h5>";
+        list += "</a>";
+        list += "<h5>" + item.price + "</h5>";
+        list += "<h6>" + item.rattings + "</h6>" + item.description;
+        list += "</div>";
+        list += " </li>";
         list += "</div>";
         list += "</div>";
-        data.items.forEach(function(item) {
-          list += '<div class="row">';
-          list += '<div class="col-md-8">';
+        list += "</div>";
+        list += '<div class="col-md-4">';
+        list +=
+          '<div class="card" style="width: 100%; margin: 10px 0px; min-height: 227px">';
+        list +=
+          '<h6 style="padding: 8px;background: #ededed;">Product Seller Rank</h6>';
+        if (item.description != "" && item.description != undefined) {
           list +=
-            '<div class="card" style="width: 100%; margin: 10px 0px; min-height: 227px">';
-          list += '<div class="card-body p-0">';
+            '<span style="padding: 8px;">' + item.description + "</span>";
+        } else {
           list +=
-            '<h6 style="padding: 8px; background: #ededed;">Product Details</h6>';
-          list += '<li class="media">';
-          list +=
-            '<a href="' +
-            item.link +
-            '" target="_blank" style="text-decoration: none; color:inherit;">';
-          list +=
-            '<img class="mr-3" src="' +
-            item.image +
-            '" style="padding: 5px;" width="165px" height="165px" alt="Generic placeholder image"></a>';
-          list += '<div class="media-body p-2">';
-          list += '<a class="img-size" href="' + item.link + '">';
-          list += '<h5 class="mt-0 mb-1">' + item.title;
-          list += "</h5>";
-          list += "</a>";
-          list += "<h5>" + item.price + "</h5>";
-          list += "<h6>" + item.rattings + "</h6>" + item.description;
-          list += "</div>";
-          list += " </li>";
-          list += "</div>";
-          list += "</div>";
-          list += "</div>";
-          list += '<div class="col-md-4">';
-          list +=
-            '<div class="card" style="width: 100%; margin: 10px 0px; min-height: 227px">';
-          list +=
-            '<h6 style="padding: 8px;background: #ededed;">Product Seller Rank</h6>';
-          if (item.description != "" && item.description != undefined) {
-            list +=
-              '<span style="padding: 8px;">' + item.description + "</span>";
-          } else {
-            list +=
-              ' <span style="padding: 8px;">No Seller Rank for this item.</span>';
-          }
-          list += "</div>";
-          list += " </div>";
-          list += " </div>";
-        });
-        return list;
-      }
-      var stopTime = 0;
-      var timeLimit = 10;
-      var h1 = document.getElementsByTagName("h1")[0],
-        seconds = 0,
-        minutes = 0,
-        hours = 0,
-        t;
-
-      function add() {
-        seconds++;
-        if (seconds >= 60) {
-          seconds = 0;
-          minutes++;
-          if (minutes >= 60) {
-            minutes = 0;
-            hours++;
-          }
+            ' <span style="padding: 8px;">No Seller Rank for this item.</span>';
         }
+        list += "</div>";
+        list += " </div>";
+        list += " </div>";
+      });
+      return list;
+    }
+    var stopTime = 0;
+    var timeLimit = 10;
+    var h1 = document.getElementsByTagName("h1")[0],
+      seconds = 0,
+      minutes = 0,
+      hours = 0,
+      t;
 
-        h1.textContent =
-          (hours ? (hours > 9 ? hours : "0" + hours) : "00") +
-          ":" +
-          (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") +
-          ":" +
-          (seconds > 9 ? seconds : "0" + seconds);
-
-        timer();
-      }
-      function timer() {
-        t = setTimeout(add, 1000);
-      }
-
-      function myfunction() {
-        timer();
-        $("#loader1").css("visibility", "visible");
-        $("#loader2").css("visibility", "visible");
-        $("#loader3").css("visibility", "visible");
-        $("#loader4").css("visibility", "visible");
-        $("#loader5").css("visibility", "visible");
-        $("#loader6").css("visibility", "visible");
-        $("#loader7").css("visibility", "visible");
-        $("#loader8").css("visibility", "visible");
-        $("#loader9").css("visibility", "visible");
-        $("#loader10").css("visibility", "visible");
-
-        $("#btn1").addClass("hide_class");
-        $("#btn2").addClass("hide_class");
-        $("#btn3").addClass("hide_class");
-        $("#btn4").addClass("hide_class");
-        $("#btn5").addClass("hide_class");
-        $("#btn6").addClass("hide_class");
-        $("#btn7").addClass("hide_class");
-        $("#btn8").addClass("hide_class");
-        $("#btn9").addClass("hide_class");
-        $("#btn10").addClass("hide_class");
-
-
-        newFun();
-        myfunction1();
-        myfunction2();
-        myfunction3();
-        myfunction4();
-        myfunction5();
-        myfunction6();
-        myfunction7();
-        myfunction8();
-        myfunction9();
+    function add() {
+      seconds++;
+      if (seconds >= 60) {
+        seconds = 0;
+        minutes++;
+        if (minutes >= 60) {
+          minutes = 0;
+          hours++;
+        }
       }
 
-      async function newFun() {
-        var start = performance.now();
-        var x = document.getElementById("itemSearch").value;
+      h1.textContent =
+        (hours ? (hours > 9 ? hours : "0" + hours) : "00") +
+        ":" +
+        (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") +
+        ":" +
+        (seconds > 9 ? seconds : "0" + seconds);
 
-        $.ajax({
-          url: "/get-items/" + x,
-          type: "POST",
-          data: "search",
-          success: function(data) {
-            stopTime++;
-            if (stopTime == timeLimit) {
-              clearTimeout(t);
-            }
-            $("#btn1").removeClass("hide_class");
-            $("#loader1").css("visibility", "hidden");
-            var end = performance.now();
-            var time = end - start;
-            document.getElementById("exec_time").innerHTML = msToTime(time);
-            var modalBody = document.getElementById("modalBody1");
+      timer();
+    }
+    function timer() {
+      t = setTimeout(add, 1000);
+    }
 
-            var modelHtml = updateModal(data);
-            modalBody.innerHTML = modelHtml;
-            // myfunction1();
-          },
-          error: function(error) {}
-        });
+    function myfunction() {
+      timer();
+      $("#loader1").css("visibility", "visible");
+      $("#loader2").css("visibility", "visible");
+      $("#loader3").css("visibility", "visible");
+      $("#loader4").css("visibility", "visible");
+      $("#loader5").css("visibility", "visible");
+      $("#loader6").css("visibility", "visible");
+      $("#loader7").css("visibility", "visible");
+      $("#loader8").css("visibility", "visible");
+      $("#loader9").css("visibility", "visible");
+      $("#loader10").css("visibility", "visible");
+
+      $("#btn1").addClass("hide_class");
+      $("#btn2").addClass("hide_class");
+      $("#btn3").addClass("hide_class");
+      $("#btn4").addClass("hide_class");
+      $("#btn5").addClass("hide_class");
+      $("#btn6").addClass("hide_class");
+      $("#btn7").addClass("hide_class");
+      $("#btn8").addClass("hide_class");
+      $("#btn9").addClass("hide_class");
+      $("#btn10").addClass("hide_class");
+
+
+      newFun();
+      myfunction1();
+      myfunction2();
+      myfunction3();
+      myfunction4();
+      myfunction5();
+      myfunction6();
+      myfunction7();
+      myfunction8();
+      myfunction9();
+    }
+
+    async function newFun() {
+      var start = performance.now();
+      var x = document.getElementById("itemSearch0").value;
+
+      $.ajax({
+        url: "/get-items/" + x,
+        type: "POST",
+        data: "search",
+        success: function (data) {
+          stopTime++;
+          if (stopTime == timeLimit) {
+            clearTimeout(t);
+          }
+          $("#btn1").removeClass("hide_class");
+          $("#loader1").css("visibility", "hidden");
+          var end = performance.now();
+          var time = end - start;
+          document.getElementById("exec_time").innerHTML = msToTime(time);
+          var modalBody = document.getElementById("modalBody1");
+
+          var modelHtml = updateModal(data);
+          modalBody.innerHTML = modelHtml;
+          // myfunction1();
+        },
+        error: function (error) { }
+      });
+    }
+
+    async function myfunction1() {
+      var start = performance.now();
+
+      var x = document.getElementById("itemSearch1").value;
+
+      $.ajax({
+        url: "/get-items/" + x,
+        type: "POST",
+        data: "search",
+        success: function (data) {
+          stopTime++;
+          if (stopTime == timeLimit) {
+            clearTimeout(t);
+          }
+          $("#btn2").removeClass("hide_class");
+          $("#loader2").css("visibility", "hidden");
+          var end = performance.now();
+          var time = end - start;
+          document.getElementById("exec_time1").innerHTML = msToTime(time);
+          var modalBody = document.getElementById("modalBody2");
+
+          var modelHtml = updateModal(data);
+          modalBody.innerHTML = modelHtml;
+
+          // myfunction2();
+        },
+        error: function (error) { }
+      });
+    }
+
+    function myfunction2() {
+      var start = performance.now();
+
+      var x = document.getElementById("itemSearch2").value;
+
+      $.ajax({
+        url: "/get-items/" + x,
+        type: "POST",
+        data: "search",
+        success: function (data) {
+          stopTime++;
+          if (stopTime == timeLimit) {
+            clearTimeout(t);
+          }
+          $("#btn3").removeClass("hide_class");
+          $("#loader3").css("visibility", "hidden");
+          var end = performance.now();
+          var time = end - start;
+          document.getElementById("exec_time2").innerHTML = msToTime(time);
+          var modalBody = document.getElementById("modalBody3");
+
+          var modelHtml = updateModal(data);
+          modalBody.innerHTML = modelHtml;
+
+          // myfunction3();
+        },
+        error: function (error) { }
+      });
+    }
+
+    function myfunction3() {
+      var start = performance.now();
+
+      var x = document.getElementById("itemSearch3").value;
+
+      $.ajax({
+        url: "/get-items/" + x,
+        type: "POST",
+        data: "search",
+        success: function (data) {
+          stopTime++;
+          if (stopTime == timeLimit) {
+            clearTimeout(t);
+          }
+          $("#btn4").removeClass("hide_class");
+          $("#loader4").css("visibility", "hidden");
+          var end = performance.now();
+          var time = end - start;
+          document.getElementById("exec_time3").innerHTML = msToTime(time);
+          var modalBody = document.getElementById("modalBody4");
+
+          var modelHtml = updateModal(data);
+          modalBody.innerHTML = modelHtml;
+
+          // myfunction4();
+        },
+        error: function (error) { }
+      });
+    }
+    function myfunction4() {
+      var start = performance.now();
+
+      var x = document.getElementById("itemSearch4").value;
+
+      $.ajax({
+        url: "/get-items/" + x,
+        type: "POST",
+        data: "search",
+        success: function (data) {
+          stopTime++;
+          if (stopTime == timeLimit) {
+            clearTimeout(t);
+          }
+          $("#btn5").removeClass("hide_class");
+          $("#loader5").css("visibility", "hidden");
+          var end = performance.now();
+          var time = end - start;
+          document.getElementById("exec_time4").innerHTML = msToTime(time);
+          var modalBody = document.getElementById("modalBody5");
+
+          var modelHtml = updateModal(data);
+          modalBody.innerHTML = modelHtml;
+
+          // myfunction5();
+        },
+        error: function (error) { }
+      });
+    }
+
+    function myfunction5() {
+      var start = performance.now();
+
+      var x = document.getElementById("itemSearch5").value;
+
+      $.ajax({
+        url: "/get-items/" + x,
+        type: "POST",
+        data: "search",
+        success: function (data) {
+          stopTime++;
+          if (stopTime == timeLimit) {
+            clearTimeout(t);
+          }
+          $("#btn6").removeClass("hide_class");
+          $("#loader6").css("visibility", "hidden");
+          var end = performance.now();
+          var time = end - start;
+          document.getElementById("exec_time5").innerHTML = msToTime(time);
+          var modalBody = document.getElementById("modalBody6");
+
+          var modelHtml = updateModal(data);
+          modalBody.innerHTML = modelHtml;
+        },
+        error: function (error) { }
+      });
+    }
+
+    function myfunction6() {
+      var start = performance.now();
+
+      var x = document.getElementById("itemSearch6").value;
+
+      $.ajax({
+        url: "/get-items/" + x,
+        type: "POST",
+        data: "search",
+        success: function (data) {
+          stopTime++;
+          if (stopTime == timeLimit) {
+            clearTimeout(t);
+          }
+          $("#btn7").removeClass("hide_class");
+          $("#loader7").css("visibility", "hidden");
+          var end = performance.now();
+          var time = end - start;
+          document.getElementById("exec_time6").innerHTML = msToTime(time);
+          var modalBody = document.getElementById("modalBody7");
+
+          var modelHtml = updateModal(data);
+          modalBody.innerHTML = modelHtml;
+        },
+        error: function (error) { }
+      });
+    }
+
+    function myfunction7() {
+      var start = performance.now();
+
+      var x = document.getElementById("itemSearch7").value;
+
+      $.ajax({
+        url: "/get-items/" + x,
+        type: "POST",
+        data: "search",
+        success: function (data) {
+          stopTime++;
+          if (stopTime == timeLimit) {
+            clearTimeout(t);
+          }
+          $("#btn8").removeClass("hide_class");
+          $("#loader8").css("visibility", "hidden");
+          var end = performance.now();
+          var time = end - start;
+          document.getElementById("exec_time7").innerHTML = msToTime(time);
+          var modalBody = document.getElementById("modalBody8");
+
+          var modelHtml = updateModal(data);
+          modalBody.innerHTML = modelHtml;
+        },
+        error: function (error) { }
+      });
+    }
+
+    function myfunction8() {
+      var start = performance.now();
+
+      var x = document.getElementById("itemSearch8").value;
+
+      $.ajax({
+        url: "/get-items/" + x,
+        type: "POST",
+        data: "search",
+        success: function (data) {
+          stopTime++;
+          if (stopTime == timeLimit) {
+            clearTimeout(t);
+          }
+          $("#btn9").removeClass("hide_class");
+          $("#loader9").css("visibility", "hidden");
+          var end = performance.now();
+          var time = end - start;
+          document.getElementById("exec_time8").innerHTML = msToTime(time);
+          var modalBody = document.getElementById("modalBody9");
+
+          var modelHtml = updateModal(data);
+          modalBody.innerHTML = modelHtml;
+        },
+        error: function (error) { }
+      });
+    }
+
+
+    function myfunction9() {
+      var start = performance.now();
+
+      var x = document.getElementById("itemSearch9").value;
+
+      $.ajax({
+        url: "/get-items/" + x,
+        type: "POST",
+        data: "search",
+        success: function (data) {
+          stopTime++;
+          if (stopTime == timeLimit) {
+            clearTimeout(t);
+          }
+          $("#btn10").removeClass("hide_class");
+          $("#loader10").css("visibility", "hidden");
+          var end = performance.now();
+          var time = end - start;
+          document.getElementById("exec_time9").innerHTML = msToTime(time);
+          var modalBody = document.getElementById("modalBody10");
+
+          var modelHtml = updateModal(data);
+          modalBody.innerHTML = modelHtml;
+        },
+        error: function (error) { }
+      });
+    }
+
+  </script>
+
+  <script>
+    function generateKeyword() {
+      var keywords = ["iphone charger", "iphone xr cases", "iphone 8 plus case	", "iphone x case", "iphone microphone", "bed frame queen", "bed frame", "bed risers", "bed sheets queen", "swim hat toddler", "swim hat baby girl	", "swim hat baby boy", "swim hat toddler boy	", "swim hat baby", "bike pump with gauge", "bike pump portable", "bike pump presta	", "disposable face mask for dust", "disposable face mask black", "disposable face mask pink", "drool bibs boys", "drool bibs girl", "drool bibs with teether", "drool bibs unisex", "trainer cup 360", "trainer cup munchkin", "trainer cup for toddlers	", "trainer cup nuk", "doorbell chime kit with transformer", "doorbell chime kit wired", "door bell chime kit", "baby toys", "baby alive doll", "baby wipes", "baby monitor", "baby doll", "nokia 3.1 plus case", "nokia 2v phone case", "nokia 6.1 case", "nokia 7.1", "nokia 3310", "nokia 3.1 case	", "tee shirt men graphic", "tee shirt men long sleeve", "tee shirt men funny", "tee shirt men nike", "tee shirt men 3x", "trousers for women", "trousers for men", "trousers for men jeans", "trousers hanger", "trousers for boys", "wide leg trousers women", "trousers ledger", "trousers jeans", "trousers leather", "trousers latex", "trousers ariat"];
+      var index = 0;
+      for (let i = 0; i < 20; i++) {
+        index = Math.floor((Math.random() * 58) + 0);
+        document.getElementById("itemSearch" + i).value = keywords[index];
       }
+    }
+  </script>
+</body>
 
-      async function myfunction1() {
-        var start = performance.now();
-
-        var x = document.getElementById("itemSearch1").value;
-
-        $.ajax({
-          url: "/get-items/" + x,
-          type: "POST",
-          data: "search",
-          success: function(data) {
-            stopTime++;
-            if (stopTime == timeLimit) {
-              clearTimeout(t);
-            }
-            $("#btn2").removeClass("hide_class");
-            $("#loader2").css("visibility", "hidden");
-            var end = performance.now();
-            var time = end - start;
-            document.getElementById("exec_time1").innerHTML = msToTime(time);
-            var modalBody = document.getElementById("modalBody2");
-
-            var modelHtml = updateModal(data);
-            modalBody.innerHTML = modelHtml;
-
-            // myfunction2();
-          },
-          error: function(error) {}
-        });
-      }
-
-      function myfunction2() {
-        var start = performance.now();
-
-        var x = document.getElementById("itemSearch2").value;
-
-        $.ajax({
-          url: "/get-items/" + x,
-          type: "POST",
-          data: "search",
-          success: function(data) {
-            stopTime++;
-            if (stopTime == timeLimit) {
-              clearTimeout(t);
-            }
-            $("#btn3").removeClass("hide_class");
-            $("#loader3").css("visibility", "hidden");
-            var end = performance.now();
-            var time = end - start;
-            document.getElementById("exec_time2").innerHTML = msToTime(time);
-            var modalBody = document.getElementById("modalBody3");
-
-            var modelHtml = updateModal(data);
-            modalBody.innerHTML = modelHtml;
-
-            // myfunction3();
-          },
-          error: function(error) {}
-        });
-      }
-
-      function myfunction3() {
-        var start = performance.now();
-
-        var x = document.getElementById("itemSearch3").value;
-
-        $.ajax({
-          url: "/get-items/" + x,
-          type: "POST",
-          data: "search",
-          success: function(data) {
-            stopTime++;
-            if (stopTime == timeLimit) {
-              clearTimeout(t);
-            }
-            $("#btn4").removeClass("hide_class");
-            $("#loader4").css("visibility", "hidden");
-            var end = performance.now();
-            var time = end - start;
-            document.getElementById("exec_time3").innerHTML = msToTime(time);
-            var modalBody = document.getElementById("modalBody4");
-
-            var modelHtml = updateModal(data);
-            modalBody.innerHTML = modelHtml;
-
-            // myfunction4();
-          },
-          error: function(error) {}
-        });
-      }
-      function myfunction4() {
-        var start = performance.now();
-
-        var x = document.getElementById("itemSearch4").value;
-
-        $.ajax({
-          url: "/get-items/" + x,
-          type: "POST",
-          data: "search",
-          success: function(data) {
-            stopTime++;
-            if (stopTime == timeLimit) {
-              clearTimeout(t);
-            }
-            $("#btn5").removeClass("hide_class");
-            $("#loader5").css("visibility", "hidden");
-            var end = performance.now();
-            var time = end - start;
-            document.getElementById("exec_time4").innerHTML = msToTime(time);
-            var modalBody = document.getElementById("modalBody5");
-
-            var modelHtml = updateModal(data);
-            modalBody.innerHTML = modelHtml;
-
-            // myfunction5();
-          },
-          error: function(error) {}
-        });
-      }
-
-      function myfunction5() {
-        var start = performance.now();
-
-        var x = document.getElementById("itemSearch5").value;
-
-        $.ajax({
-          url: "/get-items/" + x,
-          type: "POST",
-          data: "search",
-          success: function(data) {
-            stopTime++;
-            if (stopTime == timeLimit) {
-              clearTimeout(t);
-            }
-            $("#btn6").removeClass("hide_class");
-            $("#loader6").css("visibility", "hidden");
-            var end = performance.now();
-            var time = end - start;
-            document.getElementById("exec_time5").innerHTML = msToTime(time);
-            var modalBody = document.getElementById("modalBody6");
-
-            var modelHtml = updateModal(data);
-            modalBody.innerHTML = modelHtml;
-          },
-          error: function(error) {}
-        });
-      }
-
-      function myfunction6() {
-        var start = performance.now();
-
-        var x = document.getElementById("itemSearch6").value;
-
-        $.ajax({
-          url: "/get-items/" + x,
-          type: "POST",
-          data: "search",
-          success: function(data) {
-            stopTime++;
-            if (stopTime == timeLimit) {
-              clearTimeout(t);
-            }
-            $("#btn7").removeClass("hide_class");
-            $("#loader7").css("visibility", "hidden");
-            var end = performance.now();
-            var time = end - start;
-            document.getElementById("exec_time6").innerHTML = msToTime(time);
-            var modalBody = document.getElementById("modalBody7");
-
-            var modelHtml = updateModal(data);
-            modalBody.innerHTML = modelHtml;
-          },
-          error: function(error) {}
-        });
-      }
-
-      function myfunction7() {
-        var start = performance.now();
-
-        var x = document.getElementById("itemSearch7").value;
-
-        $.ajax({
-          url: "/get-items/" + x,
-          type: "POST",
-          data: "search",
-          success: function(data) {
-            stopTime++;
-            if (stopTime == timeLimit) {
-              clearTimeout(t);
-            }
-            $("#btn8").removeClass("hide_class");
-            $("#loader8").css("visibility", "hidden");
-            var end = performance.now();
-            var time = end - start;
-            document.getElementById("exec_time7").innerHTML = msToTime(time);
-            var modalBody = document.getElementById("modalBody8");
-
-            var modelHtml = updateModal(data);
-            modalBody.innerHTML = modelHtml;
-          },
-          error: function(error) {}
-        });
-      }
-
-      function myfunction8() {
-        var start = performance.now();
-
-        var x = document.getElementById("itemSearch8").value;
-
-        $.ajax({
-          url: "/get-items/" + x,
-          type: "POST",
-          data: "search",
-          success: function(data) {
-            stopTime++;
-            if (stopTime == timeLimit) {
-              clearTimeout(t);
-            }
-            $("#btn9").removeClass("hide_class");
-            $("#loader9").css("visibility", "hidden");
-            var end = performance.now();
-            var time = end - start;
-            document.getElementById("exec_time8").innerHTML = msToTime(time);
-            var modalBody = document.getElementById("modalBody9");
-
-            var modelHtml = updateModal(data);
-            modalBody.innerHTML = modelHtml;
-          },
-          error: function(error) {}
-        });
-      }
-
-
-      function myfunction9() {
-        var start = performance.now();
-
-        var x = document.getElementById("itemSearch9").value;
-
-        $.ajax({
-          url: "/get-items/" + x,
-          type: "POST",
-          data: "search",
-          success: function(data) {
-            stopTime++;
-            if (stopTime == timeLimit) {
-              clearTimeout(t);
-            }
-            $("#btn10").removeClass("hide_class");
-            $("#loader10").css("visibility", "hidden");
-            var end = performance.now();
-            var time = end - start;
-            document.getElementById("exec_time9").innerHTML = msToTime(time);
-            var modalBody = document.getElementById("modalBody10");
-
-            var modelHtml = updateModal(data);
-            modalBody.innerHTML = modelHtml;
-          },
-          error: function(error) {}
-        });
-      }
-      
-    </script>
-  </body>
 </html>

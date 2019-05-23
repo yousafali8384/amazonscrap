@@ -8,7 +8,7 @@ let bodyParser = require("body-parser"),
     axios = require("axios"),
     env = require('dotenv'),
     app = express();
-
+let path = require('path')
 env.config();
 cheerio = cheerioAdv.wrap(cheerio);
 
@@ -17,7 +17,9 @@ app.use(express.static('/public'));
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/../public'));
 app.use(express.static(__dirname + '/static'));
-
+app.get('/new',(req,res) => {
+    res.sendFile(path.join(__dirname+'/index.html'))
+})
 app.set("view engine", "ejs");
 app.use(
     bodyParser.json({
@@ -205,10 +207,12 @@ const getAvgP = async items => {
 };
 
 app.get('/newDemo', (req, res) => {
-
     res.render('newIndex')
 });
 
+app.get('/40/keywords', (req,res) => {
+    res.render('keywordsFourty')
+})
 
 
 app.get('/getLinks/:url', async (req, res) => {
