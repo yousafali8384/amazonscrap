@@ -78,19 +78,13 @@ const getItems = async url => {
     let htmlKing = await $(".s-include-content-margin").each((index, element) => {
         let obj = {};
         if (index < 16) {
-            $(element)
-                .find(".s-image")
+            $(element).find(".s-image")
                 .each(function (i, ele) {
                     obj.image = $(ele).attr("src");
                 });
             if (
-                $(element)
-                    .find(".s-line-clamp-2 > a")
-                    .text() != ""
-            ) {
-                $(element)
-                    .find(".s-line-clamp-2 > a")
-                    .each(function (i, ele2) {
+                $(element).find(".s-line-clamp-2 > a").text() != "") {
+                $(element).find(".s-line-clamp-2 > a").each(function (i, ele2) {
                         obj.link = "https://www.amazon.com" + $(ele2).attr("href");
                     });
             } else {
@@ -102,27 +96,18 @@ const getItems = async url => {
             }
 
             if (
+                $(element).find(".s-line-clamp-2 > a > span").text() != "") {
                 $(element)
-                    .find(".s-line-clamp-2 > a > span")
-                    .text() != ""
-            ) {
-
-                $(element)
-                    .find(".s-line-clamp-2 > a > span")
-                    .each(function (i, ele2) {
+                    .find(".s-line-clamp-2 > a > span").each(function (i, ele2) {
                         obj.title = $(ele2).text();
                     });
             } else {
-                $(element)
-                    .find(".a-size-base-plus")
-                    .each(function (i, ele2) {
+                $(element).find(".a-size-base-plus").each(function (i, ele2) {
                         obj.title = $(ele2).text();
                     });
             }
 
-            $(element)
-                .find(".a-offscreen")
-                .each(function (i, ele) {
+            $(element).find(".a-offscreen").each(function (i, ele) {
                     obj.price = $(ele).text();
                 });
             $(element)
@@ -136,422 +121,56 @@ const getItems = async url => {
     });
     const newpage = await browser.newPage();
     await newpage.setViewport({ width: 1920, height: 926 });
+    for (let i = 0; i < arrItems.length; i++) {
 
-        await newpage.goto(arrItems[0].link);
+        await newpage.goto(arrItems[i].link);
         let bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
 
 
-         $ = cheerio.load(bodyHTMLNew);
+        let $ = cheerio.load(bodyHTMLNew);
+        console.log($("#SalesRank").text());
 
-         htmlKing = await $("tr").each((index, element) => {
-            if (
-                $(element)
-                    .text()
-                    .includes("Best Sellers Rank")
-            ) {
+
+        let htmlKing = await $("tr").each((index, element) => {
+            if ($(element).text().includes("Best Sellers Rank")) {
+
                 if ($(element).find("#SalesRank").length > 0) {
 
 
-                    arrItems[0].description = $(element)
+                    arrItems[i].description = $(element)
                         .find("#SalesRank")
                         .text();
                 } else {
 
-                    arrItems[0].description = $(element).text();
+                    arrItems[i].description = $(element).text();
 
                 }
+            }else if($("#SalesRank").text().includes("Sellers Rank")){
+                arrItems[i].description =$("#SalesRank").text();
             }
         });
-        await newpage.goto(arrItems[1].link);
-         bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
-
-
-         $ = cheerio.load(bodyHTMLNew);
-
-         htmlKing = await $("tr").each((index, element) => {
-            if (
-                $(element)
-                    .text()
-                    .includes("Best Sellers Rank")
-            ) {
-                if ($(element).find("#SalesRank").length > 0) {
-
-
-                    arrItems[1].description = $(element)
-                        .find("#SalesRank")
-                        .text();
-                } else {
-
-                    arrItems[1].description = $(element).text();
-
-                }
-            }
-        });
-        await newpage.goto(arrItems[2].link);
-         bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
-
-
-         $ = cheerio.load(bodyHTMLNew);
-
-         htmlKing = await $("tr").each((index, element) => {
-            if (
-                $(element)
-                    .text()
-                    .includes("Best Sellers Rank")
-            ) {
-                if ($(element).find("#SalesRank").length > 0) {
-
-
-                    arrItems[2].description = $(element)
-                        .find("#SalesRank")
-                        .text();
-                } else {
-
-                    arrItems[2].description = $(element).text();
-
-                }
-            }
-        });
-        await newpage.goto(arrItems[3].link);
-         bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
-
-
-         $ = cheerio.load(bodyHTMLNew);
-
-         htmlKing = await $("tr").each((index, element) => {
-            console.log(3)
-            if (
-                $(element)
-                    .text()
-                    .includes("Best Sellers Rank")
-            ) {
-                if ($(element).find("#SalesRank").length > 0) {
-
-
-                    arrItems[3].description = $(element)
-                        .find("#SalesRank")
-                        .text();
-                } else {
-
-                    arrItems[3].description = $(element).text();
-
-                }
-            }
-        });
-        await newpage.goto(arrItems[4].link);
-         bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
-
-
-         $ = cheerio.load(bodyHTMLNew);
-
-         htmlKing = await $("tr").each((index, element) => {
-            if (
-                $(element)
-                    .text()
-                    .includes("Best Sellers Rank")
-            ) {
-                if ($(element).find("#SalesRank").length > 0) {
-
-
-                    arrItems[4].description = $(element)
-                        .find("#SalesRank")
-                        .text();
-                } else {
-
-                    arrItems[4].description = $(element).text();
-
-                }
-            }
-        });
-        await newpage.goto(arrItems[5].link);
-         bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
-
-
-         $ = cheerio.load(bodyHTMLNew);
-
-         htmlKing = await $("tr").each((index, element) => {
-            console.log(5)
-            if (
-                $(element)
-                    .text()
-                    .includes("Best Sellers Rank")
-            ) {
-                if ($(element).find("#SalesRank").length > 0) {
-
-
-                    arrItems[5].description = $(element)
-                        .find("#SalesRank")
-                        .text();
-                } else {
-
-                    arrItems[5].description = $(element).text();
-
-                }
-            }
-        });
-        await newpage.goto(arrItems[6].link);
-         bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
-
-
-         $ = cheerio.load(bodyHTMLNew);
-
-         htmlKing = await $("tr").each((index, element) => {
-            console.log(6)
-            if (
-                $(element)
-                    .text()
-                    .includes("Best Sellers Rank")
-            ) {
-                if ($(element).find("#SalesRank").length > 0) {
-
-
-                    arrItems[6].description = $(element)
-                        .find("#SalesRank")
-                        .text();
-                } else {
-
-                    arrItems[6].description = $(element).text();
-
-                }
-            }
-        });
-        await newpage.goto(arrItems[7].link);
-         bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
-
-
-         $ = cheerio.load(bodyHTMLNew);
-
-         htmlKing = await $("tr").each((index, element) => {
-            console.log(7)
-            if (
-                $(element)
-                    .text()
-                    .includes("Best Sellers Rank")
-            ) {
-                if ($(element).find("#SalesRank").length > 0) {
-
-
-                    arrItems[7].description = $(element)
-                        .find("#SalesRank")
-                        .text();
-                } else {
-
-                    arrItems[7].description = $(element).text();
-
-                }
-            }
-        });
-        await newpage.goto(arrItems[8].link);
-         bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
-
-
-         $ = cheerio.load(bodyHTMLNew);
-
-         htmlKing = await $("tr").each((index, element) => {
-            console.log(8)
-            if (
-                $(element)
-                    .text()
-                    .includes("Best Sellers Rank")
-            ) {
-                if ($(element).find("#SalesRank").length > 0) {
-
-
-                    arrItems[8].description = $(element)
-                        .find("#SalesRank")
-                        .text();
-                } else {
-
-                    arrItems[8].description = $(element).text();
-
-                }
-            }
-        });
-        await newpage.goto(arrItems[9].link);
-         bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
-
-
-         $ = cheerio.load(bodyHTMLNew);
-
-         htmlKing = await $("tr").each((index, element) => {
-            console.log(9)
-            if (
-                $(element)
-                    .text()
-                    .includes("Best Sellers Rank")
-            ) {
-                if ($(element).find("#SalesRank").length > 0) {
-
-
-                    arrItems[9].description = $(element)
-                        .find("#SalesRank")
-                        .text();
-                } else {
-
-                    arrItems[9].description = $(element).text();
-
-                }
-            }
-        });
-        await newpage.goto(arrItems[10].link);
-         bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
-
-
-         $ = cheerio.load(bodyHTMLNew);
-
-         htmlKing = await $("tr").each((index, element) => {
-            console.log(10)
-            if (
-                $(element)
-                    .text()
-                    .includes("Best Sellers Rank")
-            ) {
-                if ($(element).find("#SalesRank").length > 0) {
-
-
-                    arrItems[10].description = $(element)
-                        .find("#SalesRank")
-                        .text();
-                } else {
-
-                    arrItems[10].description = $(element).text();
-
-                }
-            }
-        });
-        await newpage.goto(arrItems[11].link);
-         bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
-
-
-         $ = cheerio.load(bodyHTMLNew);
-
-         htmlKing = await $("tr").each((index, element) => {
-            console.log(11)
-            if (
-                $(element)
-                    .text()
-                    .includes("Best Sellers Rank")
-            ) {
-                if ($(element).find("#SalesRank").length > 0) {
-
-
-                    arrItems[11].description = $(element)
-                        .find("#SalesRank")
-                        .text();
-                } else {
-
-                    arrItems[11].description = $(element).text();
-
-                }
-            }
-        });
-        await newpage.goto(arrItems[12].link);
-         bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
-
-
-         $ = cheerio.load(bodyHTMLNew);
-
-         htmlKing = await $("tr").each((index, element) => {
-            console.log(12)
-            if (
-                $(element)
-                    .text()
-                    .includes("Best Sellers Rank")
-            ) {
-                if ($(element).find("#SalesRank").length > 0) {
-
-
-                    arrItems[12].description = $(element)
-                        .find("#SalesRank")
-                        .text();
-                } else {
-
-                    arrItems[12].description = $(element).text();
-
-                }
-            }
-        });
-        await newpage.goto(arrItems[13].link);
-         bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
-
-
-         $ = cheerio.load(bodyHTMLNew);
-
-         htmlKing = await $("tr").each((index, element) => {
-            console.log(13)
-            if (
-                $(element)
-                    .text()
-                    .includes("Best Sellers Rank")
-            ) {
-                if ($(element).find("#SalesRank").length > 0) {
-
-
-                    arrItems[13].description = $(element)
-                        .find("#SalesRank")
-                        .text();
-                } else {
-
-                    arrItems[13].description = $(element).text();
-
-                }
-            }
-        });
-        await newpage.goto(arrItems[14].link);
-         bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
-
-
-        $ = cheerio.load(bodyHTMLNew);
-
-         htmlKing = await $("tr").each((index, element) => {
-            console.log(14)
-            if (
-                $(element)
-                    .text()
-                    .includes("Best Sellers Rank")
-            ) {
-                if ($(element).find("#SalesRank").length > 0) {
-
-
-                    arrItems[14].description = $(element)
-                        .find("#SalesRank")
-                        .text();
-                } else {
-
-                    arrItems[14].description = $(element).text();
-
-                }
-            }
-        });
-        await newpage.goto(arrItems[15].link);
-         bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
-
-
-         $ = await cheerio.load(bodyHTMLNew);
-
-         htmlKing = await $("tr").each((index, element) => {
-            console.log(15)
-            if (
-                $(element)
-                    .text()
-                    .includes("Best Sellers Rank")
-            ) {
-                if ($(element).find("#SalesRank").length > 0) {
-
-
-                    arrItems[15].description = $(element)
-                        .find("#SalesRank")
-                        .text();
-                } else {
-
-                    arrItems[15].description = $(element).text();
-
-                }
-            }
-        });
-     
-    
+        let sellerType= await $("#merchant-info");
+        let selT= sellerType.text().trim();
+        if(selT.includes("Ships from")){
+            arrItems[i].sellerType="AMZ"
+
+        }else if(selT.includes("Fulfilled by Amazon")){
+            arrItems[i].sellerType="FBA"
+        }else if(selT.includes("Fulfilled by")){
+            arrItems[i].sellerType="FBM"
+        }
+        let brandName= await $("#bylineInfo");
+        console.log(brandName.text());
+        arrItems[i].brandName=brandName.text();
+
+       
+
+        
+
+        
+    } 
     browser.close();
+    console.log(arrItems)
     return arrItems;
 };
 
