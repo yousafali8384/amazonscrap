@@ -99,10 +99,9 @@ const getItems = async url => {
 
             if (
                 $(element).find(".s-line-clamp-2 > a > span").text() != "") {
-                $(element)
-                    .find(".s-line-clamp-2 > a > span").each(function (i, ele2) {
-                     
-                    });
+                $(element).find(".s-line-clamp-2 > a > span").each(function (i, ele2) {
+                    obj.title = $(ele2).text();
+                });
             } else {
                 $(element).find(".a-size-base-plus").each(function (i, ele2) {
                         obj.title = $(ele2).text();
@@ -162,7 +161,10 @@ const getItems = async url => {
         }
         let brandName= await $("#bylineInfo");
         arrItems[i].brandName=brandName.text();
-        
+
+        // let titleB= await $("#productTitle");
+        // let title= titleB.text().trim();
+        // arrItems[i].title=title;      
     } 
     browser.close();
     console.log(arrItems)
