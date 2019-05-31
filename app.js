@@ -44,10 +44,6 @@ app.get("/", (req, res) => {
     res.render("index");
 });
 
-app.get("/redirect", (req,res) => {
-    res.render("redirect");
-})
-
 app.post("/get-items/:itemSearch", async (req, res) => {
     let url = `https://www.amazon.com/s?k=${
         req.params.itemSearch
@@ -71,7 +67,6 @@ const getItems = async url => {
 
     let browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
     let page = await browser.newPage();
-    await page.setViewport({ width: 1920, height: 926 });
     await page.goto(url);
 
     // get hotel details
@@ -103,7 +98,7 @@ const getItems = async url => {
                 $(element).find(".s-line-clamp-2 > a > span").text() != "") {
                 $(element)
                     .find(".s-line-clamp-2 > a > span").each(function (i, ele2) {
-                        obj.title = $(ele2).text();
+                     
                     });
             } else {
                 $(element).find(".a-size-base-plus").each(function (i, ele2) {
@@ -132,8 +127,6 @@ const getItems = async url => {
 
 
         let $ = cheerio.load(bodyHTMLNew);
-        console.log($("#SalesRank").text());
-
 
         let htmlKing = await $("tr").each((index, element) => {
             if ($(element).text().includes("Best Sellers Rank")) {
@@ -164,13 +157,7 @@ const getItems = async url => {
             arrItems[i].sellerType="FBM"
         }
         let brandName= await $("#bylineInfo");
-        console.log(brandName.text());
         arrItems[i].brandName=brandName.text();
-
-       
-
-        
-
         
     } 
     browser.close();
@@ -322,7 +309,9 @@ const getNewAvgP = async items => {
     let price;
     let star;
     let count = 0;
+    let sellerTypeCount=0;
     items.forEach(element => {
+        console.log(element.sellerType);
         if (element.price != undefined) {
 
             price = element.price.substring(1, 500);

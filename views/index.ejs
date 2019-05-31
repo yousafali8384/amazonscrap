@@ -968,7 +968,7 @@
         var x = document.getElementById("itemSearch"+i).value;
 
         $.ajax({
-          url: "http://199.201.110.211/get-items/" + x,
+          url: "http://199.201.110.211:8000/get-items/" + x,
           type: "POST",
           data: "search",
           success: function(data) {
