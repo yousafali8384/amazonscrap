@@ -105,6 +105,7 @@ const getItems = async url => {
             } else {
                 $(element).find(".a-size-base-plus").each(function (i, ele2) {
                         obj.title = $(ele2).text();
+                        console.log(obj.title)
                     });
             }
 
