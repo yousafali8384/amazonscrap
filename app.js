@@ -66,8 +66,9 @@ const getItems = async url => {
     let arrItems = [];
 
     let browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
-    await page.setViewport({ width: 1920, height: 926 });
     let page = await browser.newPage();
+    await page.setViewport({ width: 1920, height: 926 });
+
     await page.goto(url);
 
     // get hotel details
