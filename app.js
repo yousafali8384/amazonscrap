@@ -66,6 +66,7 @@ const getItems = async url => {
     let arrItems = [];
 
     let browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox'] });
+    await page.setViewport({ width: 1920, height: 926 });
     let page = await browser.newPage();
     await page.goto(url);
 
@@ -73,6 +74,7 @@ const getItems = async url => {
     let bodyHTML = await page.evaluate(() => document.body.innerHTML);
 
     let $ = cheerio.load(bodyHTML);
+    console.log(bodyHTML)
 
     let htmlKing = await $(".s-include-content-margin").each((index, element) => {
         let obj = {};
@@ -309,9 +311,7 @@ const getNewAvgP = async items => {
     let price;
     let star;
     let count = 0;
-    let sellerTypeCount=0;
     items.forEach(element => {
-        console.log(element.sellerType);
         if (element.price != undefined) {
 
             price = element.price.substring(1, 500);
