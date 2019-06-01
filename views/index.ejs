@@ -917,8 +917,9 @@
         }
         
         for(let i=0;i<10;i++){
+          setTimeout(function() {
           newFun(i);
-
+        }, 500);
         }
         for(let i=10;i<20;i++){
           newFun1(i)
