@@ -80,9 +80,7 @@ const getItems = async url => {
   console.log(bodyHTML);
 
   let htmlKing = await $(".s-include-content-margin").each((index, element) => {
-    if (element.text().includes("Sponsored")) {
-      console.log(hi);
-    }
+
     let obj = {};
     if (index < 16) {
       $(element)
