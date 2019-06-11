@@ -63,21 +63,21 @@ app.post("/get-items/:itemSearch", async (req, res) => {
 
 const getItems = async url => {
   let arrItems = [];
-
+try{
   let browser = await puppeteer.launch({
-    headless: true,
+    headless: false,
     args: ["--no-sandbox"]
   });
+  //
   let page = await browser.newPage();
   await page.setViewport({ width: 1920, height: 926 });
 
-  await page.goto(url);
+  await page.goto(url, {waitUntil: 'load', timeout: 0});
 
   // get hotel details
   let bodyHTML = await page.evaluate(() => document.body.innerHTML);
 
   let $ = cheerio.load(bodyHTML);
-  console.log(bodyHTML);
 
   let htmlKing = await $(".s-include-content-margin").each((index, element) => {
 
@@ -121,7 +121,6 @@ const getItems = async url => {
           .find(".a-size-base-plus")
           .each(function(i, ele2) {
             obj.title = $(ele2).text();
-            console.log(obj.title);
           });
       }
 
@@ -139,10 +138,18 @@ const getItems = async url => {
       arrItems.push(obj);
     }
   });
-  const newpage = await browser.newPage();
-  await newpage.setViewport({ width: 1920, height: 926 });
+  browser.close();
+  let newbrowser = await puppeteer.launch({
+    headless: false,
+    args: ["--no-sandbox"]
+  });
+ //
+ let newpage = await newbrowser.newPage();
+ await newpage.setViewport({ width: 1920, height: 926 });
+
   for (let i = 0; i < arrItems.length; i++) {
-    await newpage.goto(arrItems[i].link);
+ 
+    await newpage.goto(arrItems[i].link, {waitUntil: 'load', timeout: 0});
     let bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
 
     let $ = cheerio.load(bodyHTMLNew);
@@ -180,13 +187,25 @@ const getItems = async url => {
     let brandName = await $("#bylineInfo");
     arrItems[i].brandName = brandName.text();
 
+    let reviews = await $("#acrCustomerReviewText");
+    arrItems[i].reviews = reviews.text();
+
+
+
     // let titleB= await $("#productTitle");
     // let title= titleB.text().trim();
     // arrItems[i].title=title;
+    
+
   }
-  browser.close();
+  newbrowser.close();
   console.log(arrItems);
   return arrItems;
+
+}catch(err){
+  console.log(err);
+}
+  
 };
 
 const getAvgP = async items => {
@@ -279,12 +298,14 @@ app.get("/getLinks/:url", async (req, res) => {
         $(element)
           .find(".s-line-clamp-2 > a")
           .each(function(i, ele2) {
+            console.log( $(ele2).text());
             obj.link = "https://www.amazon.com" + $(ele2).attr("href");
           });
       } else {
         $(element)
           .find("[data-component-type=s-product-image] > a")
           .each(function(i, ele2) {
+
             obj.link = "https://www.amazon.com" + $(ele2).attr("href");
           });
       }
