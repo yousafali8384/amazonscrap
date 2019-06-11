@@ -54,6 +54,7 @@ app.post("/get-items/:itemSearch", async (req, res) => {
 
   let items = await getItems(url);
   let avgPrice = await getAvgP(items);
+  console.log(avgPrice)
   res.send({ items, avgPrice });
   // res.render("show", {
   //     items,
@@ -217,6 +218,9 @@ const getAvgP = async items => {
   let bestSell;
   let count = 0;
   let BestSellrCount = 0;
+  let totalReview=0;
+  let reviewCount=0;
+
   items.forEach(element => {
     if (element.price != undefined) {
       price = element.price.substring(1, 500);
@@ -226,11 +230,15 @@ const getAvgP = async items => {
         totalPrice += a;
       }
     }
-    console.log(element.rattings);
     if (element.rattings != undefined) {
       count++;
       star = +element.rattings.substring(0, 3);
       totalStar += star;
+    }
+    if(element.reviews != undefined && element.reviews != ""){
+      review=+element.reviews.match(/(.*?)\s/)[0]
+      reviewCount++;
+      totalReview+=review;
     }
 
     if (element.description != undefined && element.description != "") {
@@ -243,14 +251,17 @@ const getAvgP = async items => {
       totalBest += bestSell;
     }
   });
+
   let avgPrice = (totalPrice / items.length).toFixed(2);
   let avgStar = (totalStar / count).toFixed(2);
   let avgBestSell = (totalBest / BestSellrCount).toFixed(2);
+  let avgReviews=(totalReview/reviewCount).toFixed(2);
 
   return {
     avgPrice,
     avgStar,
-    avgBestSell
+    avgBestSell,
+    avgReviews
   };
 };
 
@@ -353,6 +364,7 @@ const getNewAvgP = async items => {
   let totalStar = 0;
   let price;
   let star;
+  let review;
   let count = 0;
   items.forEach(element => {
     if (element.price != undefined) {
@@ -362,6 +374,7 @@ const getNewAvgP = async items => {
         totalPrice += a;
       }
     }
+
 
     if (element.rattings != undefined) {
       count++;
