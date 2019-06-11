@@ -54,8 +54,7 @@ app.post("/get-items/:itemSearch", async (req, res) => {
 
   let items = await getItems(url);
   let avgPrice = await getAvgP(items);
-  console.log(avgPrice)
-  res.send({ items, avgPrice });
+    res.send({ items, avgPrice });
   // res.render("show", {
   //     items,
   //     avgPrice
@@ -200,7 +199,6 @@ try{
 
   }
   newbrowser.close();
-  console.log(arrItems);
   return arrItems;
 
 }catch(err){
@@ -220,13 +218,29 @@ const getAvgP = async items => {
   let BestSellrCount = 0;
   let totalReview=0;
   let reviewCount=0;
+  let minPrice=0;
+  let maxPrice=0;
+  items.forEach((item)=>{
+    if (item.price != undefined && item.price != "" ) {
+      price = item.price.substring(1, 500);
+      let a = parseFloat(price);
+      minPrice=price;
+      maxPrice=price;
+    }
 
+  });
   items.forEach(element => {
     if (element.price != undefined) {
       price = element.price.substring(1, 500);
       let a = parseFloat(price);
 
       if (!isNaN(a)) {
+        if(a<minPrice){
+          minPrice=a;
+        }
+        if(a>maxPrice){
+          maxPrice=a;
+        }
         totalPrice += a;
       }
     }
@@ -251,6 +265,8 @@ const getAvgP = async items => {
       totalBest += bestSell;
     }
   });
+  console.log(minPrice);
+  console.log(maxPrice);
 
   let avgPrice = (totalPrice / items.length).toFixed(2);
   let avgStar = (totalStar / count).toFixed(2);
@@ -261,7 +277,9 @@ const getAvgP = async items => {
     avgPrice,
     avgStar,
     avgBestSell,
-    avgReviews
+    avgReviews,
+    minPrice,
+    maxPrice
   };
 };
 
