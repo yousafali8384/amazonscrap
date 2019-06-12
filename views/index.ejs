@@ -362,11 +362,13 @@
           $("#loader"+i).css("visibility", "visible");
           $("#btn"+i).addClass("hide_class");
         }
-        setTimeout(function(){ newFun(0); }, 3000);
-        setTimeout(function(){ newFun(1); }, 6000);
-        setTimeout(function(){ newFun(2); }, 9000);
-        setTimeout(function(){ newFun(3); }, 12000);
-        setTimeout(function(){ newFun(4); }, 15000);
+
+        newFun();
+        // setTimeout(function(){ newFun(0); }, 3000);
+        // setTimeout(function(){ newFun(1); }, 6000);
+        // setTimeout(function(){ newFun(2); }, 9000);
+        // setTimeout(function(){ newFun(3); }, 12000);
+        // setTimeout(function(){ newFun(4); }, 15000);
         // setTimeout(function(){ console.log('0'); }, 3000);
         // setTimeout(function(){ console.log('1'); }, 6000);
         // setTimeout(function(){ console.log('2'); }, 9000);
@@ -393,9 +395,9 @@
         // myfunction9();
       }
 
-      async function newFun(i) {
+      async function newFun() {
         var start = performance.now();
-        var x = document.getElementById("itemSearch"+i).value;
+        var x = document.getElementById("itemSearch0").value;
 
         $.ajax({
           url: "/get-items/" + x,
@@ -406,16 +408,16 @@
             if (stopTime == timeLimit) {
               clearTimeout(t);
             }
-            $("#btn"+(i+1)).removeClass("hide_class");
-            $("#loader"+(i+1)).css("visibility", "hidden");
+            $("#btn1").removeClass("hide_class");
+            $("#loader1").css("visibility", "hidden");
             var end = performance.now();
             var time = end - start;
-            document.getElementById("exec_time"+i).innerHTML = msToTime(time);
-            var modalBody = document.getElementById("modalBody"+(i+1));
+            document.getElementById("exec_time0").innerHTML = msToTime(time);
+            var modalBody = document.getElementById("modalBody1");
 
             var modelHtml = updateModal(data);
             modalBody.innerHTML = modelHtml;
-            // myfunction1();
+            myfunction1();
           },
           error: function(error) {}
         });
@@ -451,124 +453,124 @@
         });
       }
 
-      // async function myfunction1() {
-      //   var start = performance.now();
+      async function myfunction1() {
+        var start = performance.now();
 
-      //   var x = document.getElementById("itemSearch1").value;
+        var x = document.getElementById("itemSearch1").value;
 
-      //   $.ajax({
-      //     url: "/get-items/" + x,
-      //     type: "POST",
-      //     data: "search",
-      //     success: function(data) {
-      //       stopTime++;
-      //       if (stopTime == timeLimit) {
-      //         clearTimeout(t);
-      //       }
-      //       $("#btn2").removeClass("hide_class");
-      //       $("#loader2").css("visibility", "hidden");
-      //       var end = performance.now();
-      //       var time = end - start;
-      //       document.getElementById("exec_time1").innerHTML = msToTime(time);
-      //       var modalBody = document.getElementById("modalBody2");
+        $.ajax({
+          url: "/get-items/" + x,
+          type: "POST",
+          data: "search",
+          success: function(data) {
+            stopTime++;
+            if (stopTime == timeLimit) {
+              clearTimeout(t);
+            }
+            $("#btn2").removeClass("hide_class");
+            $("#loader2").css("visibility", "hidden");
+            var end = performance.now();
+            var time = end - start;
+            document.getElementById("exec_time1").innerHTML = msToTime(time);
+            var modalBody = document.getElementById("modalBody2");
 
-      //       var modelHtml = updateModal(data);
-      //       modalBody.innerHTML = modelHtml;
+            var modelHtml = updateModal(data);
+            modalBody.innerHTML = modelHtml;
 
-      //       // myfunction2();
-      //     },
-      //     error: function(error) {}
-      //   });
-      // }
+            myfunction2();
+          },
+          error: function(error) {}
+        });
+      }
 
-      // function myfunction2() {
-      //   var start = performance.now();
+      function myfunction2() {
+        var start = performance.now();
 
-      //   var x = document.getElementById("itemSearch2").value;
+        var x = document.getElementById("itemSearch2").value;
 
-      //   $.ajax({
-      //     url: "/get-items/" + x,
-      //     type: "POST",
-      //     data: "search",
-      //     success: function(data) {
-      //       stopTime++;
-      //       if (stopTime == timeLimit) {
-      //         clearTimeout(t);
-      //       }
-      //       $("#btn3").removeClass("hide_class");
-      //       $("#loader3").css("visibility", "hidden");
-      //       var end = performance.now();
-      //       var time = end - start;
-      //       document.getElementById("exec_time2").innerHTML = msToTime(time);
-      //       var modalBody = document.getElementById("modalBody3");
+        $.ajax({
+          url: "/get-items/" + x,
+          type: "POST",
+          data: "search",
+          success: function(data) {
+            stopTime++;
+            if (stopTime == timeLimit) {
+              clearTimeout(t);
+            }
+            $("#btn3").removeClass("hide_class");
+            $("#loader3").css("visibility", "hidden");
+            var end = performance.now();
+            var time = end - start;
+            document.getElementById("exec_time2").innerHTML = msToTime(time);
+            var modalBody = document.getElementById("modalBody3");
 
-      //       var modelHtml = updateModal(data);
-      //       modalBody.innerHTML = modelHtml;
+            var modelHtml = updateModal(data);
+            modalBody.innerHTML = modelHtml;
 
-      //       // myfunction3();
-      //     },
-      //     error: function(error) {}
-      //   });
-      // }
+            myfunction3();
+          },
+          error: function(error) {}
+        });
+      }
 
-      // function myfunction3() {
-      //   var start = performance.now();
+      function myfunction3() {
+        var start = performance.now();
 
-      //   var x = document.getElementById("itemSearch3").value;
+        var x = document.getElementById("itemSearch3").value;
 
-      //   $.ajax({
-      //     url: "/get-items/" + x,
-      //     type: "POST",
-      //     data: "search",
-      //     success: function(data) {
-      //       stopTime++;
-      //       if (stopTime == timeLimit) {
-      //         clearTimeout(t);
-      //       }
-      //       $("#btn4").removeClass("hide_class");
-      //       $("#loader4").css("visibility", "hidden");
-      //       var end = performance.now();
-      //       var time = end - start;
-      //       document.getElementById("exec_time3").innerHTML = msToTime(time);
-      //       var modalBody = document.getElementById("modalBody4");
+        $.ajax({
+          url: "/get-items/" + x,
+          type: "POST",
+          data: "search",
+          success: function(data) {
+            stopTime++;
+            if (stopTime == timeLimit) {
+              clearTimeout(t);
+            }
+            $("#btn4").removeClass("hide_class");
+            $("#loader4").css("visibility", "hidden");
+            var end = performance.now();
+            var time = end - start;
+            document.getElementById("exec_time3").innerHTML = msToTime(time);
+            var modalBody = document.getElementById("modalBody4");
 
-      //       var modelHtml = updateModal(data);
-      //       modalBody.innerHTML = modelHtml;
+            var modelHtml = updateModal(data);
+            modalBody.innerHTML = modelHtml;
 
-      //       // myfunction4();
-      //     },
-      //     error: function(error) {}
-      //   });
-      // }
-      // function myfunction4() {
-      //   var start = performance.now();
+            // myfunction4();
+          },
+          error: function(error) {}
+        });
+      }
+      function myfunction4() {
+        var start = performance.now();
 
-      //   var x = document.getElementById("itemSearch4").value;
+        var x = document.getElementById("itemSearch4").value;
 
-      //   $.ajax({
-      //     url: "/get-items/" + x,
-      //     type: "POST",
-      //     data: "search",
-      //     success: function(data) {
-      //       stopTime++;
-      //       if (stopTime == timeLimit) {
-      //         clearTimeout(t);
-      //       }
-      //       $("#btn5").removeClass("hide_class");
-      //       $("#loader5").css("visibility", "hidden");
-      //       var end = performance.now();
-      //       var time = end - start;
-      //       document.getElementById("exec_time4").innerHTML = msToTime(time);
-      //       var modalBody = document.getElementById("modalBody5");
+        $.ajax({
+          url: "/get-items/" + x,
+          type: "POST",
+          data: "search",
+          success: function(data) {
+            stopTime++;
+            if (stopTime == timeLimit) {
+              clearTimeout(t);
+            }
+            $("#btn5").removeClass("hide_class");
+            $("#loader5").css("visibility", "hidden");
+            var end = performance.now();
+            var time = end - start;
+            document.getElementById("exec_time4").innerHTML = msToTime(time);
+            var modalBody = document.getElementById("modalBody5");
 
-      //       var modelHtml = updateModal(data);
-      //       modalBody.innerHTML = modelHtml;
+            var modelHtml = updateModal(data);
+            modalBody.innerHTML = modelHtml;
 
-      //       // myfunction5();
-      //     },
-      //     error: function(error) {}
-      //   });
-      // }
+            // myfunction5();
+          },
+          error: function(error) {}
+        });
+      }
 
       // function myfunction5() {
       //   var start = performance.now();
