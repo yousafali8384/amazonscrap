@@ -250,8 +250,11 @@ const getAvgP = async items => {
       totalStar += star;
     }
     if(element.reviews != undefined && element.reviews != ""){
-      review=+element.reviews.match(/(.*?)\s/)[0]
       reviewCount++;
+      review = element.reviews.replace(",","");
+      review=+review.match(/(.*?)\s/)[0]
+     
+
       totalReview+=review;
     }
 
@@ -265,8 +268,7 @@ const getAvgP = async items => {
       totalBest += bestSell;
     }
   });
-  console.log(minPrice);
-  console.log(maxPrice);
+  
 
   let avgPrice = (totalPrice / items.length).toFixed(2);
   let avgStar = (totalStar / count).toFixed(2);
