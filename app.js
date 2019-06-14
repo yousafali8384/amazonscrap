@@ -317,12 +317,16 @@ const getAvgP = async items => {
     else
     avgSelerType = "FBA (" + fbaPer + ")%"
   
-    budget=avgPrice*400;
+
+
 
   let avgPrice = (totalPrice / items.length).toFixed(2);
   let avgStar = (totalStar / count).toFixed(2);
   let avgBestSell = (totalBest / BestSellrCount).toFixed(2);
   let avgReviews=(totalReview/reviewCount).toFixed(2);
+  
+  budget=avgPrice*400;
+
 
   return {
     avgPrice,
