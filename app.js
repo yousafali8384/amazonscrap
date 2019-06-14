@@ -54,6 +54,7 @@ app.post("/get-items/:itemSearch", async (req, res) => {
 
   let items = await getItems(url);
   let avgPrice = await getAvgP(items);
+  console.log(avgPrice)
     res.send({ items, avgPrice });
   // res.render("show", {
   //     items,
@@ -220,7 +221,34 @@ const getAvgP = async items => {
   let reviewCount=0;
   let minPrice=0;
   let maxPrice=0;
+  let fba=0;
+  let fbm=0;
+  let amz=0;
+  let amzPer=0;
+  let fbaPer=0;
+  let fbmPer=0;
+  let avgSelerType;
+  let countArr = [];
+  let brand='';
+  let budget=0; 
   items.forEach((item)=>{
+
+    if (item.sellerType == "AMZ") {
+      amz = amz + 1
+  } else if (item.sellerType == "FBM") {
+      fbm = fbm + 1
+  } else if (item.sellerType == "FBA") {
+      fba =fba + 1
+  }
+
+
+
+   
+  countArr[item.brandName] = (countArr[item.brandName] || 0) + 1;
+
+
+    
+
     if (item.price != undefined && item.price != "" ) {
       price = item.price.substring(1, 500);
       let a = parseFloat(price);
@@ -268,7 +296,28 @@ const getAvgP = async items => {
       totalBest += bestSell;
     }
   });
+
+  for (let key in countArr) {
+    if (countArr[key] >= 6) {
+        brand = "YES"
+    } else {
+        brand = "NO"
+    }
+}
+
+
+                    amzPer = (amz / 16) * 100;
+                    fbaPer = (fba / 16) * 100;
+                    fbmPer = (fbm / 16) * 100;
+
+    if (amz > fbm && amz > fba)
+    avgSelerType = "AMZ (" + amzPer + ")%"
+    else if (fbm > amz && fbm > fba)
+    avgSelerType = "FBM (" + fbmPer + ")%"
+    else
+    avgSelerType = "FBA (" + fbaPer + ")%"
   
+    budget=avgPrice*400;
 
   let avgPrice = (totalPrice / items.length).toFixed(2);
   let avgStar = (totalStar / count).toFixed(2);
@@ -281,7 +330,13 @@ const getAvgP = async items => {
     avgBestSell,
     avgReviews,
     minPrice,
-    maxPrice
+    maxPrice,
+    avgSelerType,
+    amzPer,
+    fbmPer,
+    fbaPer,
+    brand,
+    budget
   };
 };
 
