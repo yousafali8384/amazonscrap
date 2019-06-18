@@ -55,6 +55,7 @@ app.post("/get-items/:itemSearch", async (req, res) => {
   let items = await getItems(url);
   let getSale = await getTheSale(items);
   let avgPrice = await getAvgP(items,getSale);
+  console.log(avgPrice)
   res.send({ items, avgPrice });
   // res.render("show", {
   //     items,
@@ -467,7 +468,6 @@ let getTheSale = async items => {
     }
     
   });
-  console.log(sale.data.sales_arr)
   sale.data.sales_arr.forEach(element => {
     sales+=element.units;
     });
