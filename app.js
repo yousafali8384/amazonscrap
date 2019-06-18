@@ -465,9 +465,10 @@ let getTheSale = async items => {
     url: 'http://api.gigcodes.com/api/get/sales',
     data: {
       ranks
-    }
-    
+    }  
   });
+  console.log(sale.data.sales_arr)
+
   sale.data.sales_arr.forEach(element => {
     sales+=element.units;
     });
