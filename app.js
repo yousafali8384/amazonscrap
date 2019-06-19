@@ -254,8 +254,8 @@ let getAvgP = async (items,sale) => {
     if (item.price != undefined && item.price != "") {
       price = item.price.substring(1, 500);
       let a = parseFloat(price);
-      minPrice = price;
-      maxPrice = price;
+      minPrice = a;
+      maxPrice = a;
     }
   });
   items.forEach(element => {

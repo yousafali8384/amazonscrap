@@ -402,6 +402,7 @@
           type: "POST",
           data: "search",
           success: function(data) {
+            console.log(data)
             stopTime++;
             if (stopTime == timeLimit) {
               clearTimeout(t);
