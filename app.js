@@ -126,12 +126,24 @@ let getItems = async url => {
                 obj.title = $(ele2).text();
               });
           }
-
+        if( $(element).find(".a-price > span") .text() != ""){
           $(element)
-            .find(".a-offscreen")
-            .each(function(i, ele) {
-              obj.price = $(ele).text();
-            });
+          .find(".a-price > span")
+          .each(function(i, ele) {
+            obj.price = $(ele).text();
+
+          console.log($(ele).text());
+          });
+        }else{
+          $(element)
+          .find(".a-spacing-top-mini > div ")
+          .each(function(i, ele) {
+            obj.price = $(ele.children[2]).text();
+
+          });
+
+        }
+       
           $(element)
             .find(".a-icon-alt")
             .each(function(i, ele) {
