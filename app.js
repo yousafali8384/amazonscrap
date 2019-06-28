@@ -55,7 +55,7 @@ app.post("/get-items/:itemSearch", async (req, res) => {
   let items = await getItems(url);
   let getSale = await getTheSale(items);
   let avgPrice = await getAvgP(items,getSale);
-  console.log(avgPrice)
+  console.log(items)
   res.send({ items, avgPrice });
   // res.render("show", {
   //     items,
@@ -67,7 +67,7 @@ let getItems = async url => {
   let arrItems = [];
   try {
     let browser = await puppeteer.launch({
-      headless: true,
+      headless: false,
       args: ["--no-sandbox"]
     });
     //
@@ -84,6 +84,7 @@ let getItems = async url => {
     let htmlKing = await $(".s-include-content-margin").each(
       (index, element) => {
         let obj = {};
+        obj.title='';
         if (index < 16) {
           $(element)
             .find(".s-image")
@@ -141,13 +142,9 @@ let getItems = async url => {
         }
       }
     );
-    browser.close();
-    let newbrowser = await puppeteer.launch({
-      headless: true,
-      args: ["--no-sandbox"]
-    });
+  
     //
-    let newpage = await newbrowser.newPage();
+    let newpage = await browser.newPage();
     await newpage.setViewport({ width: 1920, height: 926 });
 
     for (let i = 0; i < arrItems.length; i++) {
@@ -210,7 +207,7 @@ let getItems = async url => {
       // let title= titleB.text().trim();
       // arrItems[i].title=title;
     }
-    newbrowser.close();
+    browser.close();
     return arrItems;
   } catch (err) {
     console.log(err);
@@ -313,10 +310,15 @@ let getAvgP = async (items,sale) => {
   else if (fbm > amz && fbm > fba) avgSelerType = "FBM (" + fbmPer + ")%";
   else avgSelerType = "FBA (" + fbaPer + ")%";
 
-  let avgPrice = (totalPrice / items.length).toFixed(2);
-  let avgStar = (totalStar / count).toFixed(2);
-  let avgBestSell = (totalBest / BestSellrCount).toFixed(2);
-  let avgReviews = (totalReview / reviewCount).toFixed(2);
+  let avgPrice=0;
+  avgPrice = (totalPrice / items.length).toFixed(2);
+  let avgStar =0;
+  avgStar= (totalStar / count).toFixed(2);
+  let avgBestSell =0;
+  avgBestSell= (totalBest / BestSellrCount).toFixed(2);
+  
+  let avgReviews=0;
+  avgReviews = (totalReview / reviewCount).toFixed(2);
   let opportunity;
   budget = avgPrice * 400;
 
@@ -467,7 +469,6 @@ let getTheSale = async items => {
       ranks
     }  
   });
-  console.log(sale.data.sales_arr)
 
   sale.data.sales_arr.forEach(element => {
     sales+=element.units;
