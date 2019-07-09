@@ -46,16 +46,17 @@ app.get("/", (req, res) => {
 });
 
 app.post("/get-items/:itemSearch", async (req, res) => {
-  console.log("routecall");
-  let url = `https://www.amazon.com/s?k=${
-    req.params.itemSearch
-  }&ref=nb_sb_noss_2`;
+  
+  // let url = `https://www.amazon.com/s?k=${
+  //   req.params.itemSearch
+  // }&ref=nb_sb_noss_2`;\
+  let url ='https://www.amazon.com/s?k='+req.params.itemSearch
   // getItems(url)
 
   let items = await getItems(url);
   let getSale = await getTheSale(items);
   let avgPrice = await getAvgP(items,getSale);
-  console.log(items)
+  console.log(avgPrice)
   res.send({ items, avgPrice });
   // res.render("show", {
   //     items,
@@ -80,8 +81,10 @@ let getItems = async url => {
     let bodyHTML = await page.evaluate(() => document.body.innerHTML);
 
     let $ = cheerio.load(bodyHTML);
+    let inDex=0;
+    
 
-    let htmlKing = await $(".s-include-content-margin").each(
+    let htmlKing = await $('div.s-include-content-margin.s-border-bottom').each(
       (index, element) => {
         let obj = {};
         obj.title='';
@@ -155,7 +158,7 @@ let getItems = async url => {
       }
     );
   
-    //
+    
     let newpage = await browser.newPage();
     await newpage.setViewport({ width: 1920, height: 926 });
 
@@ -390,6 +393,7 @@ let getTheSale = async items => {
   let isBook=false;
   let isArts=false;
   let isAutomotive=false;
+  console.log('before')
 
   items.forEach(element => {
     if (element.category == "Books") {
@@ -411,17 +415,6 @@ let getTheSale = async items => {
         .split(" ")[0];
       bestSell = +newDescription.replace(/,/g, "");
       selObj.attribute="11"
-      selObj.rank=""+bestSell;
-      ranks.push(selObj);
-    }
-    if (element.category == "Baby") {
-      isBaby=true;
-      let newKing = element.description.replace(/\s+/g, " ").trim();
-      let newDescription = newKing
-        .substring(newKing.indexOf("#") + 1, 40)
-        .split(" ")[0];
-      bestSell = +newDescription.replace(/,/g, "");
-      selObj.attribute="12"
       selObj.rank=""+bestSell;
       ranks.push(selObj);
     }
@@ -469,11 +462,183 @@ let getTheSale = async items => {
       selObj.rank=""+bestSell;
       ranks.push(selObj);
     }
-  });
+    if (element.category == "Arts") {
+      let newKing = element.description.replace(/\s+/g, " ").trim();
+      let newDescription = newKing
+        .substring(newKing.indexOf("#") + 1, 40)
+        .split(" ")[0];
+      bestSell = +newDescription.replace(/,/g, "");
+      selObj.attribute="16"
+      selObj.rank=""+bestSell;
+      ranks.push(selObj);
+    }
+    if (element.category == "Cell Phones & Accessories") {
+      let newKing = element.description.replace(/\s+/g, " ").trim();
+      let newDescription = newKing
+        .substring(newKing.indexOf("#") + 1, 40)
+        .split(" ")[0];
+      bestSell = +newDescription.replace(/,/g, "");
+      selObj.attribute="19"
+      selObj.rank=""+bestSell;
+      ranks.push(selObj);
+    }
+    if (element.category == "Grocery") {
+      let newKing = element.description.replace(/\s+/g, " ").trim();
+      let newDescription = newKing
+        .substring(newKing.indexOf("#") + 1, 40)
+        .split(" ")[0];
+      bestSell = +newDescription.replace(/,/g, "");
+      selObj.attribute="110"
+      selObj.rank=""+bestSell;
+      ranks.push(selObj);
+    }
+    if (element.category == "Home improvement") {
+      let newKing = element.description.replace(/\s+/g, " ").trim();
+      let newDescription = newKing
+        .substring(newKing.indexOf("#") + 1, 40)
+        .split(" ")[0];
+      bestSell = +newDescription.replace(/,/g, "");
+      selObj.attribute="111"
+      selObj.rank=""+bestSell;
+      ranks.push(selObj);
+    }
+    if (element.category == "Kindle Store") {
+      let newKing = element.description.replace(/\s+/g, " ").trim();
+      let newDescription = newKing
+        .substring(newKing.indexOf("#") + 1, 40)
+        .split(" ")[0];
+      bestSell = +newDescription.replace(/,/g, "");
+      selObj.attribute="113"
+      selObj.rank=""+bestSell;
+      ranks.push(selObj);
+    }
+    if (element.category == "Home & Kitchen") {
+      let newKing = element.description.replace(/\s+/g, " ").trim();
+      let newDescription = newKing
+        .substring(newKing.indexOf("#") + 1, 40)
+        .split(" ")[0];
+      bestSell = +newDescription.replace(/,/g, "");
+      selObj.attribute="115"
+      selObj.rank=""+bestSell;
+      ranks.push(selObj);
+    }
+    if (element.category == "Kitchen & Dining") {
+      let newKing = element.description.replace(/\s+/g, " ").trim();
+      let newDescription = newKing
+        .substring(newKing.indexOf("#") + 1, 40)
+        .split(" ")[0];
+      bestSell = +newDescription.replace(/,/g, "");
+      selObj.attribute="116"
+      selObj.rank=""+bestSell;
+      ranks.push(selObj);
+    }
+    if (element.category == "Music Instrument") {
+      let newKing = element.description.replace(/\s+/g, " ").trim();
+      let newDescription = newKing
+        .substring(newKing.indexOf("#") + 1, 40)
+        .split(" ")[0];
+      bestSell = +newDescription.replace(/,/g, "");
+      selObj.attribute="117"
+      selObj.rank=""+bestSell;
+      ranks.push(selObj);
+    }
+    if (element.category == "Office Products") {
+      let newKing = element.description.replace(/\s+/g, " ").trim();
+      let newDescription = newKing
+        .substring(newKing.indexOf("#") + 1, 40)
+        .split(" ")[0];
+      bestSell = +newDescription.replace(/,/g, "");
+      selObj.attribute="118"
+      selObj.rank=""+bestSell;
+      ranks.push(selObj);
+    }
+    if (element.category == "Patio, Lawn & Garden") {
+      let newKing = element.description.replace(/\s+/g, " ").trim();
+      let newDescription = newKing
+        .substring(newKing.indexOf("#") + 1, 40)
+        .split(" ")[0];
+      bestSell = +newDescription.replace(/,/g, "");
+      selObj.attribute="119"
+      selObj.rank=""+bestSell;
+      ranks.push(selObj);
+    }
+    if (element.category == "Pet Supplies") {
+      let newKing = element.description.replace(/\s+/g, " ").trim();
+      let newDescription = newKing
+        .substring(newKing.indexOf("#") + 1, 40)
+        .split(" ")[0];
+      bestSell = +newDescription.replace(/,/g, "");
+      selObj.attribute="120"
+      selObj.rank=""+bestSell;
+      ranks.push(selObj);
+    }
+    if (element.category == "Software") {
+      let newKing = element.description.replace(/\s+/g, " ").trim();
+      let newDescription = newKing
+        .substring(newKing.indexOf("#") + 1, 40)
+        .split(" ")[0];
+      bestSell = +newDescription.replace(/,/g, "");
+      selObj.attribute="121"
+      selObj.rank=""+bestSell;
+      ranks.push(selObj);
+    }
+    if (element.category == "Sports & Outdoors") {
+      let newKing = element.description.replace(/\s+/g, " ").trim();
+      let newDescription = newKing
+        .substring(newKing.indexOf("#") + 1, 40)
+        .split(" ")[0];
+      bestSell = +newDescription.replace(/,/g, "");
+      selObj.attribute="122"
+      selObj.rank=""+bestSell;
+      ranks.push(selObj);
+    }
+    if (element.category == "Toys & Games") {
+      let newKing = element.description.replace(/\s+/g, " ").trim();
+      let newDescription = newKing
+        .substring(newKing.indexOf("#") + 1, 40)
+        .split(" ")[0];
+      bestSell = +newDescription.replace(/,/g, "");
+      selObj.attribute="123"
+      selObj.rank=""+bestSell;
+      ranks.push(selObj);
+    }
+    if (element.category == "Video Games") {
+      let newKing = element.description.replace(/\s+/g, " ").trim();
+      let newDescription = newKing
+        .substring(newKing.indexOf("#") + 1, 40)
+        .split(" ")[0];
+      bestSell = +newDescription.replace(/,/g, "");
+      selObj.attribute="124"
+      selObj.rank=""+bestSell;
+      ranks.push(selObj);
+    }
+    if (element.category == "Music") {
+      let newKing = element.description.replace(/\s+/g, " ").trim();
+      let newDescription = newKing
+        .substring(newKing.indexOf("#") + 1, 40)
+        .split(" ")[0];
+      bestSell = +newDescription.replace(/,/g, "");
+      selObj.attribute="125"
+      selObj.rank=""+bestSell;
+      ranks.push(selObj);
+    }
+    if (element.category == "Baby") {
+      let newKing = element.description.replace(/\s+/g, " ").trim();
+      let newDescription = newKing
+        .substring(newKing.indexOf("#") + 1, 40)
+        .split(" ")[0];
+      bestSell = +newDescription.replace(/,/g, "");
+      selObj.attribute="126"
+      selObj.rank=""+bestSell;
+      ranks.push(selObj);
+    }
 
+
+  });
+console.log('after')
   axios.defaults.headers.common['x-api-key'] = "5etHSY6yZpiqz1PPuXSZw8LvCdfZ5JivdYROinfuaJYwftWsEHdGZwO2aSts";
   axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-
+console.log(ranks)
  let sale = await axios({
     method: 'post',
     url: 'http://api.gigcodes.com/api/get/sales',
@@ -483,9 +648,10 @@ let getTheSale = async items => {
   });
 
   sale.data.sales_arr.forEach(element => {
+    console.log(element)
     sales+=element.units;
     });
-    
+    console.log(sale)
   return sales.toFixed(2);
 };
 
