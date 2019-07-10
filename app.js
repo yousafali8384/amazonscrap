@@ -56,7 +56,6 @@ app.post("/get-items/:itemSearch", async (req, res) => {
   let items = await getItems(url);
   let getSale = await getTheSale(items);
   let avgPrice = await getAvgP(items,getSale);
-  console.log(avgPrice)
   res.send({ items, avgPrice });
   // res.render("show", {
   //     items,
@@ -135,7 +134,6 @@ let getItems = async url => {
           .each(function(i, ele) {
             obj.price = $(ele).text();
 
-          console.log($(ele).text());
           });
         }else{
           $(element)
@@ -393,7 +391,6 @@ let getTheSale = async items => {
   let isBook=false;
   let isArts=false;
   let isAutomotive=false;
-  console.log('before')
 
   items.forEach(element => {
     if (element.category == "Books") {
@@ -635,10 +632,8 @@ let getTheSale = async items => {
 
 
   });
-console.log('after')
   axios.defaults.headers.common['x-api-key'] = "5etHSY6yZpiqz1PPuXSZw8LvCdfZ5JivdYROinfuaJYwftWsEHdGZwO2aSts";
   axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-console.log(ranks)
  let sale = await axios({
     method: 'post',
     url: 'http://api.gigcodes.com/api/get/sales',
@@ -648,11 +643,17 @@ console.log(ranks)
   });
 
   sale.data.sales_arr.forEach(element => {
-    console.log(element)
     sales+=element.units;
     });
-    console.log(sale)
-  return sales.toFixed(2);
+    
+    let saleTotal=sales;
+    if(isNaN(saleTotal)){
+      saleTotal=0;
+     }else{
+      saleTotal=sales.toFixed(2);
+     }
+    
+  return saleTotal;
 };
 
 const port = process.env.PORT || "3001";
