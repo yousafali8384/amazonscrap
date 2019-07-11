@@ -50,13 +50,17 @@ app.post("/get-items/:itemSearch/country/:country", async (req, res) => {
   // let url ='https://www.amazon.com/s?k='+req.params.itemSearch
   if(req.params.country){
     if(req.params.country == "1"){
-      let countryOneItems=await countryOne(req.params.itemSearch);
+      let url ='https://www.amazon.com/s?k='+req.params.itemSearch
+      let part ='https://www.amazon.com';
+      let countryOneItems=await countryTwo(url,part);
       res.send(countryOneItems);
 
     }
 
     if(req.params.country == "2"){
-      let countryOneItems=await countryTwo(req.params.itemSearch);
+      let url ='https://www.amazon.co.uk/s?k='+req.params.itemSearch
+      let part ='https://www.amazon.co.uk';
+      let countryOneItems=await countryTwo(url,part);
       res.send(countryOneItems);
 
     }
@@ -79,9 +83,9 @@ let countryOne = async (keyword)=>{
   return ({ items, avgPrice });
 }
 
-let countryTwo = async (keyword)=>{
-  let url ='https://www.amazon.co.uk/s?k='+keyword
-  let items = await getItems2(url);
+let countryTwo = async (url,part)=>{
+
+  let items = await getItems2(url,part);
   let getSale = await getTheSale1(items);
   let avgPrice = await getAvgP(items,getSale);
   return ({ items, avgPrice });
@@ -251,7 +255,7 @@ let getItems1 = async url => {
     console.log(err);
   }
 };
-let getItems2 = async url => {
+let getItems2 = async (url,part) => {
   let arrItems = [];
   try {
     let browser = await puppeteer.launch({
@@ -292,7 +296,7 @@ let getItems2 = async url => {
               .each(function(i, ele2) {
 
                 if( !$(ele2).attr("href").includes("/gp/slredirect/")){
-                  obj.link = "https://www.amazon.co.uk" + $(ele2).attr("href");
+                  obj.link = part + $(ele2).attr("href");
                   counter++;
                 }
                 
@@ -302,7 +306,7 @@ let getItems2 = async url => {
               .find("[data-component-type=s-product-image] > a")
               .each(function(i, ele2) {
                 if( !$(ele2).attr("href").includes("/gp/slredirect/")){
-                  obj.link = "https://www.amazon.co.uk" + $(ele2).attr("href");
+                  obj.link = part + $(ele2).attr("href");
                   counter++;
                 }
               });
