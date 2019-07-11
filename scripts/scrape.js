@@ -6,7 +6,6 @@ cheerio = cheerioAdv.wrap(cheerio);
 
 
 let countryDetail = async (url,part,country)=>{
-    console.log('called');
     let items = await getItems(url,part);
     let getSale = await getTheSale(items,country);
     let avgPrice = await getAvgP(items,getSale);
@@ -236,8 +235,7 @@ let countryDetail = async (url,part,country)=>{
       if (element.price != undefined) {
         price = element.price.replace("CDN","").replace(" ","").substring(1, 500);
         let a = parseFloat(price);
-  console.log(price)
-  console.log(a)
+ 
 
         if (!isNaN(a)) {
           if (a < minPrice) {
