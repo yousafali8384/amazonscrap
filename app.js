@@ -496,7 +496,7 @@ let getAvgP = async (items,sale) => {
   });
   items.forEach(element => {
     if (element.price != undefined) {
-      price = element.price.substring(1, 500);
+      price = element.price.replace("CDN","").replace(" ","").substring(1, 500);
       let a = parseFloat(price);
 
       if (!isNaN(a)) {
@@ -1298,7 +1298,7 @@ let getTheSale1 = async (items,country) => {
   sale.data.sales_arr.forEach(element => {
     sales+=element.units;
     });
-    
+     
     let saleTotal=sales;
     if(isNaN(saleTotal)){
       saleTotal=0;
