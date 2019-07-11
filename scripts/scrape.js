@@ -1036,7 +1036,10 @@ let countryDetail = async (url,part,country)=>{
     });
   
     sale.data.sales_arr.forEach(element => {
-      sales+=element.units;
+        if(!isNaN(element.units)){
+            sales+=element.units;
+        }
+
       });
        
       let saleTotal=sales;
