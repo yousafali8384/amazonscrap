@@ -64,6 +64,20 @@ app.post("/get-items/:itemSearch/country/:country", async (req, res) => {
       res.send(countryOneItems);
 
     }
+
+    if(req.params.country == "3"){
+      let url ='https://www.amazon.ca/s?k='+req.params.itemSearch
+      let part ='https://www.amazon.ca';
+      let countryOneItems=await countryTwo(url,part);
+      res.send(countryOneItems);
+    }
+    if(req.params.country == "4"){
+      let url ='https://www.amazon.in/s?k='+req.params.itemSearch
+      let part ='https://www.amazon.in';
+      let countryOneItems=await countryTwo(url,part);
+      res.send(countryOneItems);
+    }
+
   }else{
     res.send("Please enter country code")
   }
