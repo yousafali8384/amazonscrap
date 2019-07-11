@@ -226,7 +226,7 @@ let countryDetail = async (url,part,country)=>{
       countArr[item.brandName] = (countArr[item.brandName] || 0) + 1;
   
       if (item.price != undefined && item.price != "") {
-        price = item.price.substring(1, 500);
+        price = item.price.replace("CDN","").replace(" ","").substring(1, 500);
         let a = parseFloat(price);
         minPrice = a;
         maxPrice = a;
@@ -236,7 +236,9 @@ let countryDetail = async (url,part,country)=>{
       if (element.price != undefined) {
         price = element.price.replace("CDN","").replace(" ","").substring(1, 500);
         let a = parseFloat(price);
-  
+  console.log(price)
+  console.log(a)
+
         if (!isNaN(a)) {
           if (a < minPrice) {
             minPrice = a;
