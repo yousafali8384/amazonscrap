@@ -51,14 +51,12 @@ app.post("/get-items/:itemSearch/country/:country", async (req, res) => {
   if(req.params.country){
     if(req.params.country == "1"){
       let countryOneItems=await countryOne(req.params.itemSearch);
-      console.log(countryOneItems)
       res.send(countryOneItems);
 
     }
 
     if(req.params.country == "2"){
       let countryOneItems=await countryTwo(req.params.itemSearch);
-      console.log(countryOneItems)
       res.send(countryOneItems);
 
     }
@@ -271,12 +269,12 @@ let getItems2 = async url => {
 
     let $ = cheerio.load(bodyHTML);
     let inDex=0;
-    
+    let counter = 0;
+
 
     let htmlKing = await $('div.s-include-content-margin.s-border-bottom').each(
       (index, element) => {
         let obj = {};
-        let counter = 0;
         obj.title='';
         if (counter < 16) {
           $(element)
@@ -356,7 +354,6 @@ let getItems2 = async url => {
         }
       }
     );
-  
     
     let newpage = await browser.newPage();
     await newpage.setViewport({ width: 1920, height: 926 });
