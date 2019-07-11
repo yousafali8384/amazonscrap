@@ -53,8 +53,17 @@
         <h1 style="margin-top:16px; text-align: center">
           <time>00:00:00</time>
         </h1>
-        <div class="form-group">
+        
+        <div class="form-group" style="display: flex; margin-top:16px">
           <button class="btn btn-warning" onclick="generateKeyword()">Generate Keywords into Inputs</button>
+          <input
+          class="form-control col-sm-4"
+          id="country"
+          type="text"
+          name="country"
+          placeholder="Type Country Code"
+          style="margin-left: 128px"
+        />
         </div>
         <div class="form-group" style="display: flex; margin-top:16px">
           <input
@@ -396,9 +405,10 @@
       async function newFun(i) {
         var start = performance.now();
         var x = document.getElementById("itemSearch"+i).value;
+        var country=document.getElementById('country').value;
 
         $.ajax({
-          url: "/get-items/" + x,
+          url: "/get-items/" + x+'/country/'+country,
           type: "POST",
           data: "search",
           success: function(data) {

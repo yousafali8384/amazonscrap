@@ -45,25 +45,54 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.post("/get-items/:itemSearch", async (req, res) => {
+app.post("/get-items/:itemSearch/country/:country", async (req, res) => {
   
-  // let url = `https://www.amazon.com/s?k=${
-  //   req.params.itemSearch
-  // }&ref=nb_sb_noss_2`;\
-  let url ='https://www.amazon.com/s?k='+req.params.itemSearch
-  // getItems(url)
+  // let url ='https://www.amazon.com/s?k='+req.params.itemSearch
+  if(req.params.country){
+    if(req.params.country == "1"){
+      let countryOneItems=await countryOne(req.params.itemSearch);
+      console.log(countryOneItems)
+      res.send(countryOneItems);
 
-  let items = await getItems(url);
-  let getSale = await getTheSale(items);
-  let avgPrice = await getAvgP(items,getSale);
-  res.send({ items, avgPrice });
-  // res.render("show", {
-  //     items,
-  //     avgPrice
-  // });
+    }
+
+    if(req.params.country == "2"){
+      let countryOneItems=await countryTwo(req.params.itemSearch);
+      // console.log(countryOneItems)
+      // res.send(countryOneItems);
+
+    }
+  }else{
+    res.send("Please enter country code")
+  }
+
+  // let items = await getItems(url);
+  // let getSale = await getTheSale(items);
+  // let avgPrice = await getAvgP(items,getSale);
+  // res.send({ items, avgPrice });
+  
 });
+let countryOne = async (keyword)=>{
+  console.log("hi")
+  let url ='https://www.amazon.com/s?k='+keyword
+  let items = await getItems1(url);
+  let getSale = await getTheSale1(items);
+  let avgPrice = await getAvgP(items,getSale);
+  return ({ items, avgPrice });
+}
 
-let getItems = async url => {
+let countryTwo = async (keyword)=>{
+  console.log("hi2")
+  let url ='https://www.amazon.co.uk/s?k='+keyword
+  let items = await getItems2(url);
+  console.log(items)
+  // let getSale = await getTheSale1(items);
+  // let avgPrice = await getAvgP(items,getSale);
+  // return ({ items, avgPrice });
+}
+
+
+let getItems1 = async url => {
   let arrItems = [];
   try {
     let browser = await puppeteer.launch({
@@ -226,7 +255,184 @@ let getItems = async url => {
     console.log(err);
   }
 };
+let getItems2 = async url => {
+  let arrItems = [];
+  try {
+    let browser = await puppeteer.launch({
+      headless: true,
+      args: ["--no-sandbox"]
+    });
+    //
+    let page = await browser.newPage();
+    await page.setViewport({ width: 1920, height: 926 });
 
+    await page.goto(url, { waitUntil: "load", timeout: 0 });
+
+    // get hotel details
+    let bodyHTML = await page.evaluate(() => document.body.innerHTML);
+
+    let $ = cheerio.load(bodyHTML);
+    let inDex=0;
+    
+
+    let htmlKing = await $('div.s-include-content-margin.s-border-bottom').each(
+      (index, element) => {
+        let obj = {};
+        let counter = 0;
+        obj.title='';
+        if (counter < 16) {
+          $(element)
+            .find(".s-image")
+            .each(function(i, ele) {
+              obj.image = $(ele).attr("src");
+            });
+          if (
+            $(element)
+              .find(".s-line-clamp-2 > a")
+              .text() != ""
+          ) {
+            $(element)
+              .find(".s-line-clamp-2 > a")
+              .each(function(i, ele2) {
+
+                if( !$(ele2).attr("href").includes("/gp/slredirect/")){
+                  obj.link = "https://www.amazon.co.uk" + $(ele2).attr("href");
+                  counter++;
+                }
+                
+              });
+          } else {
+            $(element)
+              .find("[data-component-type=s-product-image] > a")
+              .each(function(i, ele2) {
+                if( !$(ele2).attr("href").includes("/gp/slredirect/")){
+                  obj.link = "https://www.amazon.co.uk" + $(ele2).attr("href");
+                  counter++;
+                }
+              });
+          }
+
+          if (
+            $(element)
+              .find(".s-line-clamp-2 > a > span")
+              .text() != ""
+          ) {
+            $(element)
+              .find(".s-line-clamp-2 > a > span")
+              .each(function(i, ele2) {
+                obj.title = $(ele2).text();
+              });
+          } else {
+            $(element)
+              .find(".a-size-base-plus")
+              .each(function(i, ele2) {
+                obj.title = $(ele2).text();
+              });
+          }
+        if( $(element).find(".a-price > span") .text() != ""){
+          $(element)
+          .find(".a-price > span")
+          .each(function(i, ele) {
+            obj.price = $(ele).text();
+
+          });
+        }else{
+          $(element)
+          .find(".a-spacing-top-mini > div ")
+          .each(function(i, ele) {
+            obj.price = $(ele.children[2]).text();
+
+          });
+
+        }
+       
+          $(element)
+            .find(".a-icon-alt")
+            .each(function(i, ele) {
+              obj.rattings = $(ele).text();
+            });
+            if(obj.link){
+              arrItems.push(obj);
+
+            }
+        }
+      }
+    );
+  
+    
+    let newpage = await browser.newPage();
+    await newpage.setViewport({ width: 1920, height: 926 });
+
+    for (let i = 0; i < arrItems.length; i++) {
+      await newpage.goto(arrItems[i].link, { waitUntil: "load", timeout: 0 });
+      let bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
+
+      let $ = cheerio.load(bodyHTMLNew);
+
+      let htmlKing = await $("tr").each((index, element) => {
+        if (
+          $(element)
+            .text()
+            .includes("Best Sellers Rank")
+        ) {
+          if ($(element).find("#SalesRank").length > 0) {
+            arrItems[i].description = $(element)
+              .find("#SalesRank")
+              .text();
+          } else {
+            arrItems[i].description = $(element).text();
+            var startIndex = arrItems[i].description.indexOf("in") + 3;
+            var endIndex = arrItems[i].description.indexOf("(") - 1;
+            var category = arrItems[i].description.substring(
+              startIndex,
+              endIndex
+            );
+            arrItems[i].category = category;
+          }
+        } else if (
+          $("#SalesRank")
+            .text()
+            .includes("Sellers Rank")
+        ) {
+          arrItems[i].description = $("#SalesRank").text();
+          var startIndex = arrItems[i].description.indexOf("in") + 3;
+          var endIndex = arrItems[i].description.indexOf("(") - 1;
+          var category = arrItems[i].description.substring(
+            startIndex,
+            endIndex
+          );
+          arrItems[i].category = category;
+        }
+      });
+      if(!arrItems[i].description){
+        arrItems[i].description =$("#SalesRank").text();
+        
+      }
+      let sellerType = await $("#merchant-info");
+      let selT = sellerType.text().trim();
+      if (selT.includes("Ships from")) {
+        arrItems[i].sellerType = "AMZ";
+      } else if (selT.includes("Fulfilled by Amazon")) {
+        arrItems[i].sellerType = "FBA";
+      } else if (selT.includes("Fulfilled by")) {
+        arrItems[i].sellerType = "FBM";
+      }
+      let brandName = await $("#bylineInfo");
+      arrItems[i].brandName = brandName.text();
+
+      let reviews = await $("#acrCustomerReviewText");
+      arrItems[i].reviews = reviews.text();
+
+      // let titleB= await $("#productTitle");
+      // let title= titleB.text().trim();
+      // arrItems[i].title=title;
+    }
+    browser.close();
+    return arrItems;
+  } catch (err) {
+    console.log(err);
+  }
+};
 let getAvgP = async (items,sale) => {
   let totalPrice = 0;
   let totalStar = 0;
@@ -379,7 +585,7 @@ let getAvgP = async (items,sale) => {
   };
 };
 
-let getTheSale = async items => {
+let getTheSale1 = async items => {
 
   let ranks=[];
   let selObj={};
