@@ -503,10 +503,13 @@ let getAvgP = async (items,sale) => {
     if (element.description != undefined && element.description != "") {
       BestSellrCount++;
       let newKing = element.description.replace(/\s+/g, " ").trim();
+      // let newDescription = newKing
+      //   .substring(newKing.indexOf("#") + 1, 40)
+      //   .split(" ")[0];
       let newDescription = newKing
-        .substring(newKing.indexOf("#") + 1, 40)
-        .split(" ")[0];
-      bestSell = +newDescription.replace(/,/g, "");
+      .replace(",","").match(/\d+/g)[0]
+      
+      bestSell = +newDescription;
       totalBest += bestSell;
     }
   });
