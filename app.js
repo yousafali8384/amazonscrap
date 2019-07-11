@@ -58,8 +58,8 @@ app.post("/get-items/:itemSearch/country/:country", async (req, res) => {
 
     if(req.params.country == "2"){
       let countryOneItems=await countryTwo(req.params.itemSearch);
-      // console.log(countryOneItems)
-      // res.send(countryOneItems);
+      console.log(countryOneItems)
+      res.send(countryOneItems);
 
     }
   }else{
@@ -82,13 +82,11 @@ let countryOne = async (keyword)=>{
 }
 
 let countryTwo = async (keyword)=>{
-  console.log("hi2")
   let url ='https://www.amazon.co.uk/s?k='+keyword
   let items = await getItems2(url);
-  console.log(items)
-  // let getSale = await getTheSale1(items);
-  // let avgPrice = await getAvgP(items,getSale);
-  // return ({ items, avgPrice });
+  let getSale = await getTheSale1(items);
+  let avgPrice = await getAvgP(items,getSale);
+  return ({ items, avgPrice });
 }
 
 
