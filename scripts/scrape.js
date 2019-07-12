@@ -17,12 +17,22 @@ let countryDetail = async (url,part,country)=>{
     let arrItems = [];
     try {
       let browser = await puppeteer.launch({
-        headless: true,
+        headless: false,
         args: ["--no-sandbox"]
       });
       //
       let page = await browser.newPage();
       await page.setViewport({ width: 1920, height: 926 });
+      await page.setRequestInterception(true);
+  
+      page.on('request', (req) => {
+          if(req.resourceType() === 'image'){
+              req.abort();
+          }
+          else {
+              req.continue();
+          }
+      });
   
       await page.goto(url, { waitUntil: "load", timeout: 0 });
   
@@ -32,8 +42,7 @@ let countryDetail = async (url,part,country)=>{
       let $ = cheerio.load(bodyHTML);
       let inDex=0;
       let counter = 0;
-  
-  
+
       let htmlKing = await $('div.s-include-content-margin.s-border-bottom').each(
         (index, element) => {
           let obj = {};
@@ -119,6 +128,16 @@ let countryDetail = async (url,part,country)=>{
       
       let newpage = await browser.newPage();
       await newpage.setViewport({ width: 1920, height: 926 });
+      await newpage.setRequestInterception(true);
+  
+      newpage.on('request', (req) => {
+        if(req.resourceType() == 'stylesheet' || req.resourceType() == 'font' || req.resourceType() == 'image'){
+            req.abort();
+        }
+        else {
+            req.continue();
+        }
+    });
   
       for (let i = 0; i < arrItems.length; i++) {
         await newpage.goto(arrItems[i].link, { waitUntil: "load", timeout: 0 });
@@ -235,7 +254,6 @@ let countryDetail = async (url,part,country)=>{
       if (element.price != undefined) {
         price = element.price.replace("CDN","").replace(" ","").substring(1, 500);
         let a = parseFloat(price);
- 
 
         if (!isNaN(a)) {
           if (a < minPrice) {
