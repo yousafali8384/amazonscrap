@@ -3,7 +3,8 @@ const puppeteer = require("puppeteer");
 let cheerio = require("cheerio"),
 cheerioAdv = require("cheerio-advanced-selectors");
 cheerio = cheerioAdv.wrap(cheerio);
-
+const pluginStealth = require("puppeteer-extra-plugin-stealth")
+puppeteer.use(pluginStealth())
 
 let countryDetail = async (url,part,country)=>{
     let items = await getItems(url,part);
