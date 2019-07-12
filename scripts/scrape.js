@@ -17,7 +17,7 @@ let countryDetail = async (url,part,country)=>{
     let arrItems = [];
     try {
       let browser = await puppeteer.launch({
-        headless: false,
+        headless: true,
         args: ["--no-sandbox"]
       });
       //
