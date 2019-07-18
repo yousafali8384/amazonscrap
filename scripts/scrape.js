@@ -311,12 +311,12 @@ let countryDetail = async (url,part,country)=>{
     let avgPrice=0;
     avgPrice = (totalPrice / items.length).toFixed(2);
     let avgStar =0;
-    avgStar= (totalStar / count).toFixed(2);
+    avgStar= (totalStar / 16).toFixed(2);
     let avgBestSell =0;
-    avgBestSell= (totalBest / BestSellrCount).toFixed(2);
+    avgBestSell= (totalBest / 16).toFixed(2);
     
     let avgReviews=0;
-    avgReviews = (totalReview / reviewCount).toFixed(2);
+    avgReviews = (totalReview / 16).toFixed(2);
     let opportunity;
     budget = avgPrice * 400;
   
