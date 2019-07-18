@@ -5,10 +5,11 @@ cheerioAdv = require("cheerio-advanced-selectors");
 cheerio = cheerioAdv.wrap(cheerio);
 
 
-let countryDetail = async (url,part,country)=>{
+let countryDetail = async (url,part,country,keyword)=>{
     let items = await getItems(url,part);
     let getSale = await getTheSale(items,country);
-    let avgPrice = await getAvgP(items,getSale);
+    let avgPrice = await getAvgP(items,getSale,keyword);
+    console.log(avgPrice)
     return ({ items, avgPrice });
   }
   
@@ -218,7 +219,7 @@ let countryDetail = async (url,part,country)=>{
       console.log(err);
     }
   };
-  let getAvgP = async (items,sale) => {
+  let getAvgP = async (items,sale,keyword) => {
     let totalPrice = 0;
     let totalStar = 0;
     let totalBest = 0;
@@ -367,7 +368,8 @@ let countryDetail = async (url,part,country)=>{
       brand,
       budget,
       sale,
-      opportunity
+      opportunity,
+      keyword
     };
   };
   
@@ -382,8 +384,7 @@ let countryDetail = async (url,part,country)=>{
     let isBook=false;
     let isArts=false;
     let isAutomotive=false;
-  console.log(country)
-  console.log(items)
+
 
 
     if(country=='1'){
@@ -1054,7 +1055,6 @@ let countryDetail = async (url,part,country)=>{
 
         }
 
-  console.log(ranks)
   
     axios.defaults.headers.common['x-api-key'] = "5etHSY6yZpiqz1PPuXSZw8LvCdfZ5JivdYROinfuaJYwftWsEHdGZwO2aSts";
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -1067,7 +1067,6 @@ let countryDetail = async (url,part,country)=>{
     });
   
     sale.data.sales_arr.forEach(element => {
-      console.log(element.units)
       if(!isNaN(element.units)){
             sales+=element.units;
         }

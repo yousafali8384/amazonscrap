@@ -50,7 +50,7 @@ app.post("/get-items/:itemSearch/country/:country", async (req, res) => {
       let part ='https://www.amazon.com';
       let country='1';
 
-      let countryOneItems=await scrape.countryDetail(url,part,country);
+      let countryOneItems=await scrape.countryDetail(url,part,country,req.params.itemSearch);
       res.send(countryOneItems);
 
     }
@@ -59,7 +59,7 @@ app.post("/get-items/:itemSearch/country/:country", async (req, res) => {
       let url ='https://www.amazon.co.uk/s?k='+req.params.itemSearch
       let part ='https://www.amazon.co.uk';
       let country='2';
-      let countryOneItems=await scrape.countryDetail(url,part,country);
+      let countryOneItems=await scrape.countryDetail(url,part,country,req.params.itemSearch);
       res.send(countryOneItems);
 
     }
@@ -69,7 +69,7 @@ app.post("/get-items/:itemSearch/country/:country", async (req, res) => {
       let part ='https://www.amazon.ca';
       let country='3';
 
-      let countryItems=await scrape.countryDetail(url,part,country);
+      let countryItems=await scrape.countryDetail(url,part,country,req.params.itemSearch);
       res.send(countryItems);
     }
     if(req.params.country == "4"){
@@ -77,7 +77,7 @@ app.post("/get-items/:itemSearch/country/:country", async (req, res) => {
       let part ='https://www.amazon.in';
       let country='4';
 
-      let countryItems=await scrape.countryDetail(url,part,country);
+      let countryItems=await scrape.countryDetail(url,part,country,req.params.itemSearch);
       res.send(countryItems);
     }
 
