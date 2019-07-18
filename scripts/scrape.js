@@ -177,11 +177,20 @@ let countryDetail = async (url,part,country)=>{
               startIndex,
               endIndex
             );
+            console.log(category)
             arrItems[i].category = category;
           }
         });
         if(!arrItems[i].description){
           arrItems[i].description =$("#SalesRank").text();
+          var startIndex = arrItems[i].description.indexOf("in") + 3;
+          var endIndex = arrItems[i].description.indexOf("(") - 1;
+          var category = arrItems[i].description.substring(
+            startIndex,
+            endIndex
+          );
+          console.log(category)
+          arrItems[i].category = category;
           
         }
         let sellerType = await $("#merchant-info");
@@ -252,9 +261,8 @@ let countryDetail = async (url,part,country)=>{
     });
     items.forEach(element => {
       if (element.price != undefined) {
-        price = element.price.replace("CDN","").replace(" ","").substring(1, 500);
+        price = element.price.replace("CDN","").replace(" ","").replace(",","").substring(1, 500);
         let a = parseFloat(price);
-
         if (!isNaN(a)) {
           if (a < minPrice) {
             minPrice = a;
@@ -307,7 +315,6 @@ let countryDetail = async (url,part,country)=>{
     if (amz > fbm && amz > fba) avgSelerType = "AMZ (" + amzPer + ")%";
     else if (fbm > amz && fbm > fba) avgSelerType = "FBM (" + fbmPer + ")%";
     else avgSelerType = "FBA (" + fbaPer + ")%";
-  
     let avgPrice=0;
     avgPrice = (totalPrice / items.length).toFixed(2);
     let avgStar =0;
@@ -367,7 +374,6 @@ let countryDetail = async (url,part,country)=>{
   let getTheSale = async (items,country) => {
   
     let ranks=[];
-    let selObj={};
     let sales=0;
     let isAppliances=false;
     let isBaby=false;
@@ -376,10 +382,14 @@ let countryDetail = async (url,part,country)=>{
     let isBook=false;
     let isArts=false;
     let isAutomotive=false;
-  
+  console.log(country)
+  console.log(items)
+
+
     if(country=='1'){
       items.forEach(element => {
-  
+        let selObj={};
+
         if (element.category == "Books") {
           isBook=true;
           let newKing = element.description.replace(/\s+/g, " ").trim();
@@ -623,7 +633,8 @@ let countryDetail = async (url,part,country)=>{
   
     if(country=='2'){
       items.forEach(element => {
-  
+        let selObj={};
+
         if (element.category == "Baby") {
           let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
           selObj.attribute="21"
@@ -768,7 +779,8 @@ let countryDetail = async (url,part,country)=>{
     }
     if(country=='3'){
           items.forEach(element => {
-  
+            let selObj={};
+
             if (element.category == "Car & Motorbike") {
               let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
               selObj.attribute="33"
@@ -907,7 +919,8 @@ let countryDetail = async (url,part,country)=>{
         }
     if(country=='4'){
           items.forEach(element => {
-  
+            let selObj={};
+
             if (element.category == "Baby") {
               let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
               selObj.attribute="41"
@@ -926,7 +939,7 @@ let countryDetail = async (url,part,country)=>{
               selObj.rank=newKing;
               ranks.push(selObj);
             }
-            if (element.category == "Car & Motorcycle") {
+            if (element.category == "Electronics") {
               let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
               selObj.attribute="44"
               selObj.rank=newKing;
@@ -1038,8 +1051,10 @@ let countryDetail = async (url,part,country)=>{
            
         
           });
+
         }
-  
+
+  console.log(ranks)
   
     axios.defaults.headers.common['x-api-key'] = "5etHSY6yZpiqz1PPuXSZw8LvCdfZ5JivdYROinfuaJYwftWsEHdGZwO2aSts";
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
@@ -1052,7 +1067,8 @@ let countryDetail = async (url,part,country)=>{
     });
   
     sale.data.sales_arr.forEach(element => {
-        if(!isNaN(element.units)){
+      console.log(element.units)
+      if(!isNaN(element.units)){
             sales+=element.units;
         }
 
