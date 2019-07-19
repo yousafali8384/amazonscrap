@@ -3,11 +3,14 @@
 let bodyParser = require("body-parser"),
   express = require("express"),
   env = require("dotenv"),
+  cors = require('cors'),
   app = express();
 let path = require("path");
 env.config();
 const scrape= require("./scripts/scrape")
 
+
+app.use(cors())
 app.use(express.static("/public"));
 app.use(express.static(__dirname + "/public"));
 app.use(express.static(__dirname + "/../public"));
