@@ -36,16 +36,13 @@ app.use(
   })
 );
 
-app.use(function(req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  next();
-});
 
 app.get("/", (req, res) => {
   res.render("index");
 });
 
 app.post("/get-items/:itemSearch/country/:country", async (req, res) => {
+  console.log('hit')
   
   if(req.params.country){
     if(req.params.country == "1"){
