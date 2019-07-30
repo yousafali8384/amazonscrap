@@ -348,9 +348,9 @@ console.log('----------------')
   } else if (totalReview < 100 && sale < 5000) {
       opportunity = "LOW"
   } else if (totalReview < 100 && sale >= 5000 && sale <= 10000) {
-      opportunity = "MED"
+      opportunity = "HIGH"
   } else if (totalReview < 100 && sale > 10000) {
-      opportunity = "MED"
+      opportunity = "HIGH"
   }
   
   
