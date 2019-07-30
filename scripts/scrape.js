@@ -178,7 +178,6 @@ let countryDetail = async (url,part,country,keyword)=>{
               startIndex,
               endIndex
             );
-            console.log(category)
             arrItems[i].category = category;
           }
         });
@@ -240,7 +239,7 @@ let countryDetail = async (url,part,country,keyword)=>{
     let fbmPer = 0;
     let avgSelerType;
     let countArr = [];
-    let brand = "";
+    let brand = "NO";
     let budget = 0;
     items.forEach(item => {
       if (item.sellerType == "AMZ") {
@@ -300,14 +299,16 @@ let countryDetail = async (url,part,country,keyword)=>{
         totalBest += bestSell;
       }
     });
-  
+console.log('----------------')
+
     for (let key in countArr) {
+      console.log((countArr[key]));
       if (countArr[key] >= 6) {
         brand = "YES";
-      } else {
-        brand = "NO";
-      }
+      } 
     }
+    console.log('----------------')
+
   
     amzPer = (amz / 16) * 100;
     fbaPer = (fba / 16) * 100;
@@ -353,7 +354,7 @@ let countryDetail = async (url,part,country,keyword)=>{
   }
   
   
-  
+  console.log(brand)
     return {
       avgPrice,
       avgStar,
@@ -618,6 +619,7 @@ let countryDetail = async (url,part,country,keyword)=>{
           ranks.push(selObj);
         }
         if (element.category == "Baby") {
+          console.log('its baby')
           let newKing = element.description.replace(/\s+/g, " ").trim();
           let newDescription = newKing
             .substring(newKing.indexOf("#") + 1, 40)
@@ -1065,7 +1067,6 @@ let countryDetail = async (url,part,country,keyword)=>{
         ranks
       }  
     });
-  
     sale.data.sales_arr.forEach(element => {
       if(!isNaN(element.units)){
             sales+=element.units;
