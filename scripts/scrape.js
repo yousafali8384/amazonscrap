@@ -109,14 +109,17 @@ let countryDetail = async (url,part,country,keyword)=>{
               .each(function(i, ele) {
                 obj.rattings = $(ele).text();
               });
+              
               if(obj.link){
+              
                 arrItems.push(obj);
   
               }
           // }
         }
       );
-      var newArr=arrItems.slice(0,16);
+      let uniq = Array.from(new Set(arrItems))
+      let newArr=uniq.slice(0,16);
       let newpage = await browser.newPage();
       await newpage.setViewport({ width: 1920, height: 926 });
       await newpage.setRequestInterception(true);
