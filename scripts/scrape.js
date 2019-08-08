@@ -3,13 +3,15 @@ const puppeteer = require("puppeteer");
 let cheerio = require("cheerio"),
 cheerioAdv = require("cheerio-advanced-selectors");
 cheerio = cheerioAdv.wrap(cheerio);
+let async = require("async");
+
+
 
 
 let countryDetail = async (url,part,country,keyword)=>{
     let items = await getItems(url,part);
     let getSale = await getTheSale(items,country);
     let avgPrice = await getAvgP(items,getSale,keyword);
-    console.log(avgPrice)
     return ({ items, avgPrice });
   }
   
@@ -48,21 +50,13 @@ let countryDetail = async (url,part,country,keyword)=>{
         (index, element) => {
           let obj = {};
           obj.title='';
-          if (counter < 16) {
-            $(element)
-              .find(".s-image")
-              .each(function(i, ele) {
+          // if (counter < 16) {
+            // console.log(index)
+            $(element).find(".s-image").each(function(i, ele) {
                 obj.image = $(ele).attr("src");
               });
-            if (
-              $(element)
-                .find(".s-line-clamp-2 > a")
-                .text() != ""
-            ) {
-              $(element)
-                .find(".s-line-clamp-2 > a")
-                .each(function(i, ele2) {
-  
+            if ($(element).find(".s-line-clamp-2 > a").text() != "") {
+              $(element).find(".s-line-clamp-2 > a").each(function(i, ele2) {
                   if( !$(ele2).attr("href").includes("/gp/slredirect/")){
                     obj.link = part + $(ele2).attr("href");
                     counter++;
@@ -80,11 +74,7 @@ let countryDetail = async (url,part,country,keyword)=>{
                 });
             }
   
-            if (
-              $(element)
-                .find(".s-line-clamp-2 > a > span")
-                .text() != ""
-            ) {
+            if ($(element).find(".s-line-clamp-2 > a > span").text() != "") {
               $(element)
                 .find(".s-line-clamp-2 > a > span")
                 .each(function(i, ele2) {
@@ -123,10 +113,10 @@ let countryDetail = async (url,part,country,keyword)=>{
                 arrItems.push(obj);
   
               }
-          }
+          // }
         }
       );
-      
+      var newArr=arrItems.slice(0,16);
       let newpage = await browser.newPage();
       await newpage.setViewport({ width: 1920, height: 926 });
       await newpage.setRequestInterception(true);
@@ -140,8 +130,8 @@ let countryDetail = async (url,part,country,keyword)=>{
         }
     });
   
-      for (let i = 0; i < arrItems.length; i++) {
-        await newpage.goto(arrItems[i].link, { waitUntil: "load", timeout: 0 });
+      for (let i = 0; i < newArr.length; i++) {
+        await newpage.goto(newArr[i].link, { waitUntil: "load", timeout: 0 });
         let bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
   
         let $ = cheerio.load(bodyHTMLNew);
@@ -153,67 +143,67 @@ let countryDetail = async (url,part,country,keyword)=>{
               .includes("Best Sellers Rank")
           ) {
             if ($(element).find("#SalesRank").length > 0) {
-              arrItems[i].description = $(element)
+              newArr[i].description = $(element)
                 .find("#SalesRank")
                 .text();
             } else {
-              arrItems[i].description = $(element).text();
-              var startIndex = arrItems[i].description.indexOf("in") + 3;
-              var endIndex = arrItems[i].description.indexOf("(") - 1;
-              var category = arrItems[i].description.substring(
+              newArr[i].description = $(element).text();
+              var startIndex = newArr[i].description.indexOf("in") + 3;
+              var endIndex = newArr[i].description.indexOf("(") - 1;
+              var category = newArr[i].description.substring(
                 startIndex,
                 endIndex
               );
-              arrItems[i].category = category;
+              newArr[i].category = category;
             }
           } else if (
             $("#SalesRank")
               .text()
               .includes("Sellers Rank")
           ) {
-            arrItems[i].description = $("#SalesRank").text();
-            var startIndex = arrItems[i].description.indexOf("in") + 3;
-            var endIndex = arrItems[i].description.indexOf("(") - 1;
-            var category = arrItems[i].description.substring(
+            newArr[i].description = $("#SalesRank").text();
+            var startIndex = newArr[i].description.indexOf("in") + 3;
+            var endIndex = newArr[i].description.indexOf("(") - 1;
+            var category = newArr[i].description.substring(
               startIndex,
               endIndex
             );
-            arrItems[i].category = category;
+            newArr[i].category = category;
           }
         });
-        if(!arrItems[i].description){
-          arrItems[i].description =$("#SalesRank").text();
-          var startIndex = arrItems[i].description.indexOf("in") + 3;
-          var endIndex = arrItems[i].description.indexOf("(") - 1;
-          var category = arrItems[i].description.substring(
+        if(!newArr[i].description){
+          newArr[i].description =$("#SalesRank").text();
+          var startIndex = newArr[i].description.indexOf("in") + 3;
+          var endIndex = newArr[i].description.indexOf("(") - 1;
+          var category = newArr[i].description.substring(
             startIndex,
             endIndex
           );
           console.log(category)
-          arrItems[i].category = category;
+          newArr[i].category = category;
           
         }
         let sellerType = await $("#merchant-info");
         let selT = sellerType.text().trim();
         if (selT.includes("Ships from")) {
-          arrItems[i].sellerType = "AMZ";
+          newArr[i].sellerType = "AMZ";
         } else if (selT.includes("Fulfilled by Amazon")) {
-          arrItems[i].sellerType = "FBA";
+          newArr[i].sellerType = "FBA";
         } else if (selT.includes("Fulfilled by")) {
-          arrItems[i].sellerType = "FBM";
+          newArr[i].sellerType = "FBM";
         }
         let brandName = await $("#bylineInfo");
-        arrItems[i].brandName = brandName.text();
+        newArr[i].brandName = brandName.text();
   
         let reviews = await $("#acrCustomerReviewText");
-        arrItems[i].reviews = reviews.text();
+        newArr[i].reviews = reviews.text();
   
         // let titleB= await $("#productTitle");
         // let title= titleB.text().trim();
-        // arrItems[i].title=title;
+        // newArr[i].title=title;
       }
       browser.close();
-      return arrItems;
+      return newArr;
     } catch (err) {
       console.log(err);
     }
@@ -299,15 +289,11 @@ let countryDetail = async (url,part,country,keyword)=>{
         totalBest += bestSell;
       }
     });
-console.log('----------------')
-
     for (let key in countArr) {
-      console.log((countArr[key]));
       if (countArr[key] >= 6) {
         brand = "YES";
       } 
     }
-    console.log('----------------')
 
   
     amzPer = (amz / 16) * 100;
@@ -354,7 +340,6 @@ console.log('----------------')
   }
   
   
-  console.log(brand)
     return {
       avgPrice,
       avgStar,
@@ -387,22 +372,12 @@ console.log('----------------')
     let isAutomotive=false;
 
 
-
+    axios.defaults.headers.common['x-api-key'] = "5etHSY6yZpiqz1PPuXSZw8LvCdfZ5JivdYROinfuaJYwftWsEHdGZwO2aSts";
+    axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
     if(country=='1'){
-      items.forEach(element => {
+      async.each(items, function(element, callback){
+       
         let selObj={};
-
-        if (element.category == "Books") {
-          isBook=true;
-          let newKing = element.description.replace(/\s+/g, " ").trim();
-          let newDescription = newKing
-            .substring(newKing.indexOf("#") + 1, 40)
-            .split(" ")[0];
-          bestSell = +newDescription.replace(/,/g, "");
-          selObj.attribute="14"
-          selObj.rank=""+bestSell;
-          ranks.push(selObj);
-        }
         if (element.category == "Appliances") {
           isAppliances=true;
           let newKing = element.description.replace(/\s+/g, " ").trim();
@@ -412,7 +387,14 @@ console.log('----------------')
           bestSell = +newDescription.replace(/,/g, "");
           selObj.attribute="11"
           selObj.rank=""+bestSell;
-          ranks.push(selObj);
+          axios.post(`http://api.gigcodes.com/api/get/sale?attribute=11&rank=${bestSell}`)
+          .then(function (response) {
+            callback()
+          })
+          .catch(function (error) {
+            console.log(error);
+            callback();
+          });
         }
         if (element.category == "Beauty") {
           isBeauty=true;
@@ -619,7 +601,6 @@ console.log('----------------')
           ranks.push(selObj);
         }
         if (element.category == "Baby") {
-          console.log('its baby')
           let newKing = element.description.replace(/\s+/g, " ").trim();
           let newDescription = newKing
             .substring(newKing.indexOf("#") + 1, 40)
@@ -627,10 +608,20 @@ console.log('----------------')
           bestSell = +newDescription.replace(/,/g, "");
           selObj.attribute="126"
           selObj.rank=""+bestSell;
+          axios.post(`http://api.gigcodes.com/api/get/sale?attribute=126&rank=${bestSell}`)
+          .then(function (response) {
+            callback()
+          })
+          .catch(function (error) {
+            console.log(error.response.data.message);
+            callback();
+          });
           ranks.push(selObj);
         }
     
     
+      }, function(err){
+        //we complete the saving we can do stuff here      
       });
     }
   
@@ -1057,31 +1048,55 @@ console.log('----------------')
 
         }
 
-  
-    axios.defaults.headers.common['x-api-key'] = "5etHSY6yZpiqz1PPuXSZw8LvCdfZ5JivdYROinfuaJYwftWsEHdGZwO2aSts";
-    axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-   let sale = await axios({
-      method: 'post',
-      url: 'http://api.gigcodes.com/api/get/sales',
-      data: {
-        ranks
-      }  
-    });
-    sale.data.sales_arr.forEach(element => {
-      if(!isNaN(element.units)){
-            sales+=element.units;
-        }
+ 
 
-      });
+  // async.forEachOf(ranks, async (value, key, callback) => {
+  //       if(value){
+  //         console.log(value)
+  //        await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=${value.attribute}&rank=${value.rank}`)
+  //         .then(function (response) {
+  //           console.log(response.data);
+  //         })
+  //         .catch(function (error) {
+  //           console.log(error);
+  //         });
+  //         callback()
+
+          
+  //       }else{
+  //         console.log('no value');
+  //         callback();
+  //       }
+     
+  //     }, err => {
+  //       if (err) console.error(err.message);
+  //       // configs is now a map of JSON data
+  //     });
+
+
+
+  //  let sale = await axios({
+  //     method: 'post',
+  //     url: 'http://api.gigcodes.com/api/get/sales',
+  //     data: {
+  //       ranks
+  //     }  
+  //   });
+  //   sale.data.sales_arr.forEach(element => {
+  //     if(!isNaN(element.units)){
+  //           sales+=element.units;
+  //       }
+
+  //     });
        
-      let saleTotal=sales;
-      if(isNaN(saleTotal)){
-        saleTotal=0;
-       }else{
-        saleTotal=sales.toFixed(2);
-       }
+  //     let saleTotal=sales;
+  //     if(isNaN(saleTotal)){
+  //       saleTotal=0;
+  //      }else{
+  //       saleTotal=sales.toFixed(2);
+  //      }
       
-    return saleTotal;
+    // return saleTotal;
   };
 
   module.exports ={
