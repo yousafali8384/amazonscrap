@@ -118,7 +118,13 @@ let countryDetail = async (url,part,country,keyword)=>{
           // }
         }
       );
-      let uniq = _.uniqBy(arrItems, 'link')
+      let uniq = _.uniqWith(
+        arrItems,
+        (arrA, arrB) =>
+          arrA.price === arrB.price &&
+          arrA.title === arrB.title
+      );
+ 
       let newArr=uniq.slice(0,16);
       let newpage = await browser.newPage();
       await newpage.setViewport({ width: 1920, height: 926 });
