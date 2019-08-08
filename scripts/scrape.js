@@ -139,78 +139,78 @@ let countryDetail = async (url,part,country,keyword)=>{
         }
     });
   
-      // for (let i = 0; i < newArr.length; i++) {
-      //   await newpage.goto(newArr[i].link, { waitUntil: "load", timeout: 0 });
-      //   let bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
+      for (let i = 0; i < newArr.length; i++) {
+        await newpage.goto(newArr[i].link, { waitUntil: "load", timeout: 0 });
+        let bodyHTMLNew = await newpage.evaluate(() => document.body.innerHTML);
   
-      //   let $ = cheerio.load(bodyHTMLNew);
+        let $ = cheerio.load(bodyHTMLNew);
   
-      //   let htmlKing = await $("tr").each((index, element) => {
-      //     if (
-      //       $(element)
-      //         .text()
-      //         .includes("Best Sellers Rank")
-      //     ) {
-      //       if ($(element).find("#SalesRank").length > 0) {
-      //         newArr[i].description = $(element)
-      //           .find("#SalesRank")
-      //           .text();
-      //       } else {
-      //         newArr[i].description = $(element).text();
-      //         var startIndex = newArr[i].description.indexOf("in") + 3;
-      //         var endIndex = newArr[i].description.indexOf("(") - 1;
-      //         var category = newArr[i].description.substring(
-      //           startIndex,
-      //           endIndex
-      //         );
-      //         newArr[i].category = category;
-      //       }
-      //     } else if (
-      //       $("#SalesRank")
-      //         .text()
-      //         .includes("Sellers Rank")
-      //     ) {
-      //       newArr[i].description = $("#SalesRank").text();
-      //       var startIndex = newArr[i].description.indexOf("in") + 3;
-      //       var endIndex = newArr[i].description.indexOf("(") - 1;
-      //       var category = newArr[i].description.substring(
-      //         startIndex,
-      //         endIndex
-      //       );
-      //       newArr[i].category = category;
-      //     }
-      //   });
-      //   if(!newArr[i].description){
-      //     newArr[i].description =$("#SalesRank").text();
-      //     var startIndex = newArr[i].description.indexOf("in") + 3;
-      //     var endIndex = newArr[i].description.indexOf("(") - 1;
-      //     var category = newArr[i].description.substring(
-      //       startIndex,
-      //       endIndex
-      //     );
-      //     console.log(category)
-      //     newArr[i].category = category;
+        let htmlKing = await $("tr").each((index, element) => {
+          if (
+            $(element)
+              .text()
+              .includes("Best Sellers Rank")
+          ) {
+            if ($(element).find("#SalesRank").length > 0) {
+              newArr[i].description = $(element)
+                .find("#SalesRank")
+                .text();
+            } else {
+              newArr[i].description = $(element).text();
+              var startIndex = newArr[i].description.indexOf("in") + 3;
+              var endIndex = newArr[i].description.indexOf("(") - 1;
+              var category = newArr[i].description.substring(
+                startIndex,
+                endIndex
+              );
+              newArr[i].category = category;
+            }
+          } else if (
+            $("#SalesRank")
+              .text()
+              .includes("Sellers Rank")
+          ) {
+            newArr[i].description = $("#SalesRank").text();
+            var startIndex = newArr[i].description.indexOf("in") + 3;
+            var endIndex = newArr[i].description.indexOf("(") - 1;
+            var category = newArr[i].description.substring(
+              startIndex,
+              endIndex
+            );
+            newArr[i].category = category;
+          }
+        });
+        if(!newArr[i].description){
+          newArr[i].description =$("#SalesRank").text();
+          var startIndex = newArr[i].description.indexOf("in") + 3;
+          var endIndex = newArr[i].description.indexOf("(") - 1;
+          var category = newArr[i].description.substring(
+            startIndex,
+            endIndex
+          );
+          console.log(category)
+          newArr[i].category = category;
           
-      //   }
-      //   let sellerType = await $("#merchant-info");
-      //   let selT = sellerType.text().trim();
-      //   if (selT.includes("Ships from")) {
-      //     newArr[i].sellerType = "AMZ";
-      //   } else if (selT.includes("Fulfilled by Amazon")) {
-      //     newArr[i].sellerType = "FBA";
-      //   } else if (selT.includes("Fulfilled by")) {
-      //     newArr[i].sellerType = "FBM";
-      //   }
-      //   let brandName = await $("#bylineInfo");
-      //   newArr[i].brandName = brandName.text();
+        }
+        let sellerType = await $("#merchant-info");
+        let selT = sellerType.text().trim();
+        if (selT.includes("Ships from")) {
+          newArr[i].sellerType = "AMZ";
+        } else if (selT.includes("Fulfilled by Amazon")) {
+          newArr[i].sellerType = "FBA";
+        } else if (selT.includes("Fulfilled by")) {
+          newArr[i].sellerType = "FBM";
+        }
+        let brandName = await $("#bylineInfo");
+        newArr[i].brandName = brandName.text();
   
-      //   let reviews = await $("#acrCustomerReviewText");
-      //   newArr[i].reviews = reviews.text();
+        let reviews = await $("#acrCustomerReviewText");
+        newArr[i].reviews = reviews.text();
   
-      //   // let titleB= await $("#productTitle");
-      //   // let title= titleB.text().trim();
-      //   // newArr[i].title=title;
-      // }
+        // let titleB= await $("#productTitle");
+        // let title= titleB.text().trim();
+        // newArr[i].title=title;
+      }
       browser.close();
       return newArr;
     } catch (err) {
