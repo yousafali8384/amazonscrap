@@ -7,11 +7,14 @@ let async = require("async");
 let  _ = require('lodash');
 
 
+axios.defaults.headers.common['x-api-key'] = "5etHSY6yZpiqz1PPuXSZw8LvCdfZ5JivdYROinfuaJYwftWsEHdGZwO2aSts";
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 let countryDetail = async (url,part,country,keyword)=>{
-    let items = await getItems(url,part);
-    let getSale = await getTheSale(items,country);
-    let avgPrice = await getAvgP(items,getSale,keyword);
+    let getLinks = await getItems(url,part);
+    let items = await getTheSale(getLinks,country);
+    let avgPrice = await getAvgP(items,keyword);
+    console.log(avgPrice)
     return ({ items, avgPrice });
   }
   
@@ -217,7 +220,1088 @@ let countryDetail = async (url,part,country,keyword)=>{
       console.log(err);
     }
   };
-  let getAvgP = async (items,sale,keyword) => {
+ 
+  let getTheSale = async (items,country) => {
+  
+    let ranks=[];
+    let sales=0;
+ 
+
+
+   
+    if(country=='1'){
+    await Promise.all(items.map(async (element) => {
+       
+        if (element.category == "Appliances") {
+          
+         let bestSell = element.description.replace(",","").match(/\d+/g)[0];
+             try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=11&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Beauty") {
+         let bestSell = element.description.replace(",","").match(/\d+/g)[0];
+             try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=13&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Industrial & Scientific") {
+         let bestSell = element.description.replace(",","").match(/\d+/g)[0];
+             try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=15&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Arts") {
+         let bestSell = element.description.replace(",","").match(/\d+/g)[0];
+             try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=16&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Automotive") {
+         let bestSell = element.description.replace(",","").match(/\d+/g)[0];
+                    try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=17&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Arts") {
+         let bestSell = element.description.replace(",","").match(/\d+/g)[0];
+            
+          try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=16&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Cell Phones & Accessories") {
+         let bestSell = element.description.replace(",","").match(/\d+/g)[0];
+             
+          try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=19&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+          }catch(err){
+                console.log(err)
+          }
+          
+        }
+        if (element.category == "Grocery") {
+         let bestSell = element.description.replace(",","").match(/\d+/g)[0];
+              try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=110&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Home improvement") {
+         let bestSell = element.description.replace(",","").match(/\d+/g)[0];
+              try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=111&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Kindle Store") {
+         let bestSell = element.description.replace(",","").match(/\d+/g)[0];
+              try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=113&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Home & Kitchen") {
+         let bestSell = element.description.replace(",","").match(/\d+/g)[0];
+              try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=115&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Kitchen & Dining") {
+         let bestSell = element.description.replace(",","").match(/\d+/g)[0];
+              try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=116&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Music Instrument") {
+         let bestSell = element.description.replace(",","").match(/\d+/g)[0];
+              try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=117&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Office Products") {
+         let bestSell = element.description.replace(",","").match(/\d+/g)[0];
+              try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=118&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Patio, Lawn & Garden") {
+         let bestSell = element.description.replace(",","").match(/\d+/g)[0];
+              try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=119&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Pet Supplies") {
+         let bestSell = element.description.replace(",","").match(/\d+/g)[0];
+              try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=120&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+          }catch(err){
+                console.log(err)
+          };
+        }
+        if (element.category == "Software") {
+         let bestSell = element.description.replace(",","").match(/\d+/g)[0];
+              try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=121&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Sports & Outdoors") {
+         let bestSell = element.description.replace(",","").match(/\d+/g)[0];
+              try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=122&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Toys & Games") {
+         let bestSell = element.description.replace(",","").match(/\d+/g)[0];
+              try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=123&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Video Games") {
+         let bestSell = element.description.replace(",","").match(/\d+/g)[0];
+              try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=124&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Music") {
+         let bestSell = element.description.replace(",","").match(/\d+/g)[0];
+              try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=125&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Baby") {
+         let bestSell = element.description.replace(",","").match(/\d+/g)[0];
+              try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=126&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+        }
+    
+    }));
+return items;
+    }
+  
+    if(country=='2'){
+      await Promise.all(items.map(async (element) => {
+
+        if (element.category == "Baby") {
+          let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+          
+          try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=21&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Beauty") {
+          let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+          try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=22&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Clothing & accessories") {
+          let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+                    
+          try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=24&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Electronics") {
+          let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+                    
+          try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=25&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Gift Cards") {
+          let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+                    
+            try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=26&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+        }
+    
+        if (element.category == "Grocery & Gourmet Food") {
+          let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+                    
+            try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=27&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Health & Personal Care") {
+          let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+                    
+            try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=28&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Home & Kitchen") {
+          let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+                    
+            try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=29&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Industrial & Scientific") {
+          let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+          
+          
+            try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=210&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "jewelry") {
+          let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+          
+          
+            try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=211&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Luggage & bags") {
+          let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+          
+          
+            try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=212&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Music") {
+          let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+          
+          
+            try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=213&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Music") {
+          let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+          
+          
+            try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=214&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Musical Instrument, stage & studio") {
+          let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+          
+          
+            try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=215&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Office Products") {
+          let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+          
+          
+            try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=216&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Patio, Lawn & Garden") {
+          let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+          
+          
+            try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=217&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Pet Supplies") {
+          let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+          
+          
+            try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=218&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "shoes & handbags") {
+          let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+          
+          
+            try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=219&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Software") {
+          let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+          
+          
+            try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=220&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Sports & Outlooks") {
+          let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+          
+          
+            try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=221&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Tool & Home Improvement") {
+          let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+          
+          
+            try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=222&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Toys & Games") {
+          let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+          
+          
+            try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=223&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+        }
+        if (element.category == "Watches") {
+          let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+          
+          
+            try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=224&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+        }
+    
+      }));
+      return items
+    }
+    if(country=='3'){
+      await Promise.all(items.map(async (element) => {
+            if (element.category == "Car & Motorbike") {
+              let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+              try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=33&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }
+            }
+            if (element.category == "Clothing") {
+              let bestSell = element.description.replace(",","").match(/\d+/g)[0];                      
+               try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=34&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+            }
+            if (element.category == "Computers") {
+              let bestSell = element.description.replace(",","").match(/\d+/g)[0];                      
+               try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=35&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+            }
+            if (element.category == "DIY & tools") {
+              let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+              
+               try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=36&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+            }
+        
+            if (element.category == "Garden & outdoors") {
+              let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+              
+               try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=38&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+            }
+            if (element.category == "Grocery") {
+              let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+              
+               try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=39&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+            }
+            if (element.category == "Health & Personal Care") {
+              let bestSell = element.description.replace(",","").match(/\d+/g)[0];                      
+               try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=310&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+            }
+            if (element.category == "jewellery") {
+              let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+              
+               try{
+            let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=310&rank=${bestSell}`);
+            element.sales=sales.data.data.units
+            
+  
+          }catch(err){
+                console.log(err)
+          }
+            }
+            if (element.category == "Kitchen & Home") {
+              let bestSell = element.description.replace(",","").match(/\d+/g)[0];                      
+               try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=312&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }
+            }
+            if (element.category == "Large Appliances") {
+              let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+              
+               try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=313&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }
+            }
+            if (element.category == "Luggage") {
+              let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+              
+               try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=314&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }
+            }
+            if (element.category == "Musical Instrument") {
+              let bestSell = element.description.replace(",","").match(/\d+/g)[0];    
+               try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=315&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }
+            }
+            if (element.category == "Office Products") {
+              let bestSell = element.description.replace(",","").match(/\d+/g)[0];   
+              
+               try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=316&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }
+            }
+            if (element.category == "lighting") {
+              let bestSell = element.description.replace(",","").match(/\d+/g)[0];  
+              
+               try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=317&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }
+            }
+            if (element.category == "PC & Video Games") {
+              let bestSell = element.description.replace(",","").match(/\d+/g)[0];  
+              
+               try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=318&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }
+            }
+            if (element.category == "Pet Supplies") {
+              let bestSell = element.description.replace(",","").match(/\d+/g)[0];    
+               try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=319&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }
+            }
+            if (element.category == "Shoes & bags") {
+              let bestSell = element.description.replace(",","").match(/\d+/g)[0];      
+              
+               try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=320&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }
+            }
+            if (element.category == "Software") {
+              let bestSell = element.description.replace(",","").match(/\d+/g)[0];   
+              
+               try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=321&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }
+            }
+            if (element.category == "Sports & Outdoors") {
+              let bestSell = element.description.replace(",","").match(/\d+/g)[0];   
+              
+               try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=322&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }
+            }
+            if (element.category == "Software") {
+              let bestSell = element.description.replace(",","").match(/\d+/g)[0];      
+              
+              try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=323&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }            }
+            if (element.category == "Toys and Games") {
+              let bestSell = element.description.replace(",","").match(/\d+/g)[0];  
+              
+              try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=324&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }            }
+            if (element.category == "Watches") {
+              let bestSell = element.description.replace(",","").match(/\d+/g)[0];       
+              try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=325&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }            }
+        
+          }));
+          return items;
+        }
+    if(country=='4'){
+      await Promise.all(items.map(async (element) => {
+
+            if (element.category == "Baby") {
+              let bestSell = element.description.replace(",","").match(/\d+/g)[0];       
+              
+              try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=41&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }            }
+            if (element.category == "Bags, wallets & Luggage.") {
+              let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+              try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=42&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }         
+               }
+            if (element.category == "Books") {
+              let bestSell = element.description.replace(",","").match(/\d+/g)[0];        
+              try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=43&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }              
+             }
+            if (element.category == "Electronics") {
+              let bestSell = element.description.replace(",","").match(/\d+/g)[0];      
+              
+              try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=44&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }        
+            
+            }
+        
+            if (element.category == "Clothing & Accessories") {
+              let bestSell = element.description.replace(",","").match(/\d+/g)[0];  
+              
+              try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=45&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }       
+                 }
+            if (element.category == "Gift Cards") {
+              let newKing = element.description.replace(",","").match(/\d+/g)[0];
+              try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=46&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }            }
+            if (element.category == "Grocery & Gourmet Food") {
+              let newKing = element.description.replace(",","").match(/\d+/g)[0];    
+              try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=47&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }            }
+            if (element.category == "Health & Personal Care") {
+              let newKing = element.description.replace(",","").match(/\d+/g)[0];   
+              try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=48&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }
+            }
+            if (element.category == "Home & Kitchen") {
+              let newKing = element.description.replace(",","").match(/\d+/g)[0];    
+              try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=49&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }
+            }
+            if (element.category == "Industries and Scientific") {
+              let newKing = element.description.replace(",","").match(/\d+/g)[0];  
+              try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=410&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }            }
+            if (element.category == "Jewellery") {
+              let newKing = element.description.replace(",","").match(/\d+/g)[0];      
+              try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=411&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }            }
+            if (element.category == "Movies & TV Shows") {
+              let newKing = element.description.replace(",","").match(/\d+/g)[0];  
+              try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=412&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }            }
+            if (element.category == "Music") {
+              let newKing = element.description.replace(",","").match(/\d+/g)[0];   
+              try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=413&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }            }
+            if (element.category == "Musical Instruments") {
+              let newKing = element.description.replace(",","").match(/\d+/g)[0];   
+              try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=414&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }            }
+            if (element.category == "Pet Supplies") {
+              let newKing = element.description.replace(",","").match(/\d+/g)[0];      
+              try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=415&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }            }
+            if (element.category == "Shoes & Handbags") {
+              let newKing = element.description.replace(",","").match(/\d+/g)[0];   
+              try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=416&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }            }
+            if (element.category == "Software") {
+              let newKing = element.description.replace(",","").match(/\d+/g)[0];     
+              try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=417&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }            }
+            if (element.category == "Sport, Fitness & Outdoor") {
+              let newKing = element.description.replace(",","").match(/\d+/g)[0];   
+              try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=418&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }            }
+            if (element.category == "Toys and Games") {
+              let newKing = element.description.replace(",","").match(/\d+/g)[0];   
+              try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=419&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }            }
+            if (element.category == "Video Games") {
+              let newKing = element.description.replace(",","").match(/\d+/g)[0]; 
+              try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=420&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }            }
+            if (element.category == "watches") {
+              let newKing = element.description.replace(",","").match(/\d+/g)[0];  
+              try{
+                let sales= await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=421&rank=${bestSell}`);
+                element.sales=sales.data.data.units
+                
+      
+              }catch(err){
+                    console.log(err)
+              }            }
+           
+        
+          }));
+          return items;
+
+        }
+
+ 
+
+  // async.forEachOf(ranks, async (value, key, callback) => {
+  //       if(value){
+  //         console.log(value)
+  //        await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=${value.attribute}&rank=${value.rank}`)
+  //         .then(function (response) {
+  //           console.log(response.data);
+  //         })
+  //         .catch(function (error) {
+  //           console.log(error);
+  //         });
+  //         callback()
+
+          
+  //       }else{
+  //         console.log('no value');
+  //         callback();
+  //       }
+     
+  //     }, err => {
+  //       if (err) console.error(err.message);
+  //       // configs is now a map of JSON data
+  //     });
+
+
+
+  //  let sale = await axios({
+  //     method: 'post',
+  //     url: 'http://api.gigcodes.com/api/get/sales',
+  //     data: {
+  //       ranks
+  //     }  
+  //   });
+  //   sale.data.sales_arr.forEach(element => {
+  //     if(!isNaN(element.units)){
+  //           sales+=element.units;
+  //       }
+
+  //     });
+       
+  //     let saleTotal=sales;
+  //     if(isNaN(saleTotal)){
+  //       saleTotal=0;
+  //      }else{
+  //       saleTotal=sales.toFixed(2);
+  //      }
+      
+  };
+  let getAvgP = async (items,keyword) => {
     let totalPrice = 0;
     let totalStar = 0;
     let totalBest = 0;
@@ -240,6 +1324,9 @@ let countryDetail = async (url,part,country,keyword)=>{
     let countArr = [];
     let brand = "NO";
     let budget = 0;
+    let totalSale=0;
+
+
     items.forEach(item => {
       if (item.sellerType == "AMZ") {
         amz = amz + 1;
@@ -297,11 +1384,21 @@ let countryDetail = async (url,part,country,keyword)=>{
         bestSell = +newDescription;
         totalBest += bestSell;
       }
+      if(element.sales != undefined && element.sales != ""){
+        if(element.sales == '< 5' ){
+          element.sales=5;
+        }
+        totalSale+=element.sales;
+        // let sale =element.sales.match(/\d+/g)[0]
+    
+       }
     });
     for (let key in countArr) {
+      if(key!=''){
       if (countArr[key] >= 6) {
         brand = "YES";
       } 
+    }
     }
 
   
@@ -318,6 +1415,9 @@ let countryDetail = async (url,part,country,keyword)=>{
     avgStar= (totalStar / 16).toFixed(2);
     let avgBestSell =0;
     avgBestSell= (totalBest / 16).toFixed(2);
+
+    let sale=0;
+    sale= (totalSale / 16).toFixed(2);
     
     let avgReviews=0;
     avgReviews = (totalReview / 16).toFixed(2);
@@ -362,751 +1462,12 @@ let countryDetail = async (url,part,country,keyword)=>{
       fbaPer,
       brand,
       budget,
-      sale,
       opportunity,
+      sale,
       keyword
     };
   };
   
-  let getTheSale = async (items,country) => {
-  
-    let ranks=[];
-    let sales=0;
-    let isAppliances=false;
-    let isBaby=false;
-    let isBeauty=false;
-    let isIndustrial=false;
-    let isBook=false;
-    let isArts=false;
-    let isAutomotive=false;
-
-
-    axios.defaults.headers.common['x-api-key'] = "5etHSY6yZpiqz1PPuXSZw8LvCdfZ5JivdYROinfuaJYwftWsEHdGZwO2aSts";
-    axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
-    if(country=='1'){
-      async.each(items, function(element, callback){
-       
-        let selObj={};
-        if (element.category == "Appliances") {
-          isAppliances=true;
-          let newKing = element.description.replace(/\s+/g, " ").trim();
-          let newDescription = newKing
-            .substring(newKing.indexOf("#") + 1, 40)
-            .split(" ")[0];
-          bestSell = +newDescription.replace(/,/g, "");
-          selObj.attribute="11"
-          selObj.rank=""+bestSell;
-          axios.post(`http://api.gigcodes.com/api/get/sale?attribute=11&rank=${bestSell}`)
-          .then(function (response) {
-            callback()
-          })
-          .catch(function (error) {
-            console.log(error);
-            callback();
-          });
-        }
-        if (element.category == "Beauty") {
-          isBeauty=true;
-          let newKing = element.description.replace(/\s+/g, " ").trim();
-          let newDescription = newKing
-            .substring(newKing.indexOf("#") + 1, 40)
-            .split(" ")[0];
-          bestSell = +newDescription.replace(/,/g, "");
-          selObj.attribute="13"
-          selObj.rank=""+bestSell;
-          ranks.push(selObj);
-        }
-        if (element.category == "Industrial & Scientific") {
-          isIndustrial=true;
-          let newKing = element.description.replace(/\s+/g, " ").trim();
-          let newDescription = newKing
-            .substring(newKing.indexOf("#") + 1, 40)
-            .split(" ")[0];
-          bestSell = +newDescription.replace(/,/g, "");
-          selObj.attribute="15"
-          selObj.rank=""+bestSell;
-          ranks.push(selObj);
-        }
-        if (element.category == "Arts") {
-          isArts=true;
-          let newKing = element.description.replace(/\s+/g, " ").trim();
-          let newDescription = newKing
-            .substring(newKing.indexOf("#") + 1, 40)
-            .split(" ")[0];
-          bestSell = +newDescription.replace(/,/g, "");
-          selObj.attribute="16"
-          selObj.rank=""+bestSell;
-          ranks.push(selObj);
-        }
-        if (element.category == "Automotive") {
-          isAutomotive=true;
-          let newKing = element.description.replace(/\s+/g, " ").trim();
-          let newDescription = newKing
-            .substring(newKing.indexOf("#") + 1, 40)
-            .split(" ")[0];
-          bestSell = +newDescription.replace(/,/g, "");
-          selObj.attribute="17"
-          selObj.rank=""+bestSell;
-          ranks.push(selObj);
-        }
-        if (element.category == "Arts") {
-          let newKing = element.description.replace(/\s+/g, " ").trim();
-          let newDescription = newKing
-            .substring(newKing.indexOf("#") + 1, 40)
-            .split(" ")[0];
-          bestSell = +newDescription.replace(/,/g, "");
-          selObj.attribute="16"
-          selObj.rank=""+bestSell;
-          ranks.push(selObj);
-        }
-        if (element.category == "Cell Phones & Accessories") {
-          let newKing = element.description.replace(/\s+/g, " ").trim();
-          let newDescription = newKing
-            .substring(newKing.indexOf("#") + 1, 40)
-            .split(" ")[0];
-          bestSell = +newDescription.replace(/,/g, "");
-          selObj.attribute="19"
-          selObj.rank=""+bestSell;
-          ranks.push(selObj);
-        }
-        if (element.category == "Grocery") {
-          let newKing = element.description.replace(/\s+/g, " ").trim();
-          let newDescription = newKing
-            .substring(newKing.indexOf("#") + 1, 40)
-            .split(" ")[0];
-          bestSell = +newDescription.replace(/,/g, "");
-          selObj.attribute="110"
-          selObj.rank=""+bestSell;
-          ranks.push(selObj);
-        }
-        if (element.category == "Home improvement") {
-          let newKing = element.description.replace(/\s+/g, " ").trim();
-          let newDescription = newKing
-            .substring(newKing.indexOf("#") + 1, 40)
-            .split(" ")[0];
-          bestSell = +newDescription.replace(/,/g, "");
-          selObj.attribute="111"
-          selObj.rank=""+bestSell;
-          ranks.push(selObj);
-        }
-        if (element.category == "Kindle Store") {
-          let newKing = element.description.replace(/\s+/g, " ").trim();
-          let newDescription = newKing
-            .substring(newKing.indexOf("#") + 1, 40)
-            .split(" ")[0];
-          bestSell = +newDescription.replace(/,/g, "");
-          selObj.attribute="113"
-          selObj.rank=""+bestSell;
-          ranks.push(selObj);
-        }
-        if (element.category == "Home & Kitchen") {
-          let newKing = element.description.replace(/\s+/g, " ").trim();
-          let newDescription = newKing
-            .substring(newKing.indexOf("#") + 1, 40)
-            .split(" ")[0];
-          bestSell = +newDescription.replace(/,/g, "");
-          selObj.attribute="115"
-          selObj.rank=""+bestSell;
-          ranks.push(selObj);
-        }
-        if (element.category == "Kitchen & Dining") {
-          let newKing = element.description.replace(/\s+/g, " ").trim();
-          let newDescription = newKing
-            .substring(newKing.indexOf("#") + 1, 40)
-            .split(" ")[0];
-          bestSell = +newDescription.replace(/,/g, "");
-          selObj.attribute="116"
-          selObj.rank=""+bestSell;
-          ranks.push(selObj);
-        }
-        if (element.category == "Music Instrument") {
-          let newKing = element.description.replace(/\s+/g, " ").trim();
-          let newDescription = newKing
-            .substring(newKing.indexOf("#") + 1, 40)
-            .split(" ")[0];
-          bestSell = +newDescription.replace(/,/g, "");
-          selObj.attribute="117"
-          selObj.rank=""+bestSell;
-          ranks.push(selObj);
-        }
-        if (element.category == "Office Products") {
-          let newKing = element.description.replace(/\s+/g, " ").trim();
-          let newDescription = newKing
-            .substring(newKing.indexOf("#") + 1, 40)
-            .split(" ")[0];
-          bestSell = +newDescription.replace(/,/g, "");
-          selObj.attribute="118"
-          selObj.rank=""+bestSell;
-          ranks.push(selObj);
-        }
-        if (element.category == "Patio, Lawn & Garden") {
-          let newKing = element.description.replace(/\s+/g, " ").trim();
-          let newDescription = newKing
-            .substring(newKing.indexOf("#") + 1, 40)
-            .split(" ")[0];
-          bestSell = +newDescription.replace(/,/g, "");
-          selObj.attribute="119"
-          selObj.rank=""+bestSell;
-          ranks.push(selObj);
-        }
-        if (element.category == "Pet Supplies") {
-          let newKing = element.description.replace(/\s+/g, " ").trim();
-          let newDescription = newKing
-            .substring(newKing.indexOf("#") + 1, 40)
-            .split(" ")[0];
-          bestSell = +newDescription.replace(/,/g, "");
-          selObj.attribute="120"
-          selObj.rank=""+bestSell;
-          ranks.push(selObj);
-        }
-        if (element.category == "Software") {
-          let newKing = element.description.replace(/\s+/g, " ").trim();
-          let newDescription = newKing
-            .substring(newKing.indexOf("#") + 1, 40)
-            .split(" ")[0];
-          bestSell = +newDescription.replace(/,/g, "");
-          selObj.attribute="121"
-          selObj.rank=""+bestSell;
-          ranks.push(selObj);
-        }
-        if (element.category == "Sports & Outdoors") {
-          let newKing = element.description.replace(/\s+/g, " ").trim();
-          let newDescription = newKing
-            .substring(newKing.indexOf("#") + 1, 40)
-            .split(" ")[0];
-          bestSell = +newDescription.replace(/,/g, "");
-          selObj.attribute="122"
-          selObj.rank=""+bestSell;
-          ranks.push(selObj);
-        }
-        if (element.category == "Toys & Games") {
-          let newKing = element.description.replace(/\s+/g, " ").trim();
-          let newDescription = newKing
-            .substring(newKing.indexOf("#") + 1, 40)
-            .split(" ")[0];
-          bestSell = +newDescription.replace(/,/g, "");
-          selObj.attribute="123"
-          selObj.rank=""+bestSell;
-          ranks.push(selObj);
-        }
-        if (element.category == "Video Games") {
-          let newKing = element.description.replace(/\s+/g, " ").trim();
-          let newDescription = newKing
-            .substring(newKing.indexOf("#") + 1, 40)
-            .split(" ")[0];
-          bestSell = +newDescription.replace(/,/g, "");
-          selObj.attribute="124"
-          selObj.rank=""+bestSell;
-          ranks.push(selObj);
-        }
-        if (element.category == "Music") {
-          let newKing = element.description.replace(/\s+/g, " ").trim();
-          let newDescription = newKing
-            .substring(newKing.indexOf("#") + 1, 40)
-            .split(" ")[0];
-          bestSell = +newDescription.replace(/,/g, "");
-          selObj.attribute="125"
-          selObj.rank=""+bestSell;
-          ranks.push(selObj);
-        }
-        if (element.category == "Baby") {
-          let newKing = element.description.replace(/\s+/g, " ").trim();
-          let newDescription = newKing
-            .substring(newKing.indexOf("#") + 1, 40)
-            .split(" ")[0];
-          bestSell = +newDescription.replace(/,/g, "");
-          selObj.attribute="126"
-          selObj.rank=""+bestSell;
-          axios.post(`http://api.gigcodes.com/api/get/sale?attribute=126&rank=${bestSell}`)
-          .then(function (response) {
-            callback()
-          })
-          .catch(function (error) {
-            console.log(error.response.data.message);
-            callback();
-          });
-          ranks.push(selObj);
-        }
-    
-    
-      }, function(err){
-        //we complete the saving we can do stuff here      
-      });
-    }
-  
-    if(country=='2'){
-      items.forEach(element => {
-        let selObj={};
-
-        if (element.category == "Baby") {
-          let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-          selObj.attribute="21"
-          selObj.rank=newKing;
-          ranks.push(selObj);
-        }
-        if (element.category == "Beauty") {
-          let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-          selObj.attribute="22"
-          selObj.rank=newKing;
-          ranks.push(selObj);
-        }
-        if (element.category == "Clothing & accessories") {
-          let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-          selObj.attribute="24"
-          selObj.rank=newKing;
-          ranks.push(selObj);
-        }
-        if (element.category == "Electronics") {
-          let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-          selObj.attribute="25"
-          selObj.rank=newKing;
-          ranks.push(selObj);
-        }
-        if (element.category == "Gift Cards") {
-          let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-          selObj.attribute="26"
-          selObj.rank=newKing;
-          ranks.push(selObj);
-        }
-    
-        if (element.category == "Grocery & Gourmet Food") {
-          let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-          selObj.attribute="27"
-          selObj.rank=newKing;
-          ranks.push(selObj);
-        }
-        if (element.category == "Health & Personal Care") {
-          let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-          selObj.attribute="28"
-          selObj.rank=newKing;
-          ranks.push(selObj);
-        }
-        if (element.category == "Home & Kitchen") {
-          let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-          selObj.attribute="29"
-          selObj.rank=newKing;
-          ranks.push(selObj);
-        }
-        if (element.category == "Industrial & Scientific") {
-          let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-          selObj.attribute="210"
-          selObj.rank=newKing;
-          ranks.push(selObj);
-        }
-        if (element.category == "jewelry") {
-          let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-          selObj.attribute="211"
-          selObj.rank=newKing;
-          ranks.push(selObj);
-        }
-        if (element.category == "Luggage & bags") {
-          let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-          selObj.attribute="212"
-          selObj.rank=newKing;
-          ranks.push(selObj);
-        }
-        if (element.category == "Music") {
-          let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-          selObj.attribute="213"
-          selObj.rank=newKing;
-          ranks.push(selObj);
-        }
-        if (element.category == "Music") {
-          let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-          selObj.attribute="214"
-          selObj.rank=newKing;
-          ranks.push(selObj);
-        }
-        if (element.category == "Musical Instrument, stage & studio") {
-          let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-          selObj.attribute="215"
-          selObj.rank=newKing;
-          ranks.push(selObj);
-        }
-        if (element.category == "Office Products") {
-          let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-          selObj.attribute="216"
-          selObj.rank=newKing;
-          ranks.push(selObj);
-        }
-        if (element.category == "Patio, Lawn & Garden") {
-          let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-          selObj.attribute="217"
-          selObj.rank=newKing;
-          ranks.push(selObj);
-        }
-        if (element.category == "Pet Supplies") {
-          let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-          selObj.attribute="218"
-          selObj.rank=newKing;
-          ranks.push(selObj);
-        }
-        if (element.category == "shoes & handbags") {
-          let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-          selObj.attribute="219"
-          selObj.rank=newKing;
-          ranks.push(selObj);
-        }
-        if (element.category == "Software") {
-          let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-          selObj.attribute="220"
-          selObj.rank=newKing;
-          ranks.push(selObj);
-        }
-        if (element.category == "Sports & Outlooks") {
-          let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-          selObj.attribute="221"
-          selObj.rank=newKing;
-          ranks.push(selObj);
-        }
-        if (element.category == "Tool & Home Improvement") {
-          let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-          selObj.attribute="222"
-          selObj.rank=newKing;
-          ranks.push(selObj);
-        }
-        if (element.category == "Toys & Games") {
-          let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-          selObj.attribute="223"
-          selObj.rank=newKing;
-          ranks.push(selObj);
-        }
-        if (element.category == "Watches") {
-          let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-          selObj.attribute="224"
-          selObj.rank=newKing;
-          ranks.push(selObj);
-        }
-    
-      });
-    }
-    if(country=='3'){
-          items.forEach(element => {
-            let selObj={};
-
-            if (element.category == "Car & Motorbike") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="33"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Clothing") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="34"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Computers") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="35"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "DIY & tools") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="36"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-        
-            if (element.category == "Garden & outdoors") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="38"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Grocery") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="39"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Health & Personal Care") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="310"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "jewellery") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="311"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Kitchen & Home") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="312"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Large Appliances") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="313"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Luggage") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="314"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Musical Instrument") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="315"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Office Products") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="316"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "lighting") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="317"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "PC & Video Games") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="318"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Pet Supplies") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="319"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Shoes & bags") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="320"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Software") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="321"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Sports & Outdoors") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="322"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Software") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="323"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Toys and Games") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="324"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Watches") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="325"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-        
-          });
-        }
-    if(country=='4'){
-          items.forEach(element => {
-            let selObj={};
-
-            if (element.category == "Baby") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="41"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Bags, wallets & Luggage.") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="42"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Books") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="43"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Electronics") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="44"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-        
-            if (element.category == "Clothing & Accessories") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="45"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Gift Cards") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="46"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Grocery & Gourmet Food") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="47"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Health & Personal Care") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="48"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Home & Kitchen") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="49"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Industries and Scientific") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="410"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Jewellery") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="411"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Movies & TV Shows") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="412"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Music") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="413"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Musical Instruments") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="414"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Pet Supplies") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="415"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Shoes & Handbags") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="416"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Software") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="417"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Sport, Fitness & Outdoor") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="418"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Toys and Games") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="419"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "Video Games") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="420"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-            if (element.category == "watches") {
-              let newKing = element.description.replace(",","").match(/\d+/g)[0];        ;
-              selObj.attribute="421"
-              selObj.rank=newKing;
-              ranks.push(selObj);
-            }
-           
-        
-          });
-
-        }
-
- 
-
-  // async.forEachOf(ranks, async (value, key, callback) => {
-  //       if(value){
-  //         console.log(value)
-  //        await axios.post(`http://api.gigcodes.com/api/get/sale?attribute=${value.attribute}&rank=${value.rank}`)
-  //         .then(function (response) {
-  //           console.log(response.data);
-  //         })
-  //         .catch(function (error) {
-  //           console.log(error);
-  //         });
-  //         callback()
-
-          
-  //       }else{
-  //         console.log('no value');
-  //         callback();
-  //       }
-     
-  //     }, err => {
-  //       if (err) console.error(err.message);
-  //       // configs is now a map of JSON data
-  //     });
-
-
-
-  //  let sale = await axios({
-  //     method: 'post',
-  //     url: 'http://api.gigcodes.com/api/get/sales',
-  //     data: {
-  //       ranks
-  //     }  
-  //   });
-  //   sale.data.sales_arr.forEach(element => {
-  //     if(!isNaN(element.units)){
-  //           sales+=element.units;
-  //       }
-
-  //     });
-       
-  //     let saleTotal=sales;
-  //     if(isNaN(saleTotal)){
-  //       saleTotal=0;
-  //      }else{
-  //       saleTotal=sales.toFixed(2);
-  //      }
-      
-    // return saleTotal;
-  };
 
   module.exports ={
     countryDetail
