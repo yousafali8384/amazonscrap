@@ -22,7 +22,7 @@ let countryDetail = async (url,part,country,keyword)=>{
     let arrItems = [];
     try {
       let browser = await puppeteer.launch({
-        headless: true,
+        headless: false,
         args: ["--no-sandbox"]
       });
       //
@@ -61,7 +61,6 @@ let countryDetail = async (url,part,country,keyword)=>{
               $(element).find(".s-line-clamp-2 > a").each(function(i, ele2) {
                   if( !$(ele2).attr("href").includes("/gp/slredirect/")){
                     obj.link = part + $(ele2).attr("href");
-                    counter++;
                   }
                   
                 });
@@ -71,7 +70,6 @@ let countryDetail = async (url,part,country,keyword)=>{
                 .each(function(i, ele2) {
                   if( !$(ele2).attr("href").includes("/gp/slredirect/")){
                     obj.link = part + $(ele2).attr("href");
-                    counter++;
                   }
                 });
             }
@@ -113,7 +111,6 @@ let countryDetail = async (url,part,country,keyword)=>{
               });
               
               if(obj.link){
-              
                 arrItems.push(obj);
   
               }
@@ -128,6 +125,7 @@ let countryDetail = async (url,part,country,keyword)=>{
       );
  
       let newArr=uniq.slice(0,16);
+      console.log(newArr)
       let newpage = await browser.newPage();
       await newpage.setViewport({ width: 1920, height: 926 });
       await newpage.setRequestInterception(true);
