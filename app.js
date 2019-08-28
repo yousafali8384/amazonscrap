@@ -7,10 +7,16 @@ let bodyParser = require("body-parser"),
   app = express();
 let path = require("path");
 env.config();
-const scrape= require("./scripts/scrape")
+const scrape= require("./scripts/scrape");
 
 
-app.use(cors())
+app.use(cors());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header('Access-Control-Allow-Methods', 'DELETE, PUT, GET, POST');
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 app.use(express.static("/public"));
 app.use(express.static(__dirname + "/public"));
 app.use(express.static(__dirname + "/../public"));

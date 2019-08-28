@@ -14,7 +14,6 @@ let countryDetail = async (url,part,country,keyword)=>{
     let getLinks = await getItems(url,part);
     let items = await getTheSale(getLinks,country);
     let avgPrice = await getAvgP(items,keyword);
-    console.log(avgPrice)
     return ({ items, avgPrice });
   }
   
