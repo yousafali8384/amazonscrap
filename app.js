@@ -57,6 +57,7 @@ app.post("/get-items/:itemSearch/country/:country", async (req, res) => {
       let country='1';
 
       let countryOneItems=await scrape.countryDetail(url,part,country,req.params.itemSearch);
+      console.log(countryOneItems);
       res.send(countryOneItems);
 
     }
